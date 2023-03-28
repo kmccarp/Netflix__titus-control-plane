@@ -53,14 +53,14 @@ public interface OneOffReconciler<DATA> {
         return new Builder<>(id);
     }
 
-    class Builder<DATA> {
+    final class Builder<DATA> {
 
         private final String id;
         private DATA initial;
         private Duration quickCycle;
         private Duration longCycle;
         private ReconcilerActionProvider<DATA> externalActionProvider;
-        private Map<String, ReconcilerActionProvider<DATA>> internalActionProviders = new HashMap<>();
+        private final Map<String, ReconcilerActionProvider<DATA>> internalActionProviders = new HashMap<>();
         private Scheduler scheduler;
         private TitusRuntime titusRuntime;
 

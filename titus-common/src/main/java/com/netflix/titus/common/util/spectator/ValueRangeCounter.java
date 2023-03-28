@@ -71,11 +71,11 @@ public class ValueRangeCounter {
 
     public static Function<Long, String> newSortableFormatter(long[] levels) {
         if (levels.length <= 1) {
-            return level -> Long.toString(level);
+            return Long::toString;
         }
         long maxValue = levels[levels.length - 1];
         if (maxValue < 1) {
-            return level -> Long.toString(level);
+            return Long::toString;
         }
         int digitCount = (int) Math.floor(Math.log10(maxValue)) + 1;
         return value -> String.format("%0" + digitCount + "d", value);

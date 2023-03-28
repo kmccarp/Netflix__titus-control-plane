@@ -76,30 +76,27 @@ public class ZkLeaderVerificator {
                 .doOnNext(ref::set)
                 .subscribe();
         final AtomicInteger falseCount = new AtomicInteger(0);
-        final int MAX_FALSE_COUNTS = 10;
+        final int maxFalseCounts = 10;
         new ScheduledThreadPoolExecutor(1).scheduleWithFixedDelay(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean foundFault = false;
-                        try {
-                            if (leaderActivator.isLeader()) {
-                                logger.info("I'm leader, masterDescription=" + ref.get());
-                                if (ref.get() != null && !myHostname.equals(ref.get().getHostname()) && !myLocalIP.equals(ref.get().getHostname())) {
-                                    foundFault = true;
-                                    logger.warn("ZK says leader is " + ref.get().getHostname() + ", not us (" + myHostname + ")");
-                                    if (falseCount.incrementAndGet() > MAX_FALSE_COUNTS) {
-                                        logger.error("Too many attempts failed to verify ZK leader status, exiting!");
-                                        SystemExt.forcedProcessExit(5);
-                                    }
+                () -> {
+                    boolean foundFault = false;
+                    try {
+                        if (leaderActivator.isLeader()) {
+                            logger.info("I'm leader, masterDescription=" + ref.get());
+                            if (ref.get() != null && !myHostname.equals(ref.get().getHostname()) && !myLocalIP.equals(ref.get().getHostname())) {
+                                foundFault = true;
+                                logger.warn("ZK says leader is " + ref.get().getHostname() + ", not us (" + myHostname + ")");
+                                if (falseCount.incrementAndGet() > maxFalseCounts) {
+                                    logger.error("Too many attempts failed to verify ZK leader status, exiting!");
+                                    SystemExt.forcedProcessExit(5);
                                 }
                             }
-                        } catch (Exception e) {
-                            logger.warn("Error verifying leader status: " + e.getMessage(), e);
                         }
-                        if (!foundFault) {
-                            falseCount.set(0);
-                        }
+                    } catch (Exception e) {
+                        logger.warn("Error verifying leader status: " + e.getMessage(), e);
+                    }
+                    if (!foundFault) {
+                        falseCount.set(0);
                     }
                 },
                 delay, delay, TimeUnit.SECONDS);

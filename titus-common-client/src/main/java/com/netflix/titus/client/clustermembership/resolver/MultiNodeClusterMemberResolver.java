@@ -209,7 +209,7 @@ public class MultiNodeClusterMemberResolver implements ClusterMemberResolver {
     }
 
     private ClusterMembershipRevision<ClusterMember> findBestMemberRevision(List<ClusterMembershipRevision<ClusterMember>> singleMemberVersions) {
-        Preconditions.checkArgument(singleMemberVersions.size() > 0);
+        Preconditions.checkArgument(!singleMemberVersions.isEmpty());
 
         Iterator<ClusterMembershipRevision<ClusterMember>> it = singleMemberVersions.iterator();
         ClusterMembershipRevision<ClusterMember> best = it.next();

@@ -95,7 +95,7 @@ public class ClusterMembershipSnapshot {
 
     public static final class Builder {
 
-        private Map<String, ClusterMembershipRevision<ClusterMember>> memberRevisions = new HashMap<>();
+        private final Map<String, ClusterMembershipRevision<ClusterMember>> memberRevisions = new HashMap<>();
         private ClusterMembershipRevision<ClusterMemberLeadership> leaderRevision;
         private long stalenessMs;
 

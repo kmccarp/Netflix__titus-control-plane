@@ -198,7 +198,7 @@ public class DefaultRxEventBus implements RxEventBus {
             }
 
             int missed = 1;
-            for (; ; ) {
+            while () {
                 // Error happens only when we have overflow, in which case we ignore all elements in the queue.
                 if (error != null) {
                     terminate();
