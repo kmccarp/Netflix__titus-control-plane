@@ -181,7 +181,7 @@ public class DefaultFabric8IOConnector implements Fabric8IOConnector {
             } catch (Exception e) {
                 logger.error("Could not intialize kubernetes shared informer", e);
                 if (sharedInformerFactory != null) {
-                    ExceptionExt.silent(() -> sharedInformerFactory.stopAllRegisteredInformers());
+                    ExceptionExt.silent(sharedInformerFactory::stopAllRegisteredInformers);
                 }
                 sharedInformerFactory = null;
                 podInformer = null;

@@ -28,6 +28,8 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class CallMetadataAuthentication implements Authentication {
 
+    private static final long serialVersionUID = 1;
+
     @ApiModelProperty(hidden = true)
     private final Authentication delegate;
     @ApiModelProperty(hidden = true)

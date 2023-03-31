@@ -58,7 +58,7 @@ public class CuratorServiceResource extends ExternalResource {
     @Override
     protected void after() {
         curatorService.shutdown();
-        ExceptionExt.silent(() -> zkServer.close());
+        ExceptionExt.silent(zkServer::close);
     }
 
     public void createAllPaths() {

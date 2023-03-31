@@ -192,10 +192,7 @@ public class Container {
         if (hardConstraints != null ? !hardConstraints.equals(container.hardConstraints) : container.hardConstraints != null) {
             return false;
         }
-        if (volumeMounts != null ? !volumeMounts.equals(container.volumeMounts) : container.volumeMounts != null) {
-            return false;
-        }
-        return true;
+        return !(volumeMounts != null ? !volumeMounts.equals(container.volumeMounts) : container.volumeMounts != null);
     }
 
     @Override
@@ -348,8 +345,7 @@ public class Container {
         public Container build() {
             Preconditions.checkNotNull(containerResources, "ContainerResources not defined");
             Preconditions.checkNotNull(image, "Image not defined");
-
-            Container container = new Container(
+            return new Container(
                     containerResources,
                     securityProfile == null ? SecurityProfile.empty() : securityProfile,
                     image,
@@ -361,7 +357,6 @@ public class Container {
                     nonNull(hardConstraints),
                     nonNull(volumeMounts)
             );
-            return container;
         }
     }
 }

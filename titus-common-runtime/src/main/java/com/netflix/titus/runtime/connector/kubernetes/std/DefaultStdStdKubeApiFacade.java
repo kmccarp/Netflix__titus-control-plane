@@ -317,7 +317,7 @@ public class DefaultStdStdKubeApiFacade implements StdKubeApiFacade {
             } catch (Exception e) {
                 logger.error("Could not initialize Kube client shared informer", e);
                 if (sharedInformerFactory != null) {
-                    ExceptionExt.silent(() -> sharedInformerFactory.stopAllRegisteredInformers());
+                    ExceptionExt.silent(sharedInformerFactory::stopAllRegisteredInformers);
                 }
                 sharedInformerFactory = null;
                 nodeInformer = null;

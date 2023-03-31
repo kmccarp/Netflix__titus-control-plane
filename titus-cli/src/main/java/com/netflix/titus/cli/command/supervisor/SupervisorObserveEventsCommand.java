@@ -46,8 +46,7 @@ public class SupervisorObserveEventsCommand implements CliCommand {
 
     @Override
     public Options getOptions() {
-        Options options = new Options();
-        return options;
+        return new Options();
     }
 
     @Override
@@ -55,14 +54,11 @@ public class SupervisorObserveEventsCommand implements CliCommand {
         SupervisorServiceBlockingStub stub = GrpcClientErrorUtils.attachCallHeaders(SupervisorServiceGrpc.newBlockingStub(context.createChannel()));
         stub.observeEvents(Empty.getDefaultInstance())
                 .forEachRemaining(event -> {
-                            switch (event.getEventCase()) {
-                                case MASTERINSTANCEUPDATE:
-                                    logger.info("Add/updated: {}", SupervisorGrpcModelConverters.toCoreMasterInstance(event.getMasterInstanceUpdate().getInstance()));
-                                    break;
-                                case MASTERINSTANCEREMOVED:
-                                    logger.info("Removed: {}", event.getMasterInstanceRemoved().getInstanceId());
-                                    break;
-                            }
+                    if (event.getEventCase() == SupervisorEvent.EventCase.MASTERINSTANCEUPDATE) {
+                        logger.info("Add/updated: {}", SupervisorGrpcModelConverters.toCoreMasterInstance(event.getMasterInstanceUpdate().getInstance()));
+                    } else if (event.getEventCase() == SupervisorEvent.EventCase.MASTERINSTANCEREMOVED) {
+                        logger.info("Removed: {}", event.getMasterInstanceRemoved().getInstanceId());
+                    }
                         }
                 );
     }

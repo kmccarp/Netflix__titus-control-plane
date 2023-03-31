@@ -93,7 +93,7 @@ subprojects {
         protobufVersionOSAware = protobufVersion
         grpcVersion = '1.39.+'
         grpcVersionOSAware = grpcVersion
-        if (osdetector.os == "osx") {
+        if ("osx".equals(osdetector.os)) {
             protobufVersionOSAware += ':osx-x86_64'
             grpcVersionOSAware += ':osx-x86_64'
         }

@@ -304,7 +304,7 @@ public class CassandraLoadBalancerStoreTest {
             currentPageOffset += jobLoadBalancerPage.size();
             // Make sure we've stopped before reading beyond the data set size
             assertThat(currentPageOffset <= numTestJobs * numTestLbs).isTrue();
-        } while (jobLoadBalancerPage.size() > 0);
+        } while (!jobLoadBalancerPage.isEmpty());
         // Make sure all of the data was checked
         assertThat(unverifiedData.isEmpty()).isTrue();
     }
