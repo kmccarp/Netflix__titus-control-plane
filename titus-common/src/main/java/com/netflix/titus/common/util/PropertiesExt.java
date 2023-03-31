@@ -212,9 +212,9 @@ public final class PropertiesExt {
         return root;
     }
 
-    public static class PropertyNode<V> {
+    public static final class PropertyNode<V> {
         private final String name;
-        private Optional<V> value;
+        private final Optional<V> value;
         private final Map<String, PropertyNode<V>> children;
 
         private PropertyNode(String name, Optional<V> value, Map<String, PropertyNode<V>> children) {

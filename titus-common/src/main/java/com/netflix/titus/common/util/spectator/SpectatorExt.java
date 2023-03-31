@@ -104,7 +104,7 @@ public final class SpectatorExt {
      * Collection of counters for value ranges.
      */
     public static ValueRangeCounter newValueRangeCounter(Id rootId, long[] levels, Registry registry) {
-        return new ValueRangeCounter(rootId, levels, level -> Long.toString(level), registry);
+        return new ValueRangeCounter(rootId, levels, Long::toString, registry);
     }
 
     /**
@@ -121,7 +121,7 @@ public final class SpectatorExt {
         return new DynamicTagProcessor<>(
                 rootId,
                 tagNames,
-                id -> new ValueRangeCounter(id, levels, level -> Long.toString(level), registry)
+                id -> new ValueRangeCounter(id, levels, Long::toString, registry)
         );
     }
 

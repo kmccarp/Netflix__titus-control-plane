@@ -153,7 +153,7 @@ public class ReactorToGrpcClientBuilderTest {
         private long requestTimestamp;
         private SampleContainer lastSet;
 
-        private SampleContext expectedContext = SampleContextServerInterceptor.CONTEXT_UNDEFINED;
+        private final SampleContext expectedContext = SampleContextServerInterceptor.CONTEXT_UNDEFINED;
         private boolean block;
         private volatile boolean cancelled;
 

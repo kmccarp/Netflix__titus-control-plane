@@ -181,6 +181,7 @@ public class CommonObjectMappers {
     }
 
     private static class TitusAnnotationIntrospector extends AnnotationIntrospector {
+        private static final long serialVersionUID = 1;
         @Override
         public Version version() {
             return Version.unknownVersion();

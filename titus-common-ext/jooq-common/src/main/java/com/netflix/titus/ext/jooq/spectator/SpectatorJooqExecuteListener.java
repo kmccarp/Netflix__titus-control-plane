@@ -27,6 +27,8 @@ import org.jooq.ExecuteListener;
 
 public class SpectatorJooqExecuteListener implements ExecuteListener {
 
+    private static final long serialVersionUID = 1;
+
     private final MetricSelector<ValueRangeCounter> latencies;
     private final Clock clock;
 
