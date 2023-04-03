@@ -84,7 +84,7 @@ public class AwsLoadBalancerConnector implements LoadBalancerConnector {
         // TODO: timeouts
 
         final Set<TargetDescription> targetDescriptions = ipAddresses.stream().map(
-                ipAddress -> new TargetDescription().withId(ipAddress)
+                new TargetDescription()::withId
         ).collect(Collectors.toSet());
         final RegisterTargetsRequest request = new RegisterTargetsRequest()
                 .withTargetGroupArn(loadBalancerId)
@@ -97,7 +97,7 @@ public class AwsLoadBalancerConnector implements LoadBalancerConnector {
                     logger.debug("Registered targets {}", resp);
                     connectorMetrics.success(AwsLoadBalancerConnectorMetrics.AwsLoadBalancerMethods.RegisterTargets, startTime);
                 },
-                (t) -> {
+                t -> {
                     logger.error("Error registering targets on " + loadBalancerId, t);
                     connectorMetrics.failure(AwsLoadBalancerConnectorMetrics.AwsLoadBalancerMethods.RegisterTargets, t, startTime);
                 }
@@ -117,7 +117,7 @@ public class AwsLoadBalancerConnector implements LoadBalancerConnector {
         final DeregisterTargetsRequest request = new DeregisterTargetsRequest()
                 .withTargetGroupArn(loadBalancerId)
                 .withTargets(ipAddresses.stream().map(
-                        ipAddress -> new TargetDescription().withId(ipAddress)
+                new TargetDescription()::withId
                 ).collect(Collectors.toSet()));
 
         long startTime = registry.clock().wallTime();
@@ -127,7 +127,7 @@ public class AwsLoadBalancerConnector implements LoadBalancerConnector {
                     logger.debug("Deregistered targets {}", resp);
                     connectorMetrics.success(AwsLoadBalancerConnectorMetrics.AwsLoadBalancerMethods.DeregisterTargets, startTime);
                 },
-                (t) -> {
+                t -> {
                     logger.error("Error deregistering targets on " + loadBalancerId, t);
                     connectorMetrics.failure(AwsLoadBalancerConnectorMetrics.AwsLoadBalancerMethods.DeregisterTargets, t, startTime);
                 }

@@ -109,7 +109,7 @@ public class RxJavaComputationSchedulerSensor extends AbstractHiccupSensor {
         // If JVM has a pause (for example due to GC) we may observe long delay, even if the computation queue is empty.
         // We cannot solve this problem for all cases, but we do not report blocked thread here if we observe that
         // computation thread is parked in executor pool.
-        boolean free = blockedStackTrace.get(0).getMethodName().equals("park");
+        boolean free = "park".equals(blockedStackTrace.get(0).getMethodName());
         for (int i = 1; free && i < blockedStackTrace.size(); i++) {
             free = blockedStackTrace.get(i).getClassName().startsWith("java.");
         }

@@ -30,4 +30,5 @@ import io.fabric8.kubernetes.model.annotation.Version;
 @Singular("member")
 @Plural("members")
 public class FClusterMembership extends CustomResource<FClusterMembershipSpec, FClusterMembershipStatus> implements Namespaced {
+    private static final long serialVersionUID = 1;
 }

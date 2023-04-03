@@ -143,7 +143,7 @@ public class ErrorResponsesTest {
 
     static class MyService {
 
-        private int value;
+        private final int value;
 
         @JsonCreator()
         MyService(@JsonProperty("value") int value) {

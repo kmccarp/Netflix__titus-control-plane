@@ -26,6 +26,8 @@ import com.netflix.titus.common.util.StringExt;
 
 public class TrimmingStringDeserializer extends StdScalarDeserializer<String> {
 
+    private static final long serialVersionUID = 1;
+
     private final StringDeserializer stdDeserializer;
 
     public TrimmingStringDeserializer() {

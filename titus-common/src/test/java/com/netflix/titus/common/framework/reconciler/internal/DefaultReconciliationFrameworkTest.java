@@ -190,10 +190,7 @@ public class DefaultReconciliationFrameworkTest {
         Map<String, List<ModelActionHolder>> holders = new HashMap<>();
         Observable<Void> multiChangeObservable = framework.changeReferenceModel(
                 multiEngineChangeAction,
-                (id, modelUpdates) -> {
-                    ChangeAction changeAction = () -> modelUpdates.doOnNext(next -> holders.put(id, next));
-                    return changeAction;
-                },
+                (id, modelUpdates) -> () -> modelUpdates.doOnNext(next -> holders.put(id, next)),
                 "myRoot1", "myRoot2"
         );
 
@@ -227,19 +224,9 @@ public class DefaultReconciliationFrameworkTest {
 
         Observable<Void> multiChangeObservable = framework.changeReferenceModel(
                 // Keep anonymous class instead of lambda for readability
-                new MultiEngineChangeAction() {
-                    @Override
-                    public Observable<Map<String, List<ModelActionHolder>>> apply() {
-                        return Observable.error(new IllegalStateException("invocation not expected"));
-                    }
-                },
+                () -> Observable.error(new IllegalStateException("invocation not expected")),
                 // Keep anonymous class instead of lambda for readability
-                (id, modelUpdates) -> new ChangeAction() {
-                    @Override
-                    public Observable<List<ModelActionHolder>> apply() {
-                        return Observable.error(new IllegalStateException("invocation not expected"));
-                    }
-                },
+                (id, modelUpdates) -> () -> Observable.error(new IllegalStateException("invocation not expected")),
                 "myRoot1",
                 "badRootId"
         );
@@ -261,19 +248,9 @@ public class DefaultReconciliationFrameworkTest {
 
         Observable<Void> multiChangeObservable = framework.changeReferenceModel(
                 // Keep anonymous class instead of lambda for readability
-                new MultiEngineChangeAction() {
-                    @Override
-                    public Observable<Map<String, List<ModelActionHolder>>> apply() {
-                        return Observable.error(new RuntimeException("simulated error"));
-                    }
-                },
+                () -> Observable.error(new RuntimeException("simulated error")),
                 // Keep anonymous class instead of lambda for readability
-                (id, modelUpdates) -> new ChangeAction() {
-                    @Override
-                    public Observable<List<ModelActionHolder>> apply() {
-                        return modelUpdates;
-                    }
-                },
+                (id, modelUpdates) -> () -> modelUpdates,
                 "myRoot1",
                 "myRoot2"
         );
