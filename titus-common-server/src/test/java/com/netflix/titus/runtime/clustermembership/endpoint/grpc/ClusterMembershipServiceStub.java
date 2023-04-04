@@ -60,7 +60,7 @@ public class ClusterMembershipServiceStub implements ClusterMembershipService {
     private volatile ClusterMembershipRevision<ClusterMember> localMember;
     private volatile ClusterMembershipRevision<ClusterMemberLeadership> localLeadership;
 
-    private volatile Map<String, ClusterMembershipRevision<ClusterMember>> siblings;
+    private final volatile Map<String, ClusterMembershipRevision<ClusterMember>> siblings;
     private volatile ClusterMembershipRevision<ClusterMemberLeadership> siblingElection;
 
     private final Sinks.Many<ClusterMembershipEvent> eventProcessor = Sinks.many().multicast().directAllOrNothing();

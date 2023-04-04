@@ -142,7 +142,7 @@ public final class RetryHandlerBuilder {
         Preconditions.checkState(retryDelayMs > 0, "Retry delay not defined");
 
         return failedAttempts -> failedAttempts
-                .doOnNext(error -> onErrorHook.call(error))
+                .doOnNext(onErrorHook::call)
                 .zipWith(Observable.range(0, retryCount + 1), RetryItem::new)
                 .flatMap(retryItem -> {
                     if (retryWhenCondition != null && !retryWhenCondition.get()) {
@@ -185,7 +185,7 @@ public final class RetryHandlerBuilder {
         Preconditions.checkNotNull(reactorScheduler, "Reactor scheduler not set");
 
         return failedAttempts -> failedAttempts
-                .doOnError(error -> onErrorHook.call(error))
+                .doOnError(onErrorHook::call)
                 .zipWith(Flux.range(0, retryCount + 1), RetryItem::new)
                 .flatMap(retryItem -> {
                     if (retryWhenCondition != null && !retryWhenCondition.get()) {
@@ -246,8 +246,8 @@ public final class RetryHandlerBuilder {
     }
 
     static class RetryItem {
-        private Throwable cause;
-        private int retry;
+        private final Throwable cause;
+        private final int retry;
 
         RetryItem(Throwable cause, int retry) {
             this.cause = cause;

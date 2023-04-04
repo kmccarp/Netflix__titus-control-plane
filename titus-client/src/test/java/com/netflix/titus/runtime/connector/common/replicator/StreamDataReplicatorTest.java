@@ -75,10 +75,10 @@ public class StreamDataReplicatorTest {
                     assertThat(eventSink.currentSubscriberCount()).isZero();
 
                 })
-                .verifyErrorMatches(error -> error.getMessage().equals("Data replicator closed"));
+                .verifyErrorMatches(error -> "Data replicator closed".equals(error.getMessage()));
     }
 
-    private static class StringSnapshot extends ReplicatedSnapshot {
+    private static final class StringSnapshot extends ReplicatedSnapshot {
 
         private final String value;
 

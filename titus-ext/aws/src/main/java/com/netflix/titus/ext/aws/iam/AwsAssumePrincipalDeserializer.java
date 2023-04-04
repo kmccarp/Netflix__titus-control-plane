@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
  * either an array of principals or a single principal string value.
  */
 public class AwsAssumePrincipalDeserializer extends StdDeserializer<AwsAssumePrincipal> {
+    private static final long serialVersionUID = 1;
     private static final Logger logger = LoggerFactory.getLogger(AwsAssumePrincipalDeserializer.class);
     private static final String AWS_KEY = "AWS";
 
