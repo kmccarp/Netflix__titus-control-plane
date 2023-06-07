@@ -17,7 +17,7 @@
 package com.netflix.titus.runtime.connector.kubernetes.std;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -92,7 +92,7 @@ public class StdKubeApiClients {
         OkHttpClient.Builder newBuilder = client.getHttpClient().newBuilder();
 
         // See: https://github.com/kubernetes-client/java/pull/960
-        newBuilder.protocols(Collections.singletonList(Protocol.HTTP_1_1))
+        newBuilder.protocols(List.of(Protocol.HTTP_1_1))
                 .addInterceptor(metricsInterceptor)
                 .readTimeout(readTimeoutMs, TimeUnit.SECONDS);
 

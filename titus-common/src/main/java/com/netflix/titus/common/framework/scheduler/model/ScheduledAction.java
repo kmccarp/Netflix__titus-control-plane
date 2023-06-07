@@ -78,8 +78,10 @@ public class ScheduledAction {
 
     @Override
     public String toString() {
-        return "ScheduledAction{" +
-                "id='" + id + '\'' +
+        return """
+                ScheduledAction{\
+                id='\
+                """ + id + '\'' +
                 ", status=" + status +
                 ", statusHistory=" + statusHistory +
                 ", iteration=" + executionId +

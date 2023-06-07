@@ -67,8 +67,10 @@ public class EvictionQuota {
 
     @Override
     public String toString() {
-        return "EvictionQuota{" +
-                "reference=" + reference +
+        return """
+                EvictionQuota{\
+                reference=\
+                """ + reference +
                 ", quota=" + quota +
                 ", message='" + message + '\'' +
                 '}';
@@ -141,7 +143,7 @@ public class EvictionQuota {
         }
 
         public Builder withMessage(String message, Object... args) {
-            this.message = args.length > 0 ? String.format(message, args) : message;
+            this.message = args.length > 0 ? message.formatted(args) : message;
             return this;
         }
 

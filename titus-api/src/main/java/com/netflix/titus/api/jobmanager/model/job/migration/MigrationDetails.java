@@ -62,8 +62,10 @@ public class MigrationDetails {
 
     @Override
     public String toString() {
-        return "MigrationDetails{" +
-                "needsMigration=" + needsMigration +
+        return """
+                MigrationDetails{\
+                needsMigration=\
+                """ + needsMigration +
                 ", started=" + started +
                 ", deadline=" + deadline +
                 '}';

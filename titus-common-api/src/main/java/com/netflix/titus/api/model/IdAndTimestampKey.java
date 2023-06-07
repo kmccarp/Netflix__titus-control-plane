@@ -79,8 +79,10 @@ public class IdAndTimestampKey<T> implements PaginableEntityKey<T> {
 
     @Override
     public String toString() {
-        return "IdAndTimestampKey{" +
-                "id='" + id + '\'' +
+        return """
+                IdAndTimestampKey{\
+                id='\
+                """ + id + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

@@ -173,7 +173,7 @@ public class EurekaServerStub {
         @Override
         public List<InstanceInfo> getInstancesById(String id) {
             InstanceInfo instanceInfo = instanceInfos.get(id);
-            return instanceInfo == null ? Collections.emptyList() : Collections.singletonList(instanceInfo);
+            return instanceInfo == null ? Collections.emptyList() : List.of(instanceInfo);
         }
 
         @Override

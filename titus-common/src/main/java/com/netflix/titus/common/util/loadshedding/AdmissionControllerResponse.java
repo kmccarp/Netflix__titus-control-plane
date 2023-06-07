@@ -90,8 +90,10 @@ public class AdmissionControllerResponse {
 
     @Override
     public String toString() {
-        return "AdmissionControllerResponse{" +
-                "allowed=" + allowed +
+        return """
+                AdmissionControllerResponse{\
+                allowed=\
+                """ + allowed +
                 ", reasonMessage='" + reasonMessage + '\'' +
                 ", decisionPoint='" + decisionPoint + '\'' +
                 ", equivalenceGroup='" + equivalenceGroup + '\'' +

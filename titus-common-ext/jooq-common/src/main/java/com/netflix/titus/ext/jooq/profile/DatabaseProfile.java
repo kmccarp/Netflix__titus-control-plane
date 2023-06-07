@@ -77,8 +77,10 @@ public class DatabaseProfile {
 
     @Override
     public String toString() {
-        return "DatabaseProfile{" +
-                "name='" + name + '\'' +
+        return """
+                DatabaseProfile{\
+                name='\
+                """ + name + '\'' +
                 ", databaseUrl='" + databaseUrl + '\'' +
                 ", user='" + user + '\'' +
                 ", password='" + password + '\'' +

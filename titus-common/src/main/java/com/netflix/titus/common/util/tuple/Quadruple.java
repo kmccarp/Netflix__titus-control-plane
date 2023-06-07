@@ -82,8 +82,10 @@ public class Quadruple<A, B, C, D> {
 
     @Override
     public String toString() {
-        return "Quadruple{" +
-                "first=" + first +
+        return """
+                Quadruple{\
+                first=\
+                """ + first +
                 ", second=" + second +
                 ", thrid=" + thrid +
                 ", fourth=" + fourth +

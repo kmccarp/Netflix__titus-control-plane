@@ -57,8 +57,10 @@ public class DatabaseProfiles {
 
     @Override
     public String toString() {
-        return "DatabaseProfiles{" +
-                "profiles=" + profiles +
+        return """
+                DatabaseProfiles{\
+                profiles=\
+                """ + profiles +
                 '}';
     }
 

@@ -280,7 +280,7 @@ public class PCollectionJobSnapshot extends JobSnapshot {
     }
 
     private void inconsistentData(String message, Object... args) {
-        String formattedMessage = String.format(message, args);
+        String formattedMessage = message.formatted(args);
         if (inconsistentDataListener != null) {
             try {
                 inconsistentDataListener.accept(formattedMessage);

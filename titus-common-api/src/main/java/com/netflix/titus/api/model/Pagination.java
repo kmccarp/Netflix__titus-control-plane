@@ -105,8 +105,10 @@ public class Pagination {
 
     @Override
     public String toString() {
-        return "Pagination{" +
-                "currentPage=" + currentPage +
+        return """
+                Pagination{\
+                currentPage=\
+                """ + currentPage +
                 ", hasMore=" + hasMore +
                 ", totalPages=" + totalPages +
                 ", totalItems=" + totalItems +

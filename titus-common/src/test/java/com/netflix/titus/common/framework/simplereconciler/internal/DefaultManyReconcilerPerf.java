@@ -60,7 +60,7 @@ public class DefaultManyReconcilerPerf {
                 Thread.sleep(1);
             } catch (InterruptedException ignore) {
             }
-            return Collections.singletonList(Mono.just(current -> current + 1));
+            return List.of(Mono.just(current -> current + 1));
         };
 
         this.reconciler = ManyReconciler.<Integer>newBuilder()

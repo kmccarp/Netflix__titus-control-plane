@@ -141,7 +141,7 @@ public class TitusMasterProxyServlet extends HttpServlet {
 
     private void doProxyRequest(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException, IOException {
         Optional<Address> leaderOptional = leaderResolver.resolve();
-        if (!leaderOptional.isPresent()) {
+        if (leaderOptional.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             return;
         }
@@ -196,8 +196,8 @@ public class TitusMasterProxyServlet extends HttpServlet {
 
             if (logRequest) {
                 byte[] requestBodyBytes = new byte[0];
-                if (requestInputStream instanceof ByteCopyInputStream) {
-                    requestBodyBytes = ((ByteCopyInputStream) requestInputStream).getCopiedBytes();
+                if (requestInputStream instanceof ByteCopyInputStream stream) {
+                    requestBodyBytes = stream.getCopiedBytes();
                 }
                 int requestContentLength = requestBodyBytes.length;
                 String requestBody = new String(requestBodyBytes);
@@ -213,8 +213,8 @@ public class TitusMasterProxyServlet extends HttpServlet {
 
             if (logResponse) {
                 byte[] responseBodyBytes = new byte[0];
-                if (responseInputStream instanceof ByteCopyInputStream) {
-                    responseBodyBytes = ((ByteCopyInputStream) responseInputStream).getCopiedBytes();
+                if (responseInputStream instanceof ByteCopyInputStream stream) {
+                    responseBodyBytes = stream.getCopiedBytes();
                 }
                 int responseContentLength = responseBodyBytes.length;
 

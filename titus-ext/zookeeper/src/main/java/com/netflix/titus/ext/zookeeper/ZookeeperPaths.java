@@ -57,8 +57,10 @@ public class ZookeeperPaths {
 
     @Override
     public String toString() {
-        return "ZookeeperPaths{" +
-                "allMastersPath='" + allMastersPath + '\'' +
+        return """
+                ZookeeperPaths{\
+                allMastersPath='\
+                """ + allMastersPath + '\'' +
                 ", leaderElectionPath='" + leaderElectionPath + '\'' +
                 ", leaderAnnouncementPath='" + leaderAnnouncementPath + '\'' +
                 '}';

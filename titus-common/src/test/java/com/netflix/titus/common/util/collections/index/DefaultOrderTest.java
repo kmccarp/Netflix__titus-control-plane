@@ -16,7 +16,7 @@
 
 package com.netflix.titus.common.util.collections.index;
 
-import java.util.Collections;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -53,16 +53,16 @@ public class DefaultOrderTest {
         );
         assertThat(index.orderedList()).containsExactly("#a1", "#a2", "#b1", "#b2");
 
-        index = index.remove(Collections.singleton("a1"));
+        index = index.remove(Set.of("a1"));
         assertThat(index.orderedList()).containsExactly("#a2", "#b1", "#b2");
 
-        index = index.remove(Collections.singleton("a2"));
+        index = index.remove(Set.of("a2"));
         assertThat(index.orderedList()).containsExactly("#b1", "#b2");
 
-        index = index.remove(Collections.singleton("b2"));
+        index = index.remove(Set.of("b2"));
         assertThat(index.orderedList()).containsExactly("#b1");
 
-        index = index.remove(Collections.singleton("b1"));
+        index = index.remove(Set.of("b1"));
         assertThat(index.orderedList()).isEmpty();
     }
 }

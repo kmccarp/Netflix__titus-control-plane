@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.network.http.internal;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.netflix.titus.common.network.http.EndpointResolver;
@@ -27,7 +26,7 @@ public class RoundRobinEndpointResolver implements EndpointResolver {
     private volatile int position;
 
     public RoundRobinEndpointResolver(String endpoint) {
-        this(Collections.singletonList(endpoint));
+        this(List.of(endpoint));
     }
 
     public RoundRobinEndpointResolver(List<String> endpoints) {

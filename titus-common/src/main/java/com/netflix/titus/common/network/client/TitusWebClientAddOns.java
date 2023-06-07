@@ -104,14 +104,14 @@ public final class TitusWebClientAddOns {
 
     private static HttpClient addLoggingCallbacks(HttpClient httpClient) {
         return httpClient
-                .doOnRequestError((request, error) -> requestLogger.info(String.format(
-                        "%10s %10s %64s %8s %s", request.method(), "NOT_SENT", request.uri(), 0, error.getMessage()
-                )))
-                .doOnResponse((response, connection) -> requestLogger.info(String.format(
-                        "%10s %10s %64s", response.method(), response.status().reasonPhrase(), buildFullUri(response)
-                )))
-                .doOnResponseError((response, error) -> requestLogger.info(String.format(
-                        "%10s %10s %64s %s", response.method(), response.status().reasonPhrase(), buildFullUri(response), error.getMessage()
+                .doOnRequestError((request, error) -> requestLogger.info(
+                        "%10s %10s %64s %8s %s".formatted(request.method(), "NOT_SENT", request.uri(), 0, error.getMessage()
+                        )))
+                .doOnResponse((response, connection) -> requestLogger.info(
+                        "%10s %10s %64s".formatted(response.method(), response.status().reasonPhrase(), buildFullUri(response)
+                        )))
+                .doOnResponseError((response, error) -> requestLogger.info(
+                "%10s %10s %64s %s".formatted(response.method(), response.status().reasonPhrase(), buildFullUri(response), error.getMessage()
                 )));
     }
 
@@ -121,8 +121,7 @@ public final class TitusWebClientAddOns {
      * TLS connection.
      */
     private static String buildFullUri(HttpClientResponse response) {
-        if (response instanceof HttpOperations) {
-            HttpOperations httpOperations = (HttpOperations) response;
+        if (response instanceof HttpOperations httpOperations) {
 
             StringBuilder sb = new StringBuilder("http://");
 

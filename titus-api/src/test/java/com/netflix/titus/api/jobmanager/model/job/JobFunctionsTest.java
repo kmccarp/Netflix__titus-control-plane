@@ -111,7 +111,7 @@ public class JobFunctionsTest {
         List<Task> group1 = taskWithReplacements(3);
         List<Task> group2 = taskWithReplacements(5);
         Task badOne = JobGenerator.oneBatchTask().toBuilder().withOriginalId("missing").build();
-        List<Task> mixed = CollectionsExt.merge(group1, group2, Collections.singletonList(badOne));
+        List<Task> mixed = CollectionsExt.merge(group1, group2, List.of(badOne));
         Collections.shuffle(mixed);
 
         Pair<Map<String, List<Task>>, List<Task>> result = JobFunctions.groupTasksByResubmitOrder(mixed);

@@ -45,8 +45,10 @@ public class Volume {
 
     @Override
     public String toString() {
-        return "Volume{" +
-                "name='" + name + '\'' +
+        return """
+                Volume{\
+                name='\
+                """ + name + '\'' +
                 ", volumeSource='" + volumeSource + '\'' +
                 '}';
     }

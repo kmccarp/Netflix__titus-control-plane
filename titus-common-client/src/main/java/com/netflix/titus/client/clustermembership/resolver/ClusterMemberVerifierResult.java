@@ -58,8 +58,10 @@ public class ClusterMemberVerifierResult {
 
     @Override
     public String toString() {
-        return "ClusterMemberVerifierResult{" +
-                "valid=" + valid +
+        return """
+                ClusterMemberVerifierResult{\
+                valid=\
+                """ + valid +
                 ", message='" + message + '\'' +
                 '}';
     }

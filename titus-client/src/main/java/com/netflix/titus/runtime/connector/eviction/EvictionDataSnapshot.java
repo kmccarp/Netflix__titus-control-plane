@@ -172,8 +172,10 @@ public class EvictionDataSnapshot extends ReplicatedSnapshot {
 
     @Override
     public String toString() {
-        return "EvictionDataSnapshot{" +
-                "snapshotId='" + snapshotId + '\'' +
+        return """
+                EvictionDataSnapshot{\
+                snapshotId='\
+                """ + snapshotId + '\'' +
                 ", systemEvictionQuota=" + systemEvictionQuota +
                 ", tierEvictionQuotas=" + tierEvictionQuotas +
                 ", capacityGroupEvictionQuotas=" + capacityGroupEvictionQuotas +

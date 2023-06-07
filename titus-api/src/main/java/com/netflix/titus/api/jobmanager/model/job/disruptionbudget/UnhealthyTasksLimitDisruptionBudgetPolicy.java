@@ -55,8 +55,10 @@ public class UnhealthyTasksLimitDisruptionBudgetPolicy extends DisruptionBudgetP
 
     @Override
     public String toString() {
-        return "UnhealthyTasksLimitDisruptionBudgetPolicy{" +
-                "limitOfUnhealthyContainers=" + limitOfUnhealthyContainers +
+        return """
+                UnhealthyTasksLimitDisruptionBudgetPolicy{\
+                limitOfUnhealthyContainers=\
+                """ + limitOfUnhealthyContainers +
                 '}';
     }
 

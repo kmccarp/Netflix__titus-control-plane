@@ -58,8 +58,10 @@ public class AdmissionControllerRequest {
 
     @Override
     public String toString() {
-        return "AdmissionControllerRequest{" +
-                "endpointName='" + endpointName + '\'' +
+        return """
+                AdmissionControllerRequest{\
+                endpointName='\
+                """ + endpointName + '\'' +
                 ", callerId='" + callerId + '\'' +
                 '}';
     }

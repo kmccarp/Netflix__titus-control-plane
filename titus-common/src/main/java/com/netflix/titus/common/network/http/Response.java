@@ -172,8 +172,10 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response{" +
-                "request=" + request +
+        return """
+                Response{\
+                request=\
+                """ + request +
                 ", headers=" + headers +
                 ", statusCode=" + statusCode +
                 ", body=" + body +

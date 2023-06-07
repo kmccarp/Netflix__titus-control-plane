@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.collections.index;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +47,6 @@ public class SampleNestedItem {
     }
 
     public static List<SampleNestedItem> newItemList(String rootId, String... keyValuePairs) {
-        return Collections.singletonList(newItem(rootId, keyValuePairs));
+        return List.of(newItem(rootId, keyValuePairs));
     }
 }

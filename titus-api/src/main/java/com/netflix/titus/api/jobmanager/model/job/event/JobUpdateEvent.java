@@ -29,8 +29,10 @@ public class JobUpdateEvent extends JobManagerEvent<Job> {
 
     @Override
     public String toString() {
-        return "JobUpdateEvent{" +
-                "current=" + getCurrent() +
+        return """
+                JobUpdateEvent{\
+                current=\
+                """ + getCurrent() +
                 ", previous=" + getPrevious() +
                 ", archived=" + isArchived() +
                 ", callMetadata" + getCallMetadata() +

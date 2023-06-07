@@ -137,8 +137,10 @@ public class ReconcilerActionProviderPolicy {
 
     @Override
     public String toString() {
-        return "ReconcilerActionProviderPolicy{" +
-                "name='" + name + '\'' +
+        return """
+                ReconcilerActionProviderPolicy{\
+                name='\
+                """ + name + '\'' +
                 ", priority=" + priority +
                 ", executionInterval=" + executionInterval +
                 ", minimumExecutionInterval=" + minimumExecutionInterval +

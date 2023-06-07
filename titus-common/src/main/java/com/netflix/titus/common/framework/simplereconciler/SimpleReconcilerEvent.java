@@ -82,8 +82,10 @@ public class SimpleReconcilerEvent<DATA> {
 
     @Override
     public String toString() {
-        return "SimpleReconcilerEvent{" +
-                "kind=" + kind +
+        return """
+                SimpleReconcilerEvent{\
+                kind=\
+                """ + kind +
                 ", id='" + id + '\'' +
                 ", data=" + data +
                 ", transactionId='" + transactionId + '\'' +

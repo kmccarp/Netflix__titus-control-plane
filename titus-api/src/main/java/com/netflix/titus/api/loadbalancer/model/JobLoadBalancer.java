@@ -44,8 +44,10 @@ public class JobLoadBalancer implements Comparable<JobLoadBalancer> {
 
     @Override
     public String toString() {
-        return "JobLoadBalancer{" +
-                "jobId='" + jobId + '\'' +
+        return """
+                JobLoadBalancer{\
+                jobId='\
+                """ + jobId + '\'' +
                 ", loadBalancerId='" + loadBalancerId + '\'' +
                 '}';
     }

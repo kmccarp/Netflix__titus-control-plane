@@ -29,7 +29,7 @@ public class CloudConnectorException extends RuntimeException {
     private final ErrorCode errorCode;
 
     private CloudConnectorException(ErrorCode errorCode, String message, Object[] args) {
-        super(String.format(message, args));
+        super(message.formatted(args));
         this.errorCode = errorCode;
     }
 
@@ -43,7 +43,7 @@ public class CloudConnectorException extends RuntimeException {
     }
 
     public static boolean isThis(Throwable cause, ErrorCode errorCode) {
-        return cause instanceof CloudConnectorException && ((CloudConnectorException) cause).getErrorCode() == errorCode;
+        return cause instanceof CloudConnectorException cce && cce.getErrorCode() == errorCode;
     }
 
     public static CloudConnectorException internalError(String message, Object... args) {

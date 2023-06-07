@@ -31,7 +31,6 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import static com.netflix.titus.common.util.ReflectionExt.isNumeric;
-import static java.lang.String.format;
 
 /**
  */
@@ -92,7 +91,7 @@ public class AnnotationBasedSanitizer extends AbstractFieldSanitizer<Object> {
         }
 
         if (!value.getClass().isEnum() && innerEntityPredicate.apply(value.getClass())) {
-            if (!sanitized.isPresent()) {
+            if (sanitized.isEmpty()) {
                 return apply(value, NOTHING);
             }
             return sanitized.map(v -> apply(v, NOTHING).orElse(v));
@@ -134,7 +133,7 @@ public class AnnotationBasedSanitizer extends AbstractFieldSanitizer<Object> {
             }
             return effectiveValue == (double) value ? Optional.empty() : Optional.of(effectiveValue);
         }
-        throw new IllegalArgumentException(format("Not support numeric type %s in field %s", valueType, field));
+        throw new IllegalArgumentException("Not support numeric type %s in field %s".formatted(valueType, field));
     }
 
     private <T> Optional<T> adjust(T value, SanitizerInfo sanitizerInfo) {
@@ -151,7 +150,7 @@ public class AnnotationBasedSanitizer extends AbstractFieldSanitizer<Object> {
     private SanitizerInfo buildSanitizerInfo(Field field, FieldSanitizer annotation) {
         Function<Object, Optional<Object>> serializer;
         try {
-            serializer = annotation.sanitizer().newInstance();
+            serializer = annotation.sanitizer().getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new IllegalArgumentException("Cannot instantiate sanitizer function from " + annotation.sanitizer(), e);
         }

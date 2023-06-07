@@ -72,8 +72,10 @@ public class SystemDisruptionBudget {
 
     @Override
     public String toString() {
-        return "SystemDisruptionBudget{" +
-                "reference=" + reference +
+        return """
+                SystemDisruptionBudget{\
+                reference=\
+                """ + reference +
                 ", tokenBucketPolicy=" + tokenBucketPolicy +
                 ", timeWindows=" + timeWindows +
                 '}';

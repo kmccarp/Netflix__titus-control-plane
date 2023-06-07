@@ -63,9 +63,9 @@ public class JobAssertions {
     // Based on https://github.com/docker/distribution/blob/master/reference/reference.go
     private static final String DIGEST_ALGORITHM_SEPARATOR = "[+.-_]";
     private static final String DIGEST_ALGORITHM_COMPONENT = "[A-Za-z][A-Za-z0-9]*";
-    private static final String DIGEST_ALGORITHM = String.format("%s[%s%s]*", DIGEST_ALGORITHM_COMPONENT, DIGEST_ALGORITHM_SEPARATOR, DIGEST_ALGORITHM_COMPONENT);
+    private static final String DIGEST_ALGORITHM = "%s[%s%s]*".formatted(DIGEST_ALGORITHM_COMPONENT, DIGEST_ALGORITHM_SEPARATOR, DIGEST_ALGORITHM_COMPONENT);
     private static final String DIGEST_HEX = "[0-9a-fA-F]{32,}";
-    private static final String DIGEST = String.format("%s:%s", DIGEST_ALGORITHM, DIGEST_HEX);
+    private static final String DIGEST = "%s:%s".formatted(DIGEST_ALGORITHM, DIGEST_HEX);
 
     private static final Pattern IMAGE_DIGEST_PATTERN = Pattern.compile(DIGEST);
 
@@ -213,12 +213,12 @@ public class JobAssertions {
         }
 
         int numIpAllocations = container.getContainerResources().getSignedIpAddressAllocations().size();
-        int numInstances = extension instanceof ServiceJobExt
-                ? ((ServiceJobExt) extension).getCapacity().getMax()
+        int numInstances = extension instanceof ServiceJobExt sje
+                ? sje.getCapacity().getMax()
                 : ((BatchJobExt) extension).getSize();
         if (numIpAllocations > 0 &&
                 numInstances > numIpAllocations) {
-            return Collections.singletonMap("container.containerResources.signedIpAllocations", "Above number of max task instances " + numInstances);
+            return Map.of("container.containerResources.signedIpAllocations", "Above number of max task instances " + numInstances);
         }
         return Collections.emptyMap();
     }
@@ -230,11 +230,11 @@ public class JobAssertions {
         }
 
         int numEbsVolumes = container.getContainerResources().getEbsVolumes().size();
-        int numInstances = extension instanceof ServiceJobExt
-                ? ((ServiceJobExt) extension).getCapacity().getMax()
+        int numInstances = extension instanceof ServiceJobExt sje
+                ? sje.getCapacity().getMax()
                 : ((BatchJobExt) extension).getSize();
         if (numEbsVolumes > 0 && numInstances > numEbsVolumes) {
-            return Collections.singletonMap("container.containerResources.ebsVolumes", "Above number of max task instances " + numInstances);
+            return Map.of("container.containerResources.ebsVolumes", "Above number of max task instances " + numInstances);
         }
 
         return Collections.emptyMap();
@@ -259,12 +259,12 @@ public class JobAssertions {
             EbsVolume ebsVolume = ebsVolumes.get(i);
             IpAddressAllocation ipAddressAllocation = ipSignedAddressAllocations.get(i).getIpAddressAllocation();
             if (!ebsVolume.getVolumeAvailabilityZone().equals(ipAddressAllocation.getIpAddressLocation().getAvailabilityZone())) {
-                return Collections.singleton(new ValidationError(
+                return Set.of(new ValidationError(
                         "containerResources.ebsVolumes",
-                        String.format(
-                                "EBS volume %s zone %s conflicts with Static IP %s zone %s and index %d",
-                                ebsVolume.getVolumeId(), ebsVolume.getVolumeAvailabilityZone(), ipAddressAllocation.getAllocationId(), ipAddressAllocation.getIpAddressLocation().getAvailabilityZone(), i
-                        )
+                        
+                                "EBS volume %s zone %s conflicts with Static IP %s zone %s and index %d".formatted(
+                                        ebsVolume.getVolumeId(), ebsVolume.getVolumeAvailabilityZone(), ipAddressAllocation.getAllocationId(), ipAddressAllocation.getIpAddressLocation().getAvailabilityZone(), i
+                                )
                 ));
             }
         }

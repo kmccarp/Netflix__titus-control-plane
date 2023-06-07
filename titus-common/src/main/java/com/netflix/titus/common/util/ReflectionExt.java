@@ -37,7 +37,6 @@ import java.util.stream.Stream;
 
 import com.netflix.titus.common.util.tuple.Pair;
 
-import static java.lang.String.format;
 import static java.util.Arrays.asList;
 
 /**
@@ -187,7 +186,7 @@ public final class ReflectionExt {
         try {
             return type.getDeclaredField(name);
         } catch (NoSuchFieldException e) {
-            throw new IllegalArgumentException(format("Class %s has no field %s", type, name));
+            throw new IllegalArgumentException("Class %s has no field %s".formatted(type, name));
         }
     }
 
@@ -195,7 +194,7 @@ public final class ReflectionExt {
         try {
             return (T) field.get(object);
         } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException(format("Cannot access field %s in %s", field.getName(), object.getClass()));
+            throw new IllegalArgumentException("Cannot access field %s in %s".formatted(field.getName(), object.getClass()));
         }
     }
 

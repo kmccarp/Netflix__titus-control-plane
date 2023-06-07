@@ -49,8 +49,10 @@ public class AwsAssumePrincipal {
 
     @Override
     public String toString() {
-        return "AwsAssumePrincipal{" +
-                "principals=" + principals +
+        return """
+                AwsAssumePrincipal{\
+                principals=\
+                """ + principals +
                 '}';
     }
 }

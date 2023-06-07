@@ -17,7 +17,6 @@
 package com.netflix.titus.ext.cassandra.store;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -516,7 +515,7 @@ public class CassandraJobStoreTest {
     }
 
     private Job<ServiceJobExt> createServiceJobWithVolumesObject() {
-        List<Volume> volumes = Collections.singletonList(createTestVolume());
+        List<Volume> volumes = List.of(createTestVolume());
         JobDescriptor<ServiceJobExt> jobDescriptor = JobDescriptorGenerator.oneTaskServiceJobDescriptor().but(jd ->
                 jd.toBuilder().withVolumes(volumes).build());
         return JobGenerator.serviceJobs(jobDescriptor).getValue();
@@ -537,7 +536,7 @@ public class CassandraJobStoreTest {
                 .withChannel("testChannel")
                 .withArguments("{\"foo\":true,\"bar\":3.0}")
                 .build();
-        List<PlatformSidecar> platformSidecars = Collections.singletonList(ps1);
+        List<PlatformSidecar> platformSidecars = List.of(ps1);
         JobDescriptor<ServiceJobExt> jobDescriptor = JobDescriptorGenerator.oneTaskServiceJobDescriptor().but(jd ->
                 jd.toBuilder().withPlatformSidecars(platformSidecars).build()
         );

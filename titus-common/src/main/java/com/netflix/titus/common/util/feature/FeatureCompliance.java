@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.feature;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -89,8 +88,10 @@ public interface FeatureCompliance<T> {
 
         @Override
         public String toString() {
-            return "NonCompliance{" +
-                    "featureId='" + featureId + '\'' +
+            return """
+                    NonCompliance{\
+                    featureId='\
+                    """ + featureId + '\'' +
                     ", value=" + value +
                     ", context=" + context +
                     ", errorMessage='" + errorMessage + '\'' +
@@ -115,7 +116,7 @@ public interface FeatureCompliance<T> {
         }
 
         public static <T> NonComplianceList<T> of(String featureId, T value, Map<String, String> context, String errorMessage) {
-            return new NonComplianceList<>(Collections.singletonList(new NonCompliance<>(featureId, value, context, errorMessage)));
+            return new NonComplianceList<>(List.of(new NonCompliance<>(featureId, value, context, errorMessage)));
         }
 
         public static <T> Optional<NonComplianceList<T>> merge(List<NonComplianceList<T>> items) {

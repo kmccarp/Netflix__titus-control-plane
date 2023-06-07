@@ -17,7 +17,6 @@
 package com.netflix.titus.common.util.rx;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,7 +44,7 @@ public class ReactorHedgedTransformerTest {
 
     private static final List<Duration> THRESHOLDS = asList(Duration.ofMillis(1), Duration.ofMillis(10), Duration.ofMillis(100));
 
-    private static final Map<String, String> CONTEXT = Collections.singletonMap("test", "123");
+    private static final Map<String, String> CONTEXT = Map.of("test", "123");
 
     @Test
     public void testSuccess() {

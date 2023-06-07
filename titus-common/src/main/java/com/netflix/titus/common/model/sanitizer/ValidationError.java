@@ -57,7 +57,7 @@ public class ValidationError {
     }
 
     public String getMessage() {
-        return String.format("field: '%s', description: '%s', type: '%s'", field, description, type);
+        return "field: '%s', description: '%s', type: '%s'".formatted(field, description, type);
     }
 
     public boolean isHard() {
@@ -70,6 +70,6 @@ public class ValidationError {
 
     @Override
     public String toString() {
-        return String.format("Validation failed: '%s'", getMessage());
+        return "Validation failed: '%s'".formatted(getMessage());
     }
 }

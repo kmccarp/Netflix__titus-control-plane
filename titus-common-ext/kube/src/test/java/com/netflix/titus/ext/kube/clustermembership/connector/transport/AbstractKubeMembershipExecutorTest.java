@@ -122,8 +122,7 @@ public abstract class AbstractKubeMembershipExecutorTest {
         while (true) {
             ClusterMembershipEvent event = eventSubscriber.takeNext(KUBE_TIMEOUT);
             assertThat(event).isNotNull();
-            if (event instanceof ClusterMembershipChangeEvent) {
-                ClusterMembershipChangeEvent memberEvent = (ClusterMembershipChangeEvent) event;
+            if (event instanceof ClusterMembershipChangeEvent memberEvent) {
                 if (memberEvent.getRevision().getCurrent().getMemberId().equals(memberId)) {
                     return memberEvent;
                 }

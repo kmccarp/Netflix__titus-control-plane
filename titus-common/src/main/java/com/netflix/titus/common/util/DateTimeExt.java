@@ -201,7 +201,7 @@ public final class DateTimeExt {
         double ratio = matchedTimeUnit.toNanos(1) / (double) timeUnit.toNanos(1);
         double rate = itemsPerInterval / (double) interval * ratio;
 
-        return String.format("%.2f %s/%s", rate, rateType, toTimeUnitAbbreviation(matchedTimeUnit));
+        return "%.2f %s/%s".formatted(rate, rateType, toTimeUnitAbbreviation(matchedTimeUnit));
     }
 
     /**

@@ -84,9 +84,11 @@ public class UnschedulableFinder {
         }
         return Optional.of(new UnschedulableJob(
                 job.getId(),
-                String.format(
-                        "All tasks are stuck in the 'Accepted' state for too long (between %s and %s). " +
-                                "Most likely they do not fit into any available node resources.",
+                (
+                        """
+                        All tasks are stuck in the 'Accepted' state for too long (between %s and %s). \
+                        Most likely they do not fit into any available node resources.\
+                        """).formatted(
                         DateTimeExt.toTimeUnitString(now - oldest, 2),
                         DateTimeExt.toTimeUnitString(now - youngest, 2)
                 ),

@@ -21,12 +21,12 @@ import com.netflix.titus.api.appscale.model.AutoScalableTarget;
 public class AWSAppAutoScalingUtil {
     public static String buildGatewayResourceId(String jobId, String awsGatewayEndpointPrefix, String region,
                                                 String targetStage) {
-        return String.format("https://%s.execute-api.%s.amazonaws.com/%s/scalableTargetDimensions/%s",
+        return "https://%s.execute-api.%s.amazonaws.com/%s/scalableTargetDimensions/%s".formatted(
                 awsGatewayEndpointPrefix, region, targetStage, jobId);
     }
 
     public static String buildScalingPolicyName(String policyRefId, String jobId) {
-        return String.format("%s/%s", jobId, policyRefId);
+        return "%s/%s".formatted(jobId, policyRefId);
     }
 
     public static AutoScalableTarget toAutoScalableTarget(ScalableTarget scalableTarget) {

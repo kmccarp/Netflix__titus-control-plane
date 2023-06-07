@@ -270,7 +270,7 @@ public class TokenBucketAdmissionController implements AdaptiveAdmissionControll
                     clock
             );
 
-            this.id = String.format("%s/%s", configuration.getName(), effectiveCallerId);
+            this.id = "%s/%s".formatted(configuration.getName(), effectiveCallerId);
         }
 
         public TokenBucketConfiguration getConfiguration() {

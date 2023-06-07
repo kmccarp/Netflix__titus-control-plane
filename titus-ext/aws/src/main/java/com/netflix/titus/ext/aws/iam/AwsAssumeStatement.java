@@ -54,8 +54,10 @@ public class AwsAssumeStatement {
 
     @Override
     public String toString() {
-        return "AwsAssumeStatement{" +
-                "effect='" + effect + '\'' +
+        return """
+                AwsAssumeStatement{\
+                effect='\
+                """ + effect + '\'' +
                 ", principal=" + principal +
                 ", action='" + action + '\'' +
                 '}';

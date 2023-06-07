@@ -52,7 +52,7 @@ public class SeqDataGenerator<A, CONTEXT> extends DataGenerator<A[]> {
 
     private Pair<CONTEXT, Optional<A[]>> makeNext(CONTEXT context, int size, Function<CONTEXT, Pair<CONTEXT, Optional<A>>> factory) {
         Pair<CONTEXT, Optional<A>> firstOpt = factory.apply(context);
-        if (!firstOpt.getRight().isPresent()) {
+        if (firstOpt.getRight().isEmpty()) {
             return Pair.of(firstOpt.getLeft(), Optional.empty());
         }
         A first = firstOpt.getRight().get();
@@ -61,7 +61,7 @@ public class SeqDataGenerator<A, CONTEXT> extends DataGenerator<A[]> {
         CONTEXT nextContext = firstOpt.getLeft();
         for (int i = 1; i < size; i++) {
             Pair<CONTEXT, Optional<A>> nextOpt = factory.apply(nextContext);
-            if (!nextOpt.getRight().isPresent()) {
+            if (nextOpt.getRight().isEmpty()) {
                 return Pair.of(nextOpt.getLeft(), Optional.empty());
             }
             result[i] = nextOpt.getRight().get();

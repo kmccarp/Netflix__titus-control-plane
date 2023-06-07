@@ -55,8 +55,10 @@ public class SelfManagedDisruptionBudgetPolicy extends DisruptionBudgetPolicy {
 
     @Override
     public String toString() {
-        return "SelfManagedDisruptionBudgetPolicy{" +
-                "relocationTimeMs=" + relocationTimeMs +
+        return """
+                SelfManagedDisruptionBudgetPolicy{\
+                relocationTimeMs=\
+                """ + relocationTimeMs +
                 '}';
     }
 

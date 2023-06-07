@@ -16,7 +16,7 @@
 
 package com.netflix.titus.common.util.feature;
 
-import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -44,8 +44,8 @@ public abstract class FeatureComplianceDecorator<T> implements FeatureCompliance
             return Optional.of(NonComplianceList.of(
                     delegate.getClass().getSimpleName(),
                     value,
-                    Collections.singletonMap("unexpectedError", e.getMessage()),
-                    String.format("Unexpected error during data validation: errorMessage=%s", e.getMessage())
+                    Map.of("unexpectedError", e.getMessage()),
+                    "Unexpected error during data validation: errorMessage=%s".formatted(e.getMessage())
             ));
         }
     }

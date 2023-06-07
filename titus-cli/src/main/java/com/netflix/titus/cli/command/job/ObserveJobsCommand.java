@@ -126,27 +126,27 @@ public class ObserveJobsCommand implements CliCommand {
                         if (snapshotOnly) {
                             latch.countDown();
                         }
-                    } else if (next instanceof JobUpdateEvent) {
-                        Job<?> job = ((JobUpdateEvent) next).getCurrent();
+                    } else if (next instanceof JobUpdateEvent event) {
+                        Job<?> job = event.getCurrent();
                         if (printEvents) {
                             logger.info("Emitted job update: jobId={}({}), jobState={}, version={}",
                                     job.getId(), next.isArchived() ? "archived" : job.getStatus().getState(), job.getStatus(), job.getVersion()
                             );
                         }
-                        Optional<EventPropagationTrace> trace = metrics.recordJob(((JobUpdateEvent) next).getCurrent(), !snapshotRead.get());
+                        Optional<EventPropagationTrace> trace = metrics.recordJob(event.getCurrent(), !snapshotRead.get());
                         if (printLatency) {
                             trace.ifPresent(t -> {
                                 logger.info("Event propagation data: stages={}", t);
                             });
                         }
-                    } else if (next instanceof TaskUpdateEvent) {
-                        Task task = ((TaskUpdateEvent) next).getCurrent();
+                    } else if (next instanceof TaskUpdateEvent event) {
+                        Task task = event.getCurrent();
                         if (printEvents) {
                             logger.info("Emitted task update: jobId={}({}), taskId={}, taskState={}, version={}",
                                     task.getJobId(), next.isArchived() ? "archived" : task.getStatus().getState(), task.getId(), task.getStatus(), task.getVersion()
                             );
                         }
-                        Optional<EventPropagationTrace> trace = metrics.recordTask(((TaskUpdateEvent) next).getCurrent(), !snapshotRead.get());
+                        Optional<EventPropagationTrace> trace = metrics.recordTask(event.getCurrent(), !snapshotRead.get());
                         if (printLatency) {
                             trace.ifPresent(t -> logger.info("Event propagation data: {}", t));
                         }

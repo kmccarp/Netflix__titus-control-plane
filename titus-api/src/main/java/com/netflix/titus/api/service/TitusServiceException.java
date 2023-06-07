@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
 import com.netflix.titus.common.model.sanitizer.ValidationError;
 import com.netflix.titus.common.util.StringExt;
 
-import static java.lang.String.format;
-
 /**
  * A custom runtime exception that indicates an error in the service layer and will propagate to transport layer.
  */
@@ -97,7 +95,7 @@ public class TitusServiceException extends RuntimeException {
     }
 
     public static TitusServiceException jobNotFound(String jobId, Throwable cause) {
-        return TitusServiceException.newBuilder(ErrorCode.JOB_NOT_FOUND, format("Job id %s not found", jobId))
+        return TitusServiceException.newBuilder(ErrorCode.JOB_NOT_FOUND, "Job id %s not found".formatted(jobId))
                 .withCause(cause)
                 .build();
     }
@@ -107,7 +105,7 @@ public class TitusServiceException extends RuntimeException {
     }
 
     public static TitusServiceException taskNotFound(String taskId, Throwable cause) {
-        return TitusServiceException.newBuilder(ErrorCode.TASK_NOT_FOUND, format("Task id %s not found", taskId))
+        return TitusServiceException.newBuilder(ErrorCode.TASK_NOT_FOUND, "Task id %s not found".formatted(taskId))
                 .withCause(cause)
                 .build();
     }
@@ -126,9 +124,9 @@ public class TitusServiceException extends RuntimeException {
 
     public static TitusServiceException invalidArgument(String context, Set<? extends ValidationError> validationErrors) {
         String errors = validationErrors.stream()
-                .map(err -> String.format("{%s}", err))
+                .map(err -> "{%s}".formatted(err))
                 .collect(Collectors.joining(", "));
-        String errMsg = String.format("Invalid Argument: %s", errors);
+        String errMsg = "Invalid Argument: %s".formatted(errors);
         if (StringExt.isNotEmpty(context)) {
             errMsg = context + ". " + errMsg;
         }
@@ -145,9 +143,9 @@ public class TitusServiceException extends RuntimeException {
      */
     public static TitusServiceException invalidJob(Set<ValidationError> validationErrors) {
         String errors = validationErrors.stream()
-                .map(err -> String.format("{%s}", err))
+                .map(err -> "{%s}".formatted(err))
                 .collect(Collectors.joining(", "));
-        String errMsg = String.format("Invalid Job: %s", errors);
+        String errMsg = "Invalid Job: %s".formatted(errors);
 
         return TitusServiceException.newBuilder(ErrorCode.INVALID_JOB, errMsg).build();
     }
@@ -157,7 +155,7 @@ public class TitusServiceException extends RuntimeException {
     }
 
     public static TitusServiceException unexpected(Throwable cause, String message, Object... args) {
-        return TitusServiceException.newBuilder(ErrorCode.UNEXPECTED, format(message, args))
+        return TitusServiceException.newBuilder(ErrorCode.UNEXPECTED, message.formatted(args))
                 .withCause(cause)
                 .build();
     }
@@ -167,7 +165,7 @@ public class TitusServiceException extends RuntimeException {
     }
 
     public static TitusServiceException internal(Throwable cause, String message, Object... args) {
-        return TitusServiceException.newBuilder(ErrorCode.INTERNAL, format(message, args))
+        return TitusServiceException.newBuilder(ErrorCode.INTERNAL, message.formatted(args))
                 .withCause(cause)
                 .build();
     }
@@ -177,6 +175,6 @@ public class TitusServiceException extends RuntimeException {
     }
 
     public static TitusServiceException cellNotFound(String cellName) {
-        return TitusServiceException.newBuilder(ErrorCode.CELL_NOT_FOUND, format("Could not find Titus Cell %s", cellName)).build();
+        return TitusServiceException.newBuilder(ErrorCode.CELL_NOT_FOUND, "Could not find Titus Cell %s".formatted(cellName)).build();
     }
 }

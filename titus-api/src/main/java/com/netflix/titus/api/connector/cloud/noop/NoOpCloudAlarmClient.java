@@ -45,6 +45,6 @@ public class NoOpCloudAlarmClient implements CloudAlarmClient {
     }
 
     private String buildAlarmName(String policyRefId, String jobId) {
-        return String.format("%s/%s", jobId, policyRefId);
+        return "%s/%s".formatted(jobId, policyRefId);
     }
 }

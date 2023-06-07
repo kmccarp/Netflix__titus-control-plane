@@ -126,8 +126,10 @@ public final class AwsInstanceDescriptor {
 
     @Override
     public String toString() {
-        return "AwsInstanceDescriptor{" +
-                "id='" + id + '\'' +
+        return """
+                AwsInstanceDescriptor{\
+                id='\
+                """ + id + '\'' +
                 ", vCPUs=" + vCPUs +
                 ", vGPUs=" + vGPUs +
                 ", memoryGB=" + memoryGB +

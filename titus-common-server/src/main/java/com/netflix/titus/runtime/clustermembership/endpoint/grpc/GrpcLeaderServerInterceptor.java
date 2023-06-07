@@ -16,7 +16,6 @@
 
 package com.netflix.titus.runtime.clustermembership.endpoint.grpc;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -66,7 +65,7 @@ public class GrpcLeaderServerInterceptor implements ServerInterceptor {
     }
 
     public static GrpcLeaderServerInterceptor clusterMembershipAllowed(LeaderActivationStatus leaderActivationStatus) {
-        return new GrpcLeaderServerInterceptor(leaderActivationStatus, Collections.singletonList(ClusterMembershipServiceGrpc.getServiceDescriptor()));
+        return new GrpcLeaderServerInterceptor(leaderActivationStatus, List.of(ClusterMembershipServiceGrpc.getServiceDescriptor()));
     }
 
     private static class MethodDescriptorComparator implements Comparator<MethodDescriptor<?, ?>> {

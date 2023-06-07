@@ -18,6 +18,7 @@ package com.netflix.titus.runtime.clustermembership.connector;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
@@ -153,7 +154,7 @@ public class ClusterMembershipInMemoryConnector implements ClusterMembershipConn
 
     @Override
     public Flux<ClusterMembershipEvent> membershipChangeEvents() {
-        return eventProcessor.transformDeferred(ReactorExt.head(() -> Collections.singletonList(newSnapshot())));
+        return eventProcessor.transformDeferred(ReactorExt.head(() -> List.of(newSnapshot())));
     }
 
     private <T> Mono<T> invoke(Mono<T> action) {
@@ -186,7 +187,7 @@ public class ClusterMembershipInMemoryConnector implements ClusterMembershipConn
 
     private ClusterMembershipSnapshotEvent newSnapshot() {
         return ClusterMembershipEvent.snapshotEvent(
-                Collections.singletonList(localMemberRevision),
+                List.of(localMemberRevision),
                 localLeadershipRevision,
                 inLeadershipState(ClusterMemberLeadershipState.Leader) ? Optional.of(localLeadershipRevision) : Optional.empty()
         );

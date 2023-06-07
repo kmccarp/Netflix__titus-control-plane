@@ -17,7 +17,7 @@
 package com.netflix.titus.ext.aws.supervisor;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.PreDestroy;
@@ -115,7 +115,7 @@ public class AsgLocalMasterReadinessResolver implements LocalMasterReadinessReso
                 .<DescribeAutoScalingGroupsRequest, DescribeAutoScalingGroupsResult>toMono(
                         () -> {
                             DescribeAutoScalingGroupsRequest request = new DescribeAutoScalingGroupsRequest();
-                            request.setAutoScalingGroupNames(Collections.singletonList(configuration.getTitusMasterAsgName()));
+                            request.setAutoScalingGroupNames(List.of(configuration.getTitusMasterAsgName()));
                             return request;
                         },
                         autoScalingClient::describeAutoScalingGroupsAsync
@@ -150,7 +150,7 @@ public class AsgLocalMasterReadinessResolver implements LocalMasterReadinessReso
             if (effectiveState == null) {
                 setNewTagValue("");
                 effectiveState = ReadinessState.Disabled;
-                message = String.format("ASG tag %s not found: %s", TAG_MASTER_ENABLED, configuration.getTitusMasterAsgName());
+                message = "ASG tag %s not found: %s".formatted(TAG_MASTER_ENABLED, configuration.getTitusMasterAsgName());
             }
         }
 

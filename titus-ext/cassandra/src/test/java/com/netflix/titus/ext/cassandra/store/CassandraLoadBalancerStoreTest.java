@@ -338,7 +338,7 @@ public class CassandraLoadBalancerStoreTest {
                 associations.put(jobLoadBalancer, ASSOCIATED);
                 for (int t = 0; t < numTasksPerJob; t++) {
                     targets.put(new LoadBalancerTarget(
-                            loadBalancerId, "task-" + t, String.format("%s.%s.%s.%s", i, t, t, t)
+                            loadBalancerId, "task-" + t, "%s.%s.%s.%s".formatted(i, t, t, t)
                     ), LoadBalancerTarget.State.REGISTERED);
                 }
             }

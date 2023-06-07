@@ -63,8 +63,10 @@ public class TokenBucketPolicy {
 
     @Override
     public String toString() {
-        return "TokenBucketPolicy{" +
-                "capacity=" + capacity +
+        return """
+                TokenBucketPolicy{\
+                capacity=\
+                """ + capacity +
                 ", initialNumberOfTokens=" + initialNumberOfTokens +
                 ", refillPolicy=" + refillPolicy +
                 '}';

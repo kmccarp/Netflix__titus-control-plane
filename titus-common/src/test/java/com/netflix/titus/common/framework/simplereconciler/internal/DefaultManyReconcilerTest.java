@@ -148,7 +148,7 @@ public class DefaultManyReconcilerTest {
     @Test
     public void testReconcilerAction() throws InterruptedException {
         newReconcilerWithRegistrations(
-                dataBefore -> dataBefore.equals("a") ? Collections.singletonList(Mono.just(dataAfter -> "b")) : Collections.emptyList(),
+                dataBefore -> dataBefore.equals("a") ? List.of(Mono.just(dataAfter -> "b")) : Collections.emptyList(),
                 "r1", "a"
         );
         await().until(() -> reconciler.findById("r1").orElse("").equals("b"));
@@ -168,10 +168,10 @@ public class DefaultManyReconcilerTest {
                         return Collections.emptyList();
                     }
                     if (roundRef.getAndIncrement() == 0) {
-                        return Collections.singletonList(Mono.error(new RuntimeException("simulated error")));
+                        return List.of(Mono.error(new RuntimeException("simulated error")));
                     }
                     roundRef.set(-1);
-                    return Collections.singletonList(Mono.just(v -> "A"));
+                    return List.of(Mono.just(v -> "A"));
                 },
                 "r1", "a"
         );
@@ -190,7 +190,7 @@ public class DefaultManyReconcilerTest {
                     if (roundRef.get() == -1) {
                         return Collections.emptyList();
                     }
-                    return Collections.singletonList(Mono.just(dataAfter -> {
+                    return List.of(Mono.just(dataAfter -> {
                         if (roundRef.getAndIncrement() == 0) {
                             throw new RuntimeException("simulated error");
                         }
@@ -238,7 +238,7 @@ public class DefaultManyReconcilerTest {
         Mono<Function<String, String>> action = Mono.<Function<String, String>>never()
                 .doOnSubscribe(s -> ready.countDown())
                 .doOnCancel(() -> cancelled.set(true));
-        newReconcilerWithRegistrations(current -> Collections.singletonList(action), "r1", "a");
+        newReconcilerWithRegistrations(current -> List.of(action), "r1", "a");
 
         ready.await();
 

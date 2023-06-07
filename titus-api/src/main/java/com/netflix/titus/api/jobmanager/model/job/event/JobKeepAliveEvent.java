@@ -41,8 +41,10 @@ public class JobKeepAliveEvent extends JobManagerEvent<Job> {
 
     @Override
     public String toString() {
-        return "JobKeepAliveEvent{" +
-                "timestamp=" + timestamp +
+        return """
+                JobKeepAliveEvent{\
+                timestamp=\
+                """ + timestamp +
                 '}';
     }
 

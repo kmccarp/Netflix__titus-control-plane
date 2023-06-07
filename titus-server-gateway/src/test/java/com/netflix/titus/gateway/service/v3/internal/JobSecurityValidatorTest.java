@@ -87,7 +87,7 @@ public class JobSecurityValidatorTest {
 
     @Test
     public void testJobWithUnassumableIam() {
-        String errorMsg = String.format("%s %s", CANNOT_ASSUME_IAM_ERROR_MSG, INVALID_IAM_ROLE_NAME);
+        String errorMsg = "%s %s".formatted(CANNOT_ASSUME_IAM_ERROR_MSG, INVALID_IAM_ROLE_NAME);
 
         when(iamConnector.canIamAssume(INVALID_IAM_ROLE_NAME, IAM_ASSUME_ROLE_NAME))
                 .thenReturn(Mono.error(IamConnectorException.iamRoleCannotAssume(INVALID_IAM_ROLE_NAME, IAM_ASSUME_ROLE_NAME)));
@@ -99,7 +99,7 @@ public class JobSecurityValidatorTest {
 
     @Test
     public void testJobWithNonexistentIam() {
-        String errorMsg = String.format("%s %s", MISSING_IAM_ERROR_MSG, INVALID_IAM_ROLE_NAME);
+        String errorMsg = "%s %s".formatted(MISSING_IAM_ERROR_MSG, INVALID_IAM_ROLE_NAME);
 
         when(iamConnector.canIamAssume(INVALID_IAM_ROLE_NAME, IAM_ASSUME_ROLE_NAME))
                 .thenReturn(Mono.error(IamConnectorException.iamRoleNotFound(INVALID_IAM_ROLE_NAME)));

@@ -86,8 +86,10 @@ public class TaskRelocationPlan {
 
     @Override
     public String toString() {
-        return "TaskRelocationPlan{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                TaskRelocationPlan{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", reason=" + reason +
                 ", reasonMessage='" + reasonMessage + '\'' +
                 ", decisionTime=" + decisionTime +

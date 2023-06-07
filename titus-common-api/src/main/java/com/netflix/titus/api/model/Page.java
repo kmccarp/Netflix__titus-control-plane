@@ -83,8 +83,10 @@ public class Page {
 
     @Override
     public String toString() {
-        return "Page{" +
-                "pageNumber=" + pageNumber +
+        return """
+                Page{\
+                pageNumber=\
+                """ + pageNumber +
                 ", pageSize=" + pageSize +
                 ", cursor='" + cursor + '\'' +
                 '}';

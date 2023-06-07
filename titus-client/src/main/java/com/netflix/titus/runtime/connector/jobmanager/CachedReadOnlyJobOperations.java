@@ -145,8 +145,7 @@ public class CachedReadOnlyJobOperations implements ReadOnlyJobOperations {
     public Observable<JobManagerEvent<?>> observeJob(String jobId) {
         return observeJobs(jobTasks -> jobTasks.getLeft().getId().equals(jobId), jobTask -> jobTask.getLeft().getId().equals(jobId), false)
                 .takeUntil(event -> {
-                    if (event instanceof JobUpdateEvent) {
-                        JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) event;
+                    if (event instanceof JobUpdateEvent jobUpdateEvent) {
                         return jobUpdateEvent.getCurrent().getStatus().getState() == JobState.Finished;
                     }
                     return false;

@@ -19,7 +19,6 @@ package com.netflix.titus.common.util.grpc.reactor.client;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -64,7 +63,7 @@ public class ReactorToGrpcClientBuilder<REACT_API, GRPC_STUB extends AbstractStu
         this.grpcStub = grpcStub;
         this.grpcServiceDescriptor = grpcServiceDescriptor;
         this.contextType = contextType;
-        this.nonGrpcParameters = Collections.singleton(this.contextType);
+        this.nonGrpcParameters = Set.of(this.contextType);
     }
 
     public ReactorToGrpcClientBuilder<REACT_API, GRPC_STUB, CONTEXT> withTimeout(Duration timeout) {

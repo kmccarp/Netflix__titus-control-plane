@@ -63,14 +63,14 @@ class KubeClusterMembershipStateReconciler implements Function<KubeClusterState,
         boolean inLeaderElectionProcess = context.getKubeLeaderElectionExecutor().isInLeaderElectionProcess();
         if (kubeClusterState.isInLeaderElectionProcess()) {
             if (!inLeaderElectionProcess) {
-                return Collections.singletonList(withMetrics(
+                return List.of(withMetrics(
                         "joinLeadershipGroup",
                         KubeLeaderElectionActions.createJoinLeadershipGroupAction(context)
                 ));
             }
         } else {
             if (inLeaderElectionProcess) {
-                return Collections.singletonList(withMetrics(
+                return List.of(withMetrics(
                         "leaveLeadershipGroup",
                         KubeLeaderElectionActions.createLeaveLeadershipGroupAction(context, false)
                 ));
@@ -87,7 +87,7 @@ class KubeClusterMembershipStateReconciler implements Function<KubeClusterState,
                                 .withCode("reregistered")
                                 .withMessage("Registration update")
                                 .build());
-                return Collections.singletonList(withMetrics("register", action));
+                return List.of(withMetrics("register", action));
             }
         }
 
@@ -98,7 +98,7 @@ class KubeClusterMembershipStateReconciler implements Function<KubeClusterState,
                 .findFirst();
         if (staleRegistration.isPresent()) {
             String staleMemberId = staleRegistration.get().getCurrent().getMemberId();
-            return Collections.singletonList(withMetrics("removeStaleMember", KubeRegistrationActions.removeStaleRegistration(context, staleMemberId)));
+            return List.of(withMetrics("removeStaleMember", KubeRegistrationActions.removeStaleRegistration(context, staleMemberId)));
         }
 
         return Collections.emptyList();

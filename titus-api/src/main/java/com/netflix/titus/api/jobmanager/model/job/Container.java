@@ -215,8 +215,10 @@ public class Container {
 
     @Override
     public String toString() {
-        return "Container{" +
-                "containerResources=" + containerResources +
+        return """
+                Container{\
+                containerResources=\
+                """ + containerResources +
                 ", securityProfile=" + securityProfile +
                 ", image=" + image +
                 ", attributes=" + attributes +
@@ -231,29 +233,29 @@ public class Container {
 
     public Container but(Function<Container, Object> mapperFun) {
         Object result = mapperFun.apply(this);
-        if (result instanceof Container) {
-            return (Container) result;
+        if (result instanceof Container container) {
+            return container;
         }
-        if (result instanceof Container.Builder) {
-            return ((Container.Builder) result).build();
+        if (result instanceof Container.Builder builder) {
+            return builder.build();
         }
-        if (result instanceof ContainerResources) {
-            return toBuilder().withContainerResources((ContainerResources) result).build();
+        if (result instanceof ContainerResources resources) {
+            return toBuilder().withContainerResources(resources).build();
         }
-        if (result instanceof ContainerResources.Builder) {
-            return toBuilder().withContainerResources(((ContainerResources.Builder) result).build()).build();
+        if (result instanceof ContainerResources.Builder builder) {
+            return toBuilder().withContainerResources(builder.build()).build();
         }
-        if (result instanceof SecurityProfile) {
-            return toBuilder().withSecurityProfile((SecurityProfile) result).build();
+        if (result instanceof SecurityProfile profile) {
+            return toBuilder().withSecurityProfile(profile).build();
         }
-        if (result instanceof SecurityProfile.Builder) {
-            return toBuilder().withSecurityProfile(((SecurityProfile.Builder) result).build()).build();
+        if (result instanceof SecurityProfile.Builder builder) {
+            return toBuilder().withSecurityProfile(builder.build()).build();
         }
-        if (result instanceof Image) {
-            return toBuilder().withImage((Image) result).build();
+        if (result instanceof Image image1) {
+            return toBuilder().withImage(image1).build();
         }
-        if (result instanceof Image.Builder) {
-            return toBuilder().withImage(((Image.Builder) result).build()).build();
+        if (result instanceof Image.Builder builder) {
+            return toBuilder().withImage(builder.build()).build();
         }
         throw new IllegalArgumentException("Invalid result type " + result.getClass());
     }

@@ -57,8 +57,10 @@ public class AvailabilityPercentageLimitDisruptionBudgetPolicy extends Disruptio
 
     @Override
     public String toString() {
-        return "AvailabilityPercentageLimitDisruptionBudgetPolicy{" +
-                "percentageOfHealthyContainers=" + percentageOfHealthyContainers +
+        return """
+                AvailabilityPercentageLimitDisruptionBudgetPolicy{\
+                percentageOfHealthyContainers=\
+                """ + percentageOfHealthyContainers +
                 '}';
     }
 

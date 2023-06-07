@@ -16,7 +16,6 @@
 
 package com.netflix.titus.federation.service;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,9 +106,7 @@ public class AggregatingHealthServiceTest {
     @Test
     public void singleCell() {
         reset(connector);
-        when(connector.getChannels()).thenReturn(Collections.singletonMap(
-                new Cell("one", "1"), cellOne.getChannel()
-        ));
+        when(connector.getChannels()).thenReturn(Map.of(new Cell("one", "1"), cellOne.getChannel()));
         when(connector.getChannelForCell(any())).thenReturn(Optional.of(cellOne.getChannel()));
 
         HealthCheckResponse one = HealthCheckResponse.newBuilder()

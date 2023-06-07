@@ -90,8 +90,10 @@ public class Batch<T extends Batchable<?>, I> {
 
     @Override
     public String toString() {
-        return "Batch{" +
-                "index=" + index +
+        return """
+                Batch{\
+                index=\
+                """ + index +
                 ", items=" + items +
                 ", oldestItemTimestamp=" + oldestItemTimestamp +
                 '}';

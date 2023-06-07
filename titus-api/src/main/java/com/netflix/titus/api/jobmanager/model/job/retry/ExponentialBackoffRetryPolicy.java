@@ -72,8 +72,10 @@ public class ExponentialBackoffRetryPolicy extends RetryPolicy<ExponentialBackof
 
     @Override
     public String toString() {
-        return "ExponentialBackoffRetryPolicy{" +
-                "initialDelayMs=" + initialDelayMs +
+        return """
+                ExponentialBackoffRetryPolicy{\
+                initialDelayMs=\
+                """ + initialDelayMs +
                 ", maxDelayMs=" + maxDelayMs +
                 '}';
     }

@@ -140,8 +140,10 @@ public class DefaultTokenBucket implements TokenBucket {
 
     @Override
     public String toString() {
-        return "DefaultTokenBucket{" +
-                "name='" + name + '\'' +
+        return """
+                DefaultTokenBucket{\
+                name='\
+                """ + name + '\'' +
                 ", capacity=" + capacity +
                 ", refillStrategy=" + refillStrategy +
                 ", numberOfTokens=" + numberOfTokens +

@@ -84,8 +84,10 @@ public class ClusterMembershipRevision<T> {
 
     @Override
     public String toString() {
-        return "ClusterMembershipRevision{" +
-                "current=" + current +
+        return """
+                ClusterMembershipRevision{\
+                current=\
+                """ + current +
                 ", code='" + code + '\'' +
                 ", message='" + message + '\'' +
                 ", revision=" + revision +

@@ -16,8 +16,8 @@
 
 package com.netflix.titus.runtime.clustermembership.endpoint.grpc;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -143,7 +143,7 @@ public class ClusterMembershipServiceStub implements ClusterMembershipService {
                     localLeadership,
                     Optional.of(localLeadership)
             );
-            return Collections.singletonList(snapshot);
+            return List.of(snapshot);
         }));
     }
 }

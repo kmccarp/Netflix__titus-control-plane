@@ -114,10 +114,10 @@ public class ProtobufCopyTest {
         Object value = entity.getField(field);
         assertThat(value).isNotNull();
 
-        if (value instanceof DynamicMessage) {
-            assertThat(((DynamicMessage) value).getAllFields()).isNotEmpty();
-        } else if (value instanceof Collection) {
-            assertThat((Collection) value).isNotEmpty();
+        if (value instanceof DynamicMessage message) {
+            assertThat(message.getAllFields()).isNotEmpty();
+        } else if (value instanceof Collection collection) {
+            assertThat(collection).isNotEmpty();
         } else {
             assertThat(value).isNotNull();
         }
@@ -126,12 +126,12 @@ public class ProtobufCopyTest {
     private void assertFieldHasNoValue(Message entity, FieldDescriptor field) {
         Object value = entity.getField(field);
         if (value != null) {
-            if (value instanceof DynamicMessage) {
-                assertThat(((DynamicMessage) value).getAllFields()).isEmpty();
+            if (value instanceof DynamicMessage message) {
+                assertThat(message.getAllFields()).isEmpty();
             } else if (value instanceof String) {
                 assertThat(value).isEqualTo("");
-            } else if (value instanceof Collection) {
-                assertThat((Collection) value).isEmpty();
+            } else if (value instanceof Collection collection) {
+                assertThat(collection).isEmpty();
             } else {
                 fail("Expected null value for field " + field);
             }

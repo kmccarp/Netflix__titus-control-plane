@@ -40,14 +40,14 @@ public class EsExternalResource extends ExternalResource {
 
         // check if a ES cluster state is Green
         WebClient webClient = WebClient.builder()
-                .baseUrl(String.format("http://%s:%d", esHostName, esPort)).build();
+                .baseUrl("http://%s:%d".formatted(esHostName, esPort)).build();
         String resp = webClient.get()
                 .uri("/_cat/health")
                 .retrieve()
                 .bodyToMono(String.class).block();
 
         if (resp == null || !resp.contains("green")) {
-            throw new IllegalStateException(String.format("Elastic search cluster %s:%d not READY", esHostName, esPort));
+            throw new IllegalStateException("Elastic search cluster %s:%d not READY".formatted(esHostName, esPort));
         }
 
         buildEsClientConfiguration(esHostName, esPort);

@@ -424,15 +424,13 @@ public class LocalCacheQueryProcessor {
                                                                V3TaskQueryCriteriaEvaluator tasksPredicate,
                                                                Set<String> jobFields,
                                                                Set<String> taskFields) {
-        if (event instanceof JobUpdateEvent) {
-            JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) event;
+        if (event instanceof JobUpdateEvent jobUpdateEvent) {
             Job<?> job = jobUpdateEvent.getCurrent();
             List<com.netflix.titus.api.jobmanager.model.job.Task> tasks = new ArrayList<>(snapshot.getTasks(job.getId()).values());
             return jobsPredicate.test(Pair.of(job, tasks)) ? Optional.of(toGrpcJobEvent(job, now, jobFields)) : Optional.empty();
         }
 
-        if (event instanceof TaskUpdateEvent) {
-            TaskUpdateEvent taskUpdateEvent = (TaskUpdateEvent) event;
+        if (event instanceof TaskUpdateEvent taskUpdateEvent) {
             Job<?> job = taskUpdateEvent.getCurrentJob();
             com.netflix.titus.api.jobmanager.model.job.Task task = taskUpdateEvent.getCurrentTask();
             return tasksPredicate.test(Pair.of(job, task))

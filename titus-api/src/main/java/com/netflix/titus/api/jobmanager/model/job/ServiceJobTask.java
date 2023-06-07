@@ -82,8 +82,10 @@ public class ServiceJobTask extends Task {
 
     @Override
     public String toString() {
-        return "ServiceJobTask{" +
-                "id='" + getId() + '\'' +
+        return """
+                ServiceJobTask{\
+                id='\
+                """ + getId() + '\'' +
                 ", jobId='" + getJobId() + '\'' +
                 ", status=" + getStatus() +
                 ", originalId='" + getOriginalId() + '\'' +

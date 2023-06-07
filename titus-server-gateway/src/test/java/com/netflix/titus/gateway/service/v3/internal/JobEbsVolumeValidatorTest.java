@@ -17,7 +17,6 @@
 package com.netflix.titus.gateway.service.v3.internal;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public class JobEbsVolumeValidatorTest {
             .withFsType("xfs")
             .build();
     private static final List<EbsVolume> INVALID_EBS_VOLUMES = Arrays.asList(EBS_VOLUME_VALID, EBS_VOLUME_INVALID);
-    private static final List<EbsVolume> VALID_EBS_VOLUMES = Collections.singletonList(EBS_VOLUME_VALID);
+    private static final List<EbsVolume> VALID_EBS_VOLUMES = List.of(EBS_VOLUME_VALID);
 
     private static final JobDescriptor<?> JOB_WITH_NO_EBS_VOLUMES = JobDescriptorGenerator.oneTaskBatchJobDescriptor();
     private static final JobDescriptor<?> JOB_WITH_INVALID_EBS_VOLUMES = JOB_WITH_NO_EBS_VOLUMES.toBuilder()

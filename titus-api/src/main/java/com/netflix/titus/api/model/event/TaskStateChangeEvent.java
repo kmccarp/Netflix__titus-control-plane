@@ -68,8 +68,10 @@ public class TaskStateChangeEvent<SOURCE, STATE> extends SchedulingEvent<SOURCE>
 
     @Override
     public String toString() {
-        return "TaskStateChangeEvent{" +
-                "jobId='" + getJobId() + '\'' +
+        return """
+                TaskStateChangeEvent{\
+                jobId='\
+                """ + getJobId() + '\'' +
                 ", taskId='" + taskId + '\'' +
                 ", state=" + state +
                 ", timestamp=" + getTimestamp() +

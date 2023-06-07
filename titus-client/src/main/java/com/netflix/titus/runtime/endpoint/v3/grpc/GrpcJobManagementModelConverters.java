@@ -747,7 +747,7 @@ public final class GrpcJobManagementModelConverters {
                 .withValue(StringExt.concatenate(job.getJobDescriptor().getContainer().getSecurityProfile().getSecurityGroups(), ":"))
                 .build();
 
-        return Collections.singletonList(resource);
+        return List.of(resource);
     }
 
     public static TaskStatus toCoreTaskStatus(com.netflix.titus.grpc.protogen.TaskStatus grpcStatus) {
@@ -925,14 +925,12 @@ public final class GrpcJobManagementModelConverters {
         com.netflix.titus.grpc.protogen.RetryPolicy.Builder builder = com.netflix.titus.grpc.protogen.RetryPolicy.newBuilder();
         if (retryPolicy instanceof ImmediateRetryPolicy) {
             builder.setImmediate(com.netflix.titus.grpc.protogen.RetryPolicy.Immediate.newBuilder().setRetries(retryPolicy.getRetries()));
-        } else if (retryPolicy instanceof DelayedRetryPolicy) {
-            DelayedRetryPolicy delayed = (DelayedRetryPolicy) retryPolicy;
+        } else if (retryPolicy instanceof DelayedRetryPolicy delayed) {
             builder.setDelayed(com.netflix.titus.grpc.protogen.RetryPolicy.Delayed.newBuilder()
                     .setRetries(retryPolicy.getRetries())
                     .setDelayMs(delayed.getDelayMs())
             );
-        } else if (retryPolicy instanceof ExponentialBackoffRetryPolicy) {
-            ExponentialBackoffRetryPolicy exponential = (ExponentialBackoffRetryPolicy) retryPolicy;
+        } else if (retryPolicy instanceof ExponentialBackoffRetryPolicy exponential) {
             builder.setExponentialBackOff(com.netflix.titus.grpc.protogen.RetryPolicy.ExponentialBackOff.newBuilder()
                     .setInitialDelayMs(exponential.getInitialDelayMs())
                     .setMaxDelayIntervalMs(exponential.getMaxDelayMs())
@@ -990,35 +988,33 @@ public final class GrpcJobManagementModelConverters {
                                                                                                      coreDisruptionBudget) {
         JobDisruptionBudget.Builder builder = JobDisruptionBudget.newBuilder();
         DisruptionBudgetPolicy disruptionBudgetPolicy = coreDisruptionBudget.getDisruptionBudgetPolicy();
-        if (disruptionBudgetPolicy instanceof SelfManagedDisruptionBudgetPolicy) {
+        if (disruptionBudgetPolicy instanceof SelfManagedDisruptionBudgetPolicy policy) {
             builder.setSelfManaged(JobDisruptionBudget.SelfManaged.newBuilder()
-                    .setRelocationTimeMs(((SelfManagedDisruptionBudgetPolicy) disruptionBudgetPolicy).getRelocationTimeMs()));
-        } else if (disruptionBudgetPolicy instanceof AvailabilityPercentageLimitDisruptionBudgetPolicy) {
+                    .setRelocationTimeMs(policy.getRelocationTimeMs()));
+        } else if (disruptionBudgetPolicy instanceof AvailabilityPercentageLimitDisruptionBudgetPolicy policy) {
             builder.setAvailabilityPercentageLimit(JobDisruptionBudget.AvailabilityPercentageLimit.newBuilder()
-                    .setPercentageOfHealthyContainers(((AvailabilityPercentageLimitDisruptionBudgetPolicy) disruptionBudgetPolicy).getPercentageOfHealthyContainers()));
-        } else if (disruptionBudgetPolicy instanceof UnhealthyTasksLimitDisruptionBudgetPolicy) {
+                    .setPercentageOfHealthyContainers(policy.getPercentageOfHealthyContainers()));
+        } else if (disruptionBudgetPolicy instanceof UnhealthyTasksLimitDisruptionBudgetPolicy policy) {
             builder.setUnhealthyTasksLimit(JobDisruptionBudget.UnhealthyTasksLimit.newBuilder()
-                    .setLimitOfUnhealthyContainers(((UnhealthyTasksLimitDisruptionBudgetPolicy) disruptionBudgetPolicy).getLimitOfUnhealthyContainers()));
-        } else if (disruptionBudgetPolicy instanceof RelocationLimitDisruptionBudgetPolicy) {
+                    .setLimitOfUnhealthyContainers(policy.getLimitOfUnhealthyContainers()));
+        } else if (disruptionBudgetPolicy instanceof RelocationLimitDisruptionBudgetPolicy policy) {
             builder.setRelocationLimit(JobDisruptionBudget.RelocationLimit.newBuilder()
-                    .setLimit(((RelocationLimitDisruptionBudgetPolicy) disruptionBudgetPolicy).getLimit()));
+                    .setLimit(policy.getLimit()));
         }
 
         DisruptionBudgetRate disruptionBudgetRate = coreDisruptionBudget.getDisruptionBudgetRate();
         if (disruptionBudgetRate instanceof UnlimitedDisruptionBudgetRate) {
             builder.setRateUnlimited(JobDisruptionBudget.RateUnlimited.newBuilder().build());
-        } else if (disruptionBudgetRate instanceof PercentagePerHourDisruptionBudgetRate) {
+        } else if (disruptionBudgetRate instanceof PercentagePerHourDisruptionBudgetRate rate) {
             builder.setRatePercentagePerHour(JobDisruptionBudget.RatePercentagePerHour.newBuilder()
-                    .setMaxPercentageOfContainersRelocatedInHour(((PercentagePerHourDisruptionBudgetRate) disruptionBudgetRate).getMaxPercentageOfContainersRelocatedInHour()));
-        } else if (disruptionBudgetRate instanceof RatePerIntervalDisruptionBudgetRate) {
-            RatePerIntervalDisruptionBudgetRate ratePerInterval = (RatePerIntervalDisruptionBudgetRate) disruptionBudgetRate;
+                    .setMaxPercentageOfContainersRelocatedInHour(rate.getMaxPercentageOfContainersRelocatedInHour()));
+        } else if (disruptionBudgetRate instanceof RatePerIntervalDisruptionBudgetRate ratePerInterval) {
             builder.setRatePerInterval(JobDisruptionBudget.RatePerInterval.newBuilder()
                     .setIntervalMs(ratePerInterval.getIntervalMs())
                     .setLimitPerInterval(ratePerInterval.getLimitPerInterval())
                     .build()
             );
-        } else if (disruptionBudgetRate instanceof RatePercentagePerIntervalDisruptionBudgetRate) {
-            RatePercentagePerIntervalDisruptionBudgetRate ratePercentagePerInterval = (RatePercentagePerIntervalDisruptionBudgetRate) disruptionBudgetRate;
+        } else if (disruptionBudgetRate instanceof RatePercentagePerIntervalDisruptionBudgetRate ratePercentagePerInterval) {
             builder.setRatePercentagePerInterval(JobDisruptionBudget.RatePercentagePerInterval.newBuilder()
                     .setIntervalMs(ratePercentagePerInterval.getIntervalMs())
                     .setPercentageLimitPerInterval(ratePercentagePerInterval.getPercentageLimitPerInterval())
@@ -1166,15 +1162,15 @@ public final class GrpcJobManagementModelConverters {
 
     private static com.netflix.titus.grpc.protogen.Volume toGrpcVolume(Volume volume) {
         VolumeSource source = volume.getVolumeSource();
-        if (source instanceof SharedContainerVolumeSource) {
+        if (source instanceof SharedContainerVolumeSource volumeSource) {
             return com.netflix.titus.grpc.protogen.Volume.newBuilder()
                     .setName(volume.getName())
-                    .setSharedContainerVolumeSource(toGrpcSharedVolumeSource((SharedContainerVolumeSource) source))
+                    .setSharedContainerVolumeSource(toGrpcSharedVolumeSource(volumeSource))
                     .build();
-        } else if (source instanceof SaaSVolumeSource) {
+        } else if (source instanceof SaaSVolumeSource volumeSource) {
             return com.netflix.titus.grpc.protogen.Volume.newBuilder()
                     .setName(volume.getName())
-                    .setSaaSVolumeSource(toGrpcSaaSVolumeSource((SaaSVolumeSource) source))
+                    .setSaaSVolumeSource(toGrpcSaaSVolumeSource(volumeSource))
                     .build();
         } else {
             return null;
@@ -1326,8 +1322,7 @@ public final class GrpcJobManagementModelConverters {
         taskContext.put(TASK_ATTRIBUTES_EVICTION_RESUBMIT_NUMBER, Integer.toString(coreTask.getEvictionResubmitNumber()));
         coreTask.getResubmitOf().ifPresent(resubmitOf -> taskContext.put(TASK_ATTRIBUTES_TASK_RESUBMIT_OF, resubmitOf));
 
-        if (coreTask instanceof BatchJobTask) {
-            BatchJobTask batchTask = (BatchJobTask) coreTask;
+        if (coreTask instanceof BatchJobTask batchTask) {
             taskContext.put(TASK_ATTRIBUTES_TASK_INDEX, Integer.toString(batchTask.getIndex()));
         }
 
@@ -1341,8 +1336,7 @@ public final class GrpcJobManagementModelConverters {
                 .setLogLocation(toGrpcLogLocation(coreTask, logStorageInfo))
                 .setVersion(toGrpcVersion(coreTask.getVersion()));
 
-        if (coreTask instanceof ServiceJobTask) {
-            ServiceJobTask serviceTask = (ServiceJobTask) coreTask;
+        if (coreTask instanceof ServiceJobTask serviceTask) {
             taskBuilder.setMigrationDetails(toGrpcMigrationDetails(serviceTask.getMigrationDetails()));
         }
 
@@ -1394,8 +1388,7 @@ public final class GrpcJobManagementModelConverters {
     public static JobChangeNotification toGrpcJobChangeNotification(JobManagerEvent<?> event,
                                                                     GrpcObjectsCache grpcObjectsCache,
                                                                     long now) {
-        if (event instanceof JobUpdateEvent) {
-            JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) event;
+        if (event instanceof JobUpdateEvent jobUpdateEvent) {
             return JobChangeNotification.newBuilder()
                     .setJobUpdate(JobChangeNotification.JobUpdate.newBuilder()
                             .setJob(grpcObjectsCache.getJob(jobUpdateEvent.getCurrent()))
@@ -1404,8 +1397,7 @@ public final class GrpcJobManagementModelConverters {
                     .setTimestamp(now)
                     .build();
         }
-        if (event instanceof TaskUpdateEvent) {
-            TaskUpdateEvent taskUpdateEvent = (TaskUpdateEvent) event;
+        if (event instanceof TaskUpdateEvent taskUpdateEvent) {
             return JobChangeNotification.newBuilder()
                     .setTaskUpdate(
                             JobChangeNotification.TaskUpdate.newBuilder()
@@ -1416,8 +1408,7 @@ public final class GrpcJobManagementModelConverters {
                     .setTimestamp(now)
                     .build();
         }
-        if (event instanceof JobKeepAliveEvent) {
-            JobKeepAliveEvent keepAliveEvent = (JobKeepAliveEvent) event;
+        if (event instanceof JobKeepAliveEvent keepAliveEvent) {
             return JobChangeNotification.newBuilder()
                     .setKeepAliveResponse(KeepAliveResponse.newBuilder()
                             .setTimestamp(keepAliveEvent.getTimestamp())

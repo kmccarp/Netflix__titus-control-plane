@@ -50,7 +50,7 @@ public class CuratorServiceImpl implements CuratorService {
         isConnectedGauge = PolledMeter.using(registry).withName("titusMaster.curator.isConnected").monitorValue(new AtomicInteger());
 
         Optional<String> connectString = clusterResolver.resolve();
-        if (!connectString.isPresent()) {
+        if (connectString.isEmpty()) {
             // Fail early if connection to zookeeper not defined
             LOG.error("Zookeeper connectivity details not found");
             throw new IllegalStateException("Zookeeper connectivity details not found");

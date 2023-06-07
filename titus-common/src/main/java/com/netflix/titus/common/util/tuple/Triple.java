@@ -86,8 +86,10 @@ public class Triple<A, B, C> {
 
     @Override
     public String toString() {
-        return "Triple{" +
-                "first=" + first +
+        return """
+                Triple{\
+                first=\
+                """ + first +
                 ", second=" + second +
                 ", third=" + third +
                 '}';

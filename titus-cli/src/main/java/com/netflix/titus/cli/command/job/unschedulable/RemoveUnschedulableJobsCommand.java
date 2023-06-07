@@ -17,7 +17,6 @@
 package com.netflix.titus.cli.command.job.unschedulable;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -89,12 +88,11 @@ public class RemoveUnschedulableJobsCommand implements CliCommand {
             logger.info("Removing job {}...", jobToRemove);
             CallMetadata callMetadata = CallMetadata.newBuilder()
                     .withCallReason(unschedulable.get(jobToRemove.getId()).getReason())
-                    .withCallers(Collections.singletonList(
+                    .withCallers(List.of(
                             Caller.newBuilder()
                                     .withId(Evaluators.getOrDefault(System.getenv("USER"), "titusCLI"))
                                     .withCallerType(CallerType.User)
-                                    .build()
-                    ))
+                                    .build()))
                     .build();
             jobClient.killJob(jobToRemove.getId(), callMetadata).block(Duration.ofSeconds(60));
         }

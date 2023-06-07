@@ -33,7 +33,7 @@ public class RecordingCodeInvariants extends CodeInvariants {
     @Override
     public CodeInvariants isTrue(boolean condition, String message, Object... args) {
         if (!condition) {
-            violations.add(doTry(() -> String.format(message, args)).orElse("Invalid pattern or arguments: " + message));
+            violations.add(doTry(() -> message.formatted(args)).orElse("Invalid pattern or arguments: " + message));
         }
         return this;
     }

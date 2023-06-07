@@ -74,8 +74,10 @@ public class JobLoadBalancerState {
 
     @Override
     public String toString() {
-        return "JobLoadBalancerState{" +
-                "jobLoadBalancer=" + jobLoadBalancer +
+        return """
+                JobLoadBalancerState{\
+                jobLoadBalancer=\
+                """ + jobLoadBalancer +
                 ", state=" + state +
                 '}';
     }

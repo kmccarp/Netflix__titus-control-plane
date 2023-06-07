@@ -60,8 +60,10 @@ public class InstanceLaunchConfiguration {
 
     @Override
     public String toString() {
-        return "InstanceLaunchConfiguration{" +
-                "id='" + id + '\'' +
+        return """
+                InstanceLaunchConfiguration{\
+                id='\
+                """ + id + '\'' +
                 ", instanceType='" + instanceType + '\'' +
                 '}';
     }

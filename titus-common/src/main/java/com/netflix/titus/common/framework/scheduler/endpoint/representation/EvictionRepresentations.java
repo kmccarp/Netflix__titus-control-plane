@@ -59,7 +59,7 @@ public final class EvictionRepresentations {
     }
 
     private static String doFormat(ExecutionId executionId) {
-        return String.format("%s.%s(%s)", executionId.getId(), executionId.getAttempt(), executionId.getTotal());
+        return "%s.%s(%s)".formatted(executionId.getId(), executionId.getAttempt(), executionId.getTotal());
     }
 
     private static SchedulingStatusRepresentation toRepresentation(SchedulingStatus status) {

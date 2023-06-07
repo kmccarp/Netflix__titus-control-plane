@@ -17,8 +17,8 @@
 package com.netflix.titus.common.util.feature;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.google.common.base.Preconditions;
@@ -47,8 +47,8 @@ class FeatureComplianceAggregator<T> implements FeatureCompliance<T> {
                 combinedResult.add(NonComplianceList.of(
                         d.getClass().getSimpleName(),
                         value,
-                        Collections.singletonMap("unexpectedError", e.getMessage()),
-                        String.format("Unexpected error during data validation: errorMessage=%s", e.getMessage())
+                        Map.of("unexpectedError", e.getMessage()),
+                        "Unexpected error during data validation: errorMessage=%s".formatted(e.getMessage())
                 ));
             }
         });

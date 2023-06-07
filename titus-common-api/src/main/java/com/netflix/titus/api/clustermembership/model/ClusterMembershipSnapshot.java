@@ -74,8 +74,10 @@ public class ClusterMembershipSnapshot {
 
     @Override
     public String toString() {
-        return "ClusterMembershipSnapshot{" +
-                "memberRevisions=" + memberRevisions +
+        return """
+                ClusterMembershipSnapshot{\
+                memberRevisions=\
+                """ + memberRevisions +
                 ", leaderRevision=" + leaderRevision +
                 ", stalenessMs=" + stalenessMs +
                 '}';

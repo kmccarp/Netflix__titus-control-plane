@@ -16,7 +16,6 @@
 
 package com.netflix.titus.api.model.callmetadata;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -101,8 +100,10 @@ public class CallMetadata {
 
     @Override
     public String toString() {
-        return "CallMetadata{" +
-                "callerId='" + callerId + '\'' +
+        return """
+                CallMetadata{\
+                callerId='\
+                """ + callerId + '\'' +
                 ", callReason='" + callReason + '\'' +
                 ", callPath=" + callPath +
                 ", callers=" + callers +
@@ -167,12 +168,11 @@ public class CallMetadata {
             // Legacy
             Preconditions.checkNotNull(callerId, "The original caller id not");
 
-            List<Caller> callersFromLegacy = Collections.singletonList(
+            List<Caller> callersFromLegacy = List.of(
                     Caller.newBuilder()
                             .withId(callerId)
                             .withCallerType(CallerType.parseCallerType(callerId, ""))
-                            .build()
-            );
+                            .build());
 
             return new CallMetadata(callerId, callReason, CollectionsExt.nonNull(callPath), callersFromLegacy, debug);
         }

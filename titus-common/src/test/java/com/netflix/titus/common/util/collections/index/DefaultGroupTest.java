@@ -16,7 +16,7 @@
 
 package com.netflix.titus.common.util.collections.index;
 
-import java.util.Collections;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -58,15 +58,15 @@ public class DefaultGroupTest {
         DefaultGroup<Character, String, SampleItem, String> group = EMPTY_GROUP.add(SampleItem.newItems("a1", "#a1", "a2", "#a2", "b1", "#b1"));
 
         // Non empty result subset
-        group = group.remove(Collections.singleton("a1"));
+        group = group.remove(Set.of("a1"));
         assertThat(group.get().get('a')).containsOnlyKeys("a2");
 
         // Remove non-existent key
-        DefaultGroup<Character, String, SampleItem, String> noChange = group.remove(Collections.singleton("a1"));
+        DefaultGroup<Character, String, SampleItem, String> noChange = group.remove(Set.of("a1"));
         assertThat(group == noChange).isTrue();
 
         // Empty subset
-        group = group.remove(Collections.singleton("a2"));
+        group = group.remove(Set.of("a2"));
         assertThat(group.get().get('a')).isNull();
 
     }

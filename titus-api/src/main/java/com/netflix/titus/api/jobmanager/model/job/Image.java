@@ -83,8 +83,10 @@ public class Image {
 
     @Override
     public String toString() {
-        return "Image{" +
-                "name='" + name + '\'' +
+        return """
+                Image{\
+                name='\
+                """ + name + '\'' +
                 ", tag='" + tag + '\'' +
                 ", digest='" + digest + '\'' +
                 '}';

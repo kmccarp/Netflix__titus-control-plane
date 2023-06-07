@@ -39,6 +39,6 @@ public class LocalSchedulerException extends RuntimeException {
     }
 
     public static LocalSchedulerException scheduleNotFound(String scheduleId) {
-        return new LocalSchedulerException(ErrorCode.NotFound, String.format("Schedule not found: id=%s", scheduleId));
+        return new LocalSchedulerException(ErrorCode.NotFound, "Schedule not found: id=%s".formatted(scheduleId));
     }
 }

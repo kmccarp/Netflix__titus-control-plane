@@ -51,8 +51,10 @@ public class MasterInstanceRemovedEvent extends SupervisorEvent {
 
     @Override
     public String toString() {
-        return "MasterInstanceRemovedEvent{" +
-                "masterInstance=" + masterInstance +
+        return """
+                MasterInstanceRemovedEvent{\
+                masterInstance=\
+                """ + masterInstance +
                 "} " + super.toString();
     }
 }

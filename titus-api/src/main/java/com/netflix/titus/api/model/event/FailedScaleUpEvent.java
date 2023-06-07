@@ -55,8 +55,10 @@ public class FailedScaleUpEvent extends ScaleUpEvent {
 
     @Override
     public String toString() {
-        return "FailedScaleUpEvent{" +
-                "instanceGroupId='" + getInstanceGroupId() + '\'' +
+        return """
+                FailedScaleUpEvent{\
+                instanceGroupId='\
+                """ + getInstanceGroupId() + '\'' +
                 ", currentSize=" + getCurrentSize() +
                 ", requestedSize=" + getRequestedSize() +
                 ", errorMessage=" + errorMessage +

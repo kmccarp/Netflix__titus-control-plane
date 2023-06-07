@@ -80,8 +80,10 @@ public class ClusterMemberAddress {
 
     @Override
     public String toString() {
-        return "ClusterMemberAddress{" +
-                "ipAddress='" + ipAddress + '\'' +
+        return """
+                ClusterMemberAddress{\
+                ipAddress='\
+                """ + ipAddress + '\'' +
                 ", portNumber=" + portNumber +
                 ", protocol='" + protocol + '\'' +
                 ", secure=" + secure +

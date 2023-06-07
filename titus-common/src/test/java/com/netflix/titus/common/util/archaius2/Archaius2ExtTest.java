@@ -17,8 +17,8 @@
 package com.netflix.titus.common.util.archaius2;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.netflix.archaius.DefaultPropertyFactory;
 import com.netflix.archaius.api.annotations.DefaultValue;
@@ -64,13 +64,13 @@ public class Archaius2ExtTest {
 
     @Test
     public void testConfigurationWithNoPrefix() {
-        MapConfig config = new MapConfig(Collections.singletonMap("string", "HELLO"));
+        MapConfig config = new MapConfig(Map.of("string", "HELLO"));
         assertThat(Archaius2Ext.newConfiguration(MyConfig.class, config).getString()).isEqualTo("HELLO");
     }
 
     @Test
     public void testConfigurationWithPrefix() {
-        MapConfig config = new MapConfig(Collections.singletonMap("root.string", "HELLO"));
+        MapConfig config = new MapConfig(Map.of("root.string", "HELLO"));
         assertThat(Archaius2Ext.newConfiguration(MyConfig.class, "root", config).getString()).isEqualTo("HELLO");
     }
 

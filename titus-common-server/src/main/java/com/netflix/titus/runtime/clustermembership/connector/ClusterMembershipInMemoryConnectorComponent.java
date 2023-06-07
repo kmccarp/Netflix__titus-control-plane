@@ -50,7 +50,7 @@ public class ClusterMembershipInMemoryConnectorComponent {
     public static ClusterMembershipRevision<ClusterMember> newInitialLocalMemberRevision(int grpcPort, TitusRuntime titusRuntime) {
         return ClusterMembershipRevision.<ClusterMember>newBuilder()
                 .withCurrent(ClusterMember.newBuilder()
-                        .withMemberId(NetworkExt.getHostName().orElse(String.format("%s@localhost", System.getenv("USER"))))
+                        .withMemberId(NetworkExt.getHostName().orElse("%s@localhost".formatted(System.getenv("USER"))))
                         .withEnabled(true)
                         .withRegistered(false)
                         .withActive(false)
@@ -71,7 +71,7 @@ public class ClusterMembershipInMemoryConnectorComponent {
                         .map(ipAddress -> newAddress(grpcPort, ipAddress))
                         .collect(Collectors.toList())
                 )
-                .orElse(Collections.singletonList(newAddress(grpcPort, "localhost")));
+                .orElse(List.of(newAddress(grpcPort, "localhost")));
     }
 
     private static ClusterMemberAddress newAddress(int grpcPort, String ipAddress) {

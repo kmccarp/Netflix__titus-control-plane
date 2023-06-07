@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
 import com.google.common.base.Preconditions;
 
 import static com.netflix.titus.common.util.ReflectionExt.getAllFields;
-import static java.lang.String.format;
 import static java.util.Arrays.stream;
 
 class JavaBeanReflection {
@@ -69,7 +68,7 @@ class JavaBeanReflection {
         try {
             return constructor.newInstance(newValues.toArray());
         } catch (Exception e) {
-            throw new IllegalArgumentException(format("Cannot instantiate %s with constructor arguments %s", entity.getClass(), newValues), e);
+            throw new IllegalArgumentException("Cannot instantiate %s with constructor arguments %s".formatted(entity.getClass(), newValues), e);
         }
     }
 
@@ -81,7 +80,7 @@ class JavaBeanReflection {
         try {
             return field.get(entity);
         } catch (Exception e) {
-            throw new IllegalStateException(format("Cannot access value of field %s on %s", field.getName(), entity.getClass()), e);
+            throw new IllegalStateException("Cannot access value of field %s on %s".formatted(field.getName(), entity.getClass()), e);
         }
     }
 

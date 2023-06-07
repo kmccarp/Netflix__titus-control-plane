@@ -165,7 +165,7 @@ public class JobModelSanitizationTest {
                 .withContainer(JobModel.newContainer(jobDescriptor.getContainer())
                         .withSecurityProfile(
                                 JobModel.newSecurityProfile(jobDescriptor.getContainer().getSecurityProfile())
-                                        .withSecurityGroups(Collections.singletonList("abcd"))
+                                        .withSecurityGroups(List.of("abcd"))
                                         .build())
                         .build()
                 ).build();
@@ -233,9 +233,8 @@ public class JobModelSanitizationTest {
                 .withContainer(JobModel.newContainer(jobDescriptor.getContainer())
                         .withContainerResources(
                                 JobModel.newContainerResources(jobDescriptor.getContainer().getContainerResources())
-                                        .withEfsMounts(Collections.singletonList(
-                                                new EfsMount("efsId#1", "/data", null, null)
-                                        ))
+                                        .withEfsMounts(List.of(
+                                                new EfsMount("efsId#1", "/data", null, null)))
                                         .build())
                         .build()
                 ).build();
@@ -342,12 +341,11 @@ public class JobModelSanitizationTest {
     public void testJobWithInvalidDisruptionBudgetTimeWindow() {
         JobDescriptor<BatchJobExt> badJobDescriptor = changeDisruptionBudget(
                 oneTaskBatchJobDescriptor(),
-                budget(percentageOfHealthyPolicy(50), unlimitedRate(), Collections.singletonList(TimeWindow.newBuilder()
+                budget(percentageOfHealthyPolicy(50), unlimitedRate(), List.of(TimeWindow.newBuilder()
                         .withDays(Day.Monday)
                         .withwithHourlyTimeWindows(16, 8)
                         .withTimeZone("PST")
-                        .build()
-                ))
+                        .build()))
         );
 
         Set<ValidationError> violations = entitySanitizer.validate(badJobDescriptor);
@@ -358,7 +356,7 @@ public class JobModelSanitizationTest {
     @Test
     public void testJobWithInvalidPlatformSidecar() {
         PlatformSidecar badPS = PlatformSidecar.newBuilder().withName("BAD_NAME").withChannel("BAD_CHANNEL").build();
-        JobDescriptor<BatchJobExt> badJobDescriptor = oneTaskBatchJobDescriptor().but(jd -> jd.toBuilder().withPlatformSidecars(Collections.singletonList(badPS)).build());
+        JobDescriptor<BatchJobExt> badJobDescriptor = oneTaskBatchJobDescriptor().but(jd -> jd.toBuilder().withPlatformSidecars(List.of(badPS)).build());
 
         Set<ValidationError> violations = entitySanitizer.validate(badJobDescriptor);
         assertThat(violations).hasSize(2);
@@ -368,7 +366,7 @@ public class JobModelSanitizationTest {
     public void testJobWithInvalidVolume() {
         VolumeSource vs = new SaaSVolumeSource("BAD_SAAS_NAME");
         Volume badVolume = Volume.newBuilder().withName("BAD_NAME").withVolumeSource(vs).build();
-        JobDescriptor<BatchJobExt> badJobDescriptor = oneTaskBatchJobDescriptor().but(jd -> jd.toBuilder().withVolumes(Collections.singletonList(badVolume)).build());
+        JobDescriptor<BatchJobExt> badJobDescriptor = oneTaskBatchJobDescriptor().but(jd -> jd.toBuilder().withVolumes(List.of(badVolume)).build());
 
         Set<ValidationError> violations = entitySanitizer.validate(badJobDescriptor);
         assertThat(violations).hasSize(2);
@@ -378,7 +376,7 @@ public class JobModelSanitizationTest {
         return changeDisruptionBudget(
                 oneTaskBatchJobDescriptor(),
                 budget(percentageOfHealthyPolicy(50), unlimitedRate(), Collections.emptyList()).toBuilder()
-                        .withContainerHealthProviders(Collections.singletonList(ContainerHealthProvider.named(healthProviderName)))
+                        .withContainerHealthProviders(List.of(ContainerHealthProvider.named(healthProviderName)))
                         .build()
         );
     }

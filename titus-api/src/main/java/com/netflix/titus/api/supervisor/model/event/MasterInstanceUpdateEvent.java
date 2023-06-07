@@ -51,8 +51,10 @@ public class MasterInstanceUpdateEvent extends SupervisorEvent {
 
     @Override
     public String toString() {
-        return "MasterInstanceUpdateEvent{" +
-                "masterInstance=" + masterInstance +
+        return """
+                MasterInstanceUpdateEvent{\
+                masterInstance=\
+                """ + masterInstance +
                 "} " + super.toString();
     }
 }

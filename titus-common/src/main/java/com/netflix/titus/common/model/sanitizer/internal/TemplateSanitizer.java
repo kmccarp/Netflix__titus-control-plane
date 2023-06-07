@@ -64,7 +64,7 @@ public class TemplateSanitizer extends AbstractFieldSanitizer<String> {
             }
         } else if (Optional.class == fieldType) {
             Optional optionalValue = (Optional) value;
-            if (!optionalValue.isPresent() && replaceEmptyValue(field)) {
+            if (optionalValue.isEmpty() && replaceEmptyValue(field)) {
                 return templateResolver.apply(fieldPath);
             }
         } else if (String.class == fieldType) {

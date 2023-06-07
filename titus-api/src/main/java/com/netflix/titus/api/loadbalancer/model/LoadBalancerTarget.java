@@ -73,8 +73,10 @@ public class LoadBalancerTarget {
 
     @Override
     public String toString() {
-        return "LoadBalancerTarget{" +
-                "loadBalancerId='" + loadBalancerId + '\'' +
+        return """
+                LoadBalancerTarget{\
+                loadBalancerId='\
+                """ + loadBalancerId + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", taskId='" + taskId + '\'' +
                 '}';

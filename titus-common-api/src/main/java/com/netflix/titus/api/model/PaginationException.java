@@ -35,14 +35,14 @@ public class PaginationException extends RuntimeException {
     }
 
     public static PaginationException badPageSize(int pageSize) {
-        return new PaginationException(ErrorCode.BAD_PAGE_SIZE, String.format("Bad page size (must be >= 0): %s", pageSize), null);
+        return new PaginationException(ErrorCode.BAD_PAGE_SIZE, "Bad page size (must be >= 0): %s".formatted(pageSize), null);
     }
 
     public static PaginationException badCursor(String cursor) {
-        return new PaginationException(ErrorCode.BAD_CURSOR, String.format("Bad cursor value: %s", cursor), null);
+        return new PaginationException(ErrorCode.BAD_CURSOR, "Bad cursor value: %s".formatted(cursor), null);
     }
 
     public static PaginationException badCursor(String encoded, String decoded) {
-        return new PaginationException(ErrorCode.BAD_CURSOR, String.format("Not a valid cursor value: encoded=%s, decoded=%s", encoded, decoded), null);
+        return new PaginationException(ErrorCode.BAD_CURSOR, "Not a valid cursor value: encoded=%s, decoded=%s".formatted(encoded, decoded), null);
     }
 }

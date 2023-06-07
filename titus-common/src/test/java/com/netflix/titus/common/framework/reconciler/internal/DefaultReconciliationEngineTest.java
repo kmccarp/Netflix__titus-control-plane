@@ -45,7 +45,6 @@ import rx.Subscription;
 import rx.schedulers.Schedulers;
 import rx.schedulers.TestScheduler;
 
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class DefaultReconciliationEngineTest {
@@ -130,7 +129,7 @@ public class DefaultReconciliationEngineTest {
     @Test
     public void testReferenceModelChangeFailureDuringModelUpdate() {
         RuntimeException failure = new RuntimeException("ModelUpdate exception");
-        testFailingChangeAction(() -> Observable.just(singletonList(ModelActionHolder.reference(rootHolder -> {
+        testFailingChangeAction(() -> Observable.just(List.of(ModelActionHolder.reference(rootHolder -> {
             throw failure;
         }))), failure);
     }
@@ -299,7 +298,7 @@ public class DefaultReconciliationEngineTest {
         assertThat(engine.applyModelUpdates()).isFalse();
         assertThat(engine.triggerActions()).isTrue();
 
-        runtimeReconcileActions.add(singletonList(new SlowChangeAction()));
+        runtimeReconcileActions.add(List.of(new SlowChangeAction()));
 
         // Complete first change action
         assertThat(engine.applyModelUpdates()).isTrue();

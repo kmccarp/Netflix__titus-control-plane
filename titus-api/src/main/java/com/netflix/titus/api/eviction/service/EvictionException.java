@@ -46,7 +46,7 @@ public class EvictionException extends RuntimeException {
     }
 
     public static EvictionException badConfiguration(String reason, Object... args) {
-        return new EvictionException(ErrorCode.BadConfiguration, String.format("Bad configuration data: %s", String.format(reason, args)));
+        return new EvictionException(ErrorCode.BadConfiguration, "Bad configuration data: %s".formatted(reason.formatted(args)));
     }
 
     public static EvictionException taskNotFound(String taskId) {
@@ -61,7 +61,7 @@ public class EvictionException extends RuntimeException {
         TaskState state = task.getStatus().getState();
         return state == TaskState.Finished
                 ? new EvictionException(ErrorCode.TaskAlreadyStopped, "Task already finished: " + task.getId())
-                : new EvictionException(ErrorCode.TaskAlreadyStopped, String.format("Task terminating: taskId=%s, state=%s", task.getId(), state));
+                : new EvictionException(ErrorCode.TaskAlreadyStopped, "Task terminating: taskId=%s, state=%s".formatted(task.getId(), state));
     }
 
     public static EvictionException taskNotScheduledYet(Task task) {
@@ -69,11 +69,11 @@ public class EvictionException extends RuntimeException {
     }
 
     public static EvictionException noQuotaFound(Reference reference) {
-        return new EvictionException(ErrorCode.NoQuota, String.format("Eviction quota not found for %s=%s", reference.getLevel(), reference.getName()));
+        return new EvictionException(ErrorCode.NoQuota, "Eviction quota not found for %s=%s".formatted(reference.getLevel(), reference.getName()));
     }
 
     public static EvictionException noAvailableJobQuota(Job<?> job, String quotaRestrictions) {
-        return new EvictionException(ErrorCode.NoQuota, String.format("No job quota: jobId=%s, restrictions=%s", job.getId(), quotaRestrictions));
+        return new EvictionException(ErrorCode.NoQuota, "No job quota: jobId=%s, restrictions=%s".formatted(job.getId(), quotaRestrictions));
     }
 
     public static EvictionException deconstruct(String restrictionCode, String restrictionMessage) {

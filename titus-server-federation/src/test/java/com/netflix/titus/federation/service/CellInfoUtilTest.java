@@ -16,7 +16,6 @@
 package com.netflix.titus.federation.service;
 
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +58,7 @@ public class CellInfoUtilTest {
         Cell cell = new Cell("cell1", "1");
         String cellsSpec = "cell1=(app1.*);cell1=(app2.*)";
         Map<Cell, String> routingRules = CellInfoUtil.extractCellRoutingFromCellSpecification(
-                Collections.singletonList(cell), cellsSpec
+                List.of(cell), cellsSpec
         );
         assertThat(routingRules).isNotNull();
         assertThat(routingRules).hasSize(1);

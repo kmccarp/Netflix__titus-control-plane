@@ -61,8 +61,10 @@ public class TargetTrackingPolicy {
 
     @Override
     public String toString() {
-        return "TargetTrackingPolicy{" +
-                "targetValue=" + targetValue +
+        return """
+                TargetTrackingPolicy{\
+                targetValue=\
+                """ + targetValue +
                 ", scaleOutCooldownSec=" + scaleOutCooldownSec +
                 ", scaleInCooldownSec=" + scaleInCooldownSec +
                 ", predefinedMetricSpecification=" + predefinedMetricSpecification +

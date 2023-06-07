@@ -17,8 +17,8 @@
 package com.netflix.titus.ext.aws.supervisor;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -84,10 +84,10 @@ public class AsgLocalMasterReadinessResolverTest {
                 tag.setKey(TAG_MASTER_ENABLED);
                 tag.setValue(currentTagState.get());
 
-                autoScalingGroup.setTags(Collections.singletonList(tag));
+                autoScalingGroup.setTags(List.of(tag));
             }
 
-            response.setAutoScalingGroups(Collections.singletonList(autoScalingGroup));
+            response.setAutoScalingGroups(List.of(autoScalingGroup));
 
             asyncHandler.onSuccess(request, response);
 

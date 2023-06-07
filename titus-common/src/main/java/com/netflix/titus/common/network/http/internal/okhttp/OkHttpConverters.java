@@ -117,8 +117,7 @@ class OkHttpConverters {
 
     static okhttp3.RequestBody toOkHttpRequestBody(RequestBody body) {
         Object object = body.get();
-        if (object instanceof InputStream) {
-            InputStream inputStream = (InputStream) object;
+        if (object instanceof InputStream inputStream) {
 
             return new okhttp3.RequestBody() {
                 @Override
@@ -143,8 +142,7 @@ class OkHttpConverters {
                 }
             };
 
-        } else if (object instanceof String) {
-            String string = (String) object;
+        } else if (object instanceof String string) {
             return okhttp3.RequestBody.create(null, string);
         } else {
             return null;

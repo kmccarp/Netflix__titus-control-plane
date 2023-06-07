@@ -164,8 +164,7 @@ public class CommonObjectMappers {
             }
 
             private boolean isPrimitive(PropertyWriter writer) {
-                if (writer instanceof BeanPropertyWriter) {
-                    BeanPropertyWriter bw = (BeanPropertyWriter) writer;
+                if (writer instanceof BeanPropertyWriter bw) {
                     return ReflectionExt.isPrimitiveOrWrapper(bw.getType().getRawClass());
                 }
                 return false;

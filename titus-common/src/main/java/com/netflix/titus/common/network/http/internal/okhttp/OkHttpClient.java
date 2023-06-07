@@ -18,7 +18,6 @@ package com.netflix.titus.common.network.http.internal.okhttp;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLContext;
@@ -59,7 +58,7 @@ public class OkHttpClient implements HttpClient {
                 .connectTimeout(this.connectTimeout, TimeUnit.MILLISECONDS)
                 .readTimeout(this.readTimeout, TimeUnit.MILLISECONDS)
                 .writeTimeout(this.writeTimeout, TimeUnit.MILLISECONDS)
-                .protocols(Collections.singletonList(Protocol.HTTP_1_1));
+                .protocols(List.of(Protocol.HTTP_1_1));
 
         if (sslContext != null && trustManager != null) {
             clientBuilder.sslSocketFactory(sslContext.getSocketFactory(), trustManager)

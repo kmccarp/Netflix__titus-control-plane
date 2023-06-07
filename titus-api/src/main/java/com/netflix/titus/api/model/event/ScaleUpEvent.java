@@ -65,8 +65,10 @@ public class ScaleUpEvent extends AutoScaleEvent {
 
     @Override
     public String toString() {
-        return "ScaleUpEvent{" +
-                "instanceGroupId='" + getInstanceGroupId() +
+        return """
+                ScaleUpEvent{\
+                instanceGroupId='\
+                """ + getInstanceGroupId() +
                 "currentSize=" + currentSize +
                 ", requestedSize=" + requestedSize +
                 "}";

@@ -47,8 +47,10 @@ public class ContainerHealthUpdateEvent extends ContainerHealthEvent {
 
     @Override
     public String toString() {
-        return "ContainerHealthChangeEvent{" +
-                "containerHealthStatus=" + containerHealthStatus +
+        return """
+                ContainerHealthChangeEvent{\
+                containerHealthStatus=\
+                """ + containerHealthStatus +
                 '}';
     }
 }

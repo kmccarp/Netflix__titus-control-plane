@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.collections.index;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +63,7 @@ public class IndexPerf {
         stopwatch.reset().start();
         List<SamplePerfItem> all = indexSet.<SamplePerfItem>getOrder(BY_PRIMARY_KEY).orderedList();
         for (SamplePerfItem sampleValue : all) {
-            indexSet = indexSet.add(Collections.singletonList(sampleValue.nextVersion()));
+            indexSet = indexSet.add(List.of(sampleValue.nextVersion()));
         }
         printStats("Update", indexSet, stopwatch);
 

@@ -37,7 +37,7 @@ public class ClusterMembershipConnectorException extends RuntimeException {
     public static ClusterMembershipConnectorException clientError(String message, Throwable cause) {
         return new ClusterMembershipConnectorException(
                 ErrorCode.ClientError,
-                String.format("Error during communicating with the cluster membership client: %s", message),
+                "Error during communicating with the cluster membership client: %s".formatted(message),
                 cause
         );
     }
@@ -45,7 +45,7 @@ public class ClusterMembershipConnectorException extends RuntimeException {
     public static ClusterMembershipConnectorException conflict(String message, Throwable cause) {
         return new ClusterMembershipConnectorException(
                 ErrorCode.Conflict,
-                String.format("Request conflicts with the current sate: %s", message),
+                "Request conflicts with the current sate: %s".formatted(message),
                 cause
         );
     }

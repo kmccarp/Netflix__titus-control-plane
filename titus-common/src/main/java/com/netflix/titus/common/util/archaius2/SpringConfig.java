@@ -72,10 +72,10 @@ public class SpringConfig extends AbstractConfig {
      */
     private Map<String, Object> getAllProperties() {
         Map<String, Object> all = new HashMap<>();
-        if (environment instanceof ConfigurableEnvironment) {
-            for (PropertySource<?> propertySource : ((ConfigurableEnvironment) environment).getPropertySources()) {
-                if (propertySource instanceof EnumerablePropertySource) {
-                    for (String key : ((EnumerablePropertySource) propertySource).getPropertyNames()) {
+        if (environment instanceof ConfigurableEnvironment configurableEnvironment) {
+            for (PropertySource<?> propertySource : configurableEnvironment.getPropertySources()) {
+                if (propertySource instanceof EnumerablePropertySource source) {
+                    for (String key : source.getPropertyNames()) {
                         if (key.startsWith(prefix)) {
                             all.put(key.substring(prefix.length()), propertySource.getProperty(key));
                         }

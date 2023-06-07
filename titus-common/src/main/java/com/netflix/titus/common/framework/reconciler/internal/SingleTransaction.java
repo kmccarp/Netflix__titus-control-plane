@@ -171,7 +171,7 @@ class SingleTransaction<EVENT> implements Transaction {
                 }
             }
         } catch (Exception e) {
-            String message = String.format("Change action failure during model update for %s (%s)", referenceRootHolder.getId(), e.toString());
+            String message = "Change action failure during model update for %s (%s)".formatted(referenceRootHolder.getId(), e.toString());
             logger.warn(message, e);
             engine.getTitusRuntime().getCodeInvariants().unexpectedError(message, e);
 

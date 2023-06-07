@@ -233,8 +233,10 @@ public final class LogStorageInfos {
 
         @Override
         public String toString() {
-            return "S3Bucket{" +
-                    "bucketName='" + bucketName + '\'' +
+            return """
+                    S3Bucket{\
+                    bucketName='\
+                    """ + bucketName + '\'' +
                     ", s3Account=" + s3Account +
                     '}';
         }

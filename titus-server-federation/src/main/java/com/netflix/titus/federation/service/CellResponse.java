@@ -45,8 +45,10 @@ class CellResponse<STUB extends AbstractStub<STUB>, T> {
 
     @Override
     public String toString() {
-        return "CellResponse{" +
-                "cell=" + cell +
+        return """
+                CellResponse{\
+                cell=\
+                """ + cell +
                 ", client=" + client +
                 ", result=" + result +
                 '}';

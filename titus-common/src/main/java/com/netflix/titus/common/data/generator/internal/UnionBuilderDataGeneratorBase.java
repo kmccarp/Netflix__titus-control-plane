@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.data.generator.internal;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -105,7 +104,7 @@ public abstract class UnionBuilderDataGeneratorBase<BUILDER> extends DataGenerat
             this.builderSupplier = builderSupplier;
             this.domain = domain;
             this.firstBuilderSetter = firstBuilderSetter;
-            this.current = Collections.singletonList(domain.getValue());
+            this.current = List.of(domain.getValue());
         }
 
         @Override

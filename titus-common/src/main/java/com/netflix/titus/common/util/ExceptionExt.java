@@ -59,11 +59,11 @@ public class ExceptionExt {
     }
 
     public static RuntimeException rethrow(Throwable e) {
-        if (e instanceof RuntimeException) {
-            throw (RuntimeException) e;
+        if (e instanceof RuntimeException exception) {
+            throw exception;
         }
-        if (e instanceof Error) {
-            throw (Error) e;
+        if (e instanceof Error error) {
+            throw error;
         }
         throw new UncheckedExceptionWrapper(e);
     }

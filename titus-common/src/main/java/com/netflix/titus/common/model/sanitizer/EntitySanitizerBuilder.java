@@ -71,7 +71,7 @@ public class EntitySanitizerBuilder {
         Function<Class<?>, Optional<ConstraintValidator<?, ?>>> previous = applicationValidatorFactory;
         this.applicationValidatorFactory = type -> {
             Optional<ConstraintValidator<?, ?>> result = previous.apply(type);
-            if (!result.isPresent()) {
+            if (result.isEmpty()) {
                 return newValidatorFactory.apply(type);
             }
             return result;
@@ -121,7 +121,7 @@ public class EntitySanitizerBuilder {
         Function<String, Optional<Object>> previous = templateResolver;
         this.templateResolver = path -> {
             Optional<Object> result = previous.apply(path);
-            if (!result.isPresent()) {
+            if (result.isEmpty()) {
                 return templateResolver.apply(path);
             }
             return result;

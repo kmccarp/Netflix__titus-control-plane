@@ -51,8 +51,10 @@ public class TaskRelocationPlanUpdateEvent extends TaskRelocationEvent {
 
     @Override
     public String toString() {
-        return "TaskRelocationPlanUpdateEvent{" +
-                "plan=" + plan +
+        return """
+                TaskRelocationPlanUpdateEvent{\
+                plan=\
+                """ + plan +
                 '}';
     }
 

@@ -174,16 +174,16 @@ public class JobStoreFitAction extends AbstractFitAction {
     }
 
     private <T> T handleCorruptedJobRecords(T result) {
-        if (result instanceof Job) {
-            JobDescriptor changedJobDescriptor = ((Job<?>) result).getJobDescriptor().toBuilder().withContainer(null).build();
-            return (T) (Job<?>) ((Job<?>) result).toBuilder().withJobDescriptor(changedJobDescriptor).build();
+        if (result instanceof Job job) {
+            JobDescriptor changedJobDescriptor = job.getJobDescriptor().toBuilder().withContainer(null).build();
+            return (T) (Job<?>) job.toBuilder().withJobDescriptor(changedJobDescriptor).build();
         }
         return result;
     }
 
     private <T> T handleCorruptedTaskRecords(T result) {
-        if (result instanceof Task) {
-            Task changedTask = ((Task) result).toBuilder().withStatus(null).build();
+        if (result instanceof Task task) {
+            Task changedTask = task.toBuilder().withStatus(null).build();
             return (T) changedTask;
         }
         return result;

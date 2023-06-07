@@ -69,8 +69,10 @@ public class CapacityAttributes {
 
     @Override
     public String toString() {
-        return "CapacityAttributes{" +
-                "min=" + min +
+        return """
+                CapacityAttributes{\
+                min=\
+                """ + min +
                 ", desired=" + desired +
                 ", max=" + max +
                 '}';

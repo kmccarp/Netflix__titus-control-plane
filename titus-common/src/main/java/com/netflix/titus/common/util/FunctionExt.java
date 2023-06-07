@@ -41,7 +41,7 @@ public final class FunctionExt {
     }
 
     public static <T> Optional<T> ifNotPresent(Optional<T> opt, Runnable what) {
-        if (!opt.isPresent()) {
+        if (opt.isEmpty()) {
             what.run();
         }
         return opt;

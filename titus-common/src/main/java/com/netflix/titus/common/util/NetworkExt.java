@@ -168,9 +168,9 @@ public class NetworkExt {
                 Enumeration<InetAddress> inetAddresses = nic.getInetAddresses();
                 while (inetAddresses.hasMoreElements()) {
                     InetAddress address = inetAddresses.nextElement();
-                    if (address instanceof Inet6Address) {
+                    if (address instanceof Inet6Address inet6Address) {
                         if (!ipv4Only) {
-                            addresses.add(toIpV6AddressName((Inet6Address) address));
+                            addresses.add(toIpV6AddressName(inet6Address));
                         }
                     } else {
                         addresses.add(address.getHostAddress());
@@ -277,7 +277,7 @@ public class NetworkExt {
 
     public static long toBits(String ipv4Address) {
         Optional<int[]> parsedOpt = parseIpV4(ipv4Address);
-        if (!parsedOpt.isPresent()) {
+        if (parsedOpt.isEmpty()) {
             throw new IllegalArgumentException("Not an IPv4 address: " + ipv4Address);
         }
         int[] bytes = parsedOpt.get();

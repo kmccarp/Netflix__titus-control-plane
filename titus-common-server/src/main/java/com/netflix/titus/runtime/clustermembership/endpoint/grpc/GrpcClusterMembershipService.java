@@ -17,7 +17,6 @@
 package com.netflix.titus.runtime.clustermembership.endpoint.grpc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
@@ -222,7 +221,7 @@ public class GrpcClusterMembershipService extends ClusterMembershipServiceGrpc.C
                     ClusterMembershipSnapshotEvent snapshotEvent = (ClusterMembershipSnapshotEvent) event;
                     data = new MemberDataMixer(snapshotEvent.getClusterMemberRevisions(), snapshotEvent.getLeader());
                     leaderRef.set(data);
-                    return Collections.singletonList(data.toGrpcSnapshot());
+                    return List.of(data.toGrpcSnapshot());
                 }
                 return data.process(event);
             });

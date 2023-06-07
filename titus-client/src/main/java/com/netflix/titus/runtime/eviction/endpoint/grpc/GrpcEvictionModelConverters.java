@@ -129,8 +129,7 @@ public final class GrpcEvictionModelConverters {
                     .build();
             return Optional.of(grpcEvent);
         }
-        if (coreEvent instanceof EvictionQuotaEvent) {
-            EvictionQuotaEvent actualEvent = (EvictionQuotaEvent) coreEvent;
+        if (coreEvent instanceof EvictionQuotaEvent actualEvent) {
             EvictionServiceEvent grpcEvent = EvictionServiceEvent.newBuilder()
                     .setEvictionQuotaEvent(EvictionServiceEvent.EvictionQuotaEvent.newBuilder()
                             .setQuota(toGrpcEvictionQuota(actualEvent.getQuota()))
@@ -139,8 +138,7 @@ public final class GrpcEvictionModelConverters {
                     .build();
             return Optional.of(grpcEvent);
         }
-        if (coreEvent instanceof TaskTerminationEvent) {
-            TaskTerminationEvent actualEvent = (TaskTerminationEvent) coreEvent;
+        if (coreEvent instanceof TaskTerminationEvent actualEvent) {
 
             EvictionServiceEvent.TaskTerminationEvent.Builder eventBuilder = EvictionServiceEvent.TaskTerminationEvent.newBuilder()
                     .setTaskId(actualEvent.getTaskId())
@@ -148,8 +146,7 @@ public final class GrpcEvictionModelConverters {
 
             if (!actualEvent.isApproved()) {
                 Throwable error = actualEvent.getError().get();
-                if (error instanceof EvictionException) {
-                    EvictionException evictionException = (EvictionException) error;
+                if (error instanceof EvictionException evictionException) {
                     eventBuilder.setRestrictionCode("" + evictionException.getErrorCode());
                 } else {
                     eventBuilder.setRestrictionCode("" + EvictionException.ErrorCode.Unknown);

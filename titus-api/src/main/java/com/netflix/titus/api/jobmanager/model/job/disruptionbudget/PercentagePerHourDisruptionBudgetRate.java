@@ -57,8 +57,10 @@ public class PercentagePerHourDisruptionBudgetRate extends DisruptionBudgetRate 
 
     @Override
     public String toString() {
-        return "PercentagePerHourDisruptionBudgetRate{" +
-                "maxPercentageOfContainersRelocatedInHour=" + maxPercentageOfContainersRelocatedInHour +
+        return """
+                PercentagePerHourDisruptionBudgetRate{\
+                maxPercentageOfContainersRelocatedInHour=\
+                """ + maxPercentageOfContainersRelocatedInHour +
                 '}';
     }
 

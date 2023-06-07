@@ -70,8 +70,10 @@ public class ClusterMemberLeadership {
 
     @Override
     public String toString() {
-        return "ClusterMemberLeadership{" +
-                "memberId='" + memberId + '\'' +
+        return """
+                ClusterMemberLeadership{\
+                memberId='\
+                """ + memberId + '\'' +
                 ", leadershipState=" + leadershipState +
                 ", labels=" + labels +
                 '}';

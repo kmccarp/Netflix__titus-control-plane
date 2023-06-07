@@ -76,8 +76,10 @@ public class JobGroupInfo {
 
     @Override
     public String toString() {
-        return "JobGroupInfo{" +
-                "stack='" + stack + '\'' +
+        return """
+                JobGroupInfo{\
+                stack='\
+                """ + stack + '\'' +
                 ", detail='" + detail + '\'' +
                 ", sequence='" + sequence + '\'' +
                 '}';

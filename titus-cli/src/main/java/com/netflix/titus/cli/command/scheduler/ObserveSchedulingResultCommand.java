@@ -63,7 +63,7 @@ public class ObserveSchedulingResultCommand implements CliCommand {
                     break;
                 case FAILURES:
                     List<String> failures = event.getFailures().getFailuresList().stream()
-                            .map(f -> String.format("%s (failureCount=%d): %s", f.getReason(), f.getFailureCount(), f.getAgentIdSamplesList()))
+                            .map(f -> "%s (failureCount=%d): %s".formatted(f.getReason(), f.getFailureCount(), f.getAgentIdSamplesList()))
                             .collect(Collectors.toList());
                     logger.info("Failures: {}", failures);
                     break;

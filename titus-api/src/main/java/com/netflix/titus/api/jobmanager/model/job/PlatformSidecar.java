@@ -57,8 +57,10 @@ public class PlatformSidecar {
 
     @Override
     public String toString() {
-        return "PlatformSidecar{" +
-                "name='" + name + '\'' +
+        return """
+                PlatformSidecar{\
+                name='\
+                """ + name + '\'' +
                 ", channel='" + channel + '\'' +
                 ", arguments=" + arguments +
                 '}';

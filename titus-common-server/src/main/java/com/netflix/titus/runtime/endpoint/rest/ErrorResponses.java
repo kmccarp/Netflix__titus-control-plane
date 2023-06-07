@@ -123,8 +123,8 @@ public final class ErrorResponses {
     }
 
     private static String getDesiredMessage(Throwable cause) {
-        if (cause instanceof JsonProcessingException) {
-            return ((JsonProcessingException) cause).getOriginalMessage();
+        if (cause instanceof JsonProcessingException exception) {
+            return exception.getOriginalMessage();
         }
         return cause.getMessage();
     }
@@ -226,8 +226,8 @@ public final class ErrorResponses {
             this.message = getDesiredMessage(cause);
             this.stackTrace = getStackTraceOf(cause);
 
-            if (cause instanceof JsonProcessingException) {
-                this.details = appendJacksonErrorDetails((JsonProcessingException) cause);
+            if (cause instanceof JsonProcessingException exception) {
+                this.details = appendJacksonErrorDetails(exception);
             } else {
                 this.details = null;
             }
@@ -280,19 +280,16 @@ public final class ErrorResponses {
                 }
             }
 
-            if (cause instanceof JsonMappingException) {
-                JsonMappingException mappingEx = (JsonMappingException) cause;
+            if (cause instanceof JsonMappingException mappingEx) {
                 if (mappingEx.getPathReference() != null) {
                     out.put("pathReference", mappingEx.getPathReference());
                 }
 
-                if (cause instanceof InvalidFormatException) {
-                    InvalidFormatException formEx = (InvalidFormatException) cause;
+                if (cause instanceof InvalidFormatException formEx) {
                     if (formEx.getTargetType() != null) {
                         out.put("targetType", formEx.getTargetType().getName());
                     }
-                } else if (cause instanceof PropertyBindingException) {
-                    PropertyBindingException bindingEx = (PropertyBindingException) cause;
+                } else if (cause instanceof PropertyBindingException bindingEx) {
                     if (bindingEx.getPropertyName() != null) {
                         out.put("property", bindingEx.getPropertyName());
                         out.put("knownProperties", bindingEx.getKnownPropertyIds());

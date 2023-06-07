@@ -122,8 +122,7 @@ public class GrpcExceptionMapper {
     }
 
     private static Throwable unwrap(Throwable throwable) {
-        if (throwable instanceof CompositeException) {
-            CompositeException composite = (CompositeException) throwable;
+        if (throwable instanceof CompositeException composite) {
             if (composite.getExceptions().size() == 1) {
                 return composite.getExceptions().get(0);
             }

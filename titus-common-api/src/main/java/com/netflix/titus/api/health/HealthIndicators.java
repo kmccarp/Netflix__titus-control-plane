@@ -26,7 +26,7 @@ public final class HealthIndicators {
             .withDetails(Collections.emptyMap())
             .build();
 
-    private static final Map<String, HealthStatus> COMPONENTS = Collections.singletonMap("alwaysHealthy", HEALTH_STATUS);
+    private static final Map<String, HealthStatus> COMPONENTS = Map.of("alwaysHealthy", HEALTH_STATUS);
 
     private static final HealthIndicator ALWAYS_HEALTHY_INDICATOR = new HealthIndicator() {
         @Override

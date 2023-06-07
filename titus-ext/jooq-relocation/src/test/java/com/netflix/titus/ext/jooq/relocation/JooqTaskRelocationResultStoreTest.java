@@ -17,7 +17,6 @@
 package com.netflix.titus.ext.jooq.relocation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -103,7 +102,7 @@ public class JooqTaskRelocationResultStoreTest {
 
         // Update
         TaskRelocationStatus updatedStatus = status.toBuilder().withStatusMessage("Updated...").build();
-        Map<String, Optional<Throwable>> updatedResult = store.createTaskRelocationStatuses(Collections.singletonList(updatedStatus)).block();
+        Map<String, Optional<Throwable>> updatedResult = store.createTaskRelocationStatuses(List.of(updatedStatus)).block();
         assertThat(updatedResult).hasSize(1);
         assertThat(store.getTaskRelocationStatusList(status.getTaskId()).block().get(0)).isEqualTo(updatedStatus);
 

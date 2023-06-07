@@ -125,8 +125,8 @@ public class CLI {
         } catch (Exception e) {
             context.shutdown();
             logger.error("Command execution failure", e);
-            if (e instanceof StatusRuntimeException) {
-                GrpcClientErrorUtils.printDetails((StatusRuntimeException) e);
+            if (e instanceof StatusRuntimeException exception) {
+                GrpcClientErrorUtils.printDetails(exception);
             }
         }
     }

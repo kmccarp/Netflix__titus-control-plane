@@ -83,8 +83,10 @@ public class IpAddressAllocation {
     }
     @Override
     public String toString() {
-        return "IpAddressAllocation{" +
-                "ipAddressLocation=" + ipAddressLocation +
+        return """
+                IpAddressAllocation{\
+                ipAddressLocation=\
+                """ + ipAddressLocation +
                 ", allocationId='" + allocationId + '\'' +
                 ", ipAddress=" + ipAddress +
                 '}';

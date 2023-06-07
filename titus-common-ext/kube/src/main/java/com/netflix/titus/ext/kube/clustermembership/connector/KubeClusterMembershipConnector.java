@@ -100,8 +100,8 @@ public class KubeClusterMembershipConnector implements ClusterMembershipConnecto
                 }))
                 .subscribe(
                         event -> {
-                            if (event instanceof ClusterMembershipChangeEvent) {
-                                reconciler.apply(currentState -> Mono.just(currentState.processMembershipEventStreamEvent((ClusterMembershipChangeEvent) event)))
+                            if (event instanceof ClusterMembershipChangeEvent changeEvent) {
+                                reconciler.apply(currentState -> Mono.just(currentState.processMembershipEventStreamEvent(changeEvent)))
                                         .subscribe(
                                                 next -> logger.info("Processed Kubernetes event: {}", event),
                                                 e -> logger.warn("Kubernetes event processing failure", e)
@@ -131,8 +131,8 @@ public class KubeClusterMembershipConnector implements ClusterMembershipConnecto
                 }))
                 .subscribe(
                         event -> {
-                            if (event instanceof LeaderElectionChangeEvent) {
-                                reconciler.apply(currentState -> Mono.just(currentState.processLeaderElectionEventStreamEvent((LeaderElectionChangeEvent) event)))
+                            if (event instanceof LeaderElectionChangeEvent changeEvent) {
+                                reconciler.apply(currentState -> Mono.just(currentState.processLeaderElectionEventStreamEvent(changeEvent)))
                                         .subscribe(
                                                 next -> logger.debug("Processed Kubernetes event: {}", event),
                                                 e -> logger.warn("Kubernetes event processing failure", e)

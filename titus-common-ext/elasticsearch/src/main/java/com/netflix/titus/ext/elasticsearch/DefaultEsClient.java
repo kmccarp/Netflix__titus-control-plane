@@ -46,7 +46,7 @@ public class DefaultEsClient<T extends EsDoc> implements EsClient<T> {
     @Override
     public Mono<EsIndexResp> indexDocument(T document, String indexName, String documentType) {
         return client.post()
-                .uri(String.format("/%s/%s/%s", indexName, documentType, document.getId()))
+                .uri("/%s/%s/%s".formatted(indexName, documentType, document.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(document))
                 .retrieve()
@@ -67,7 +67,7 @@ public class DefaultEsClient<T extends EsDoc> implements EsClient<T> {
     public Mono<EsRespSrc<T>> findDocumentById(String id, String index, String type,
                                                ParameterizedTypeReference<EsRespSrc<T>> responseTypeRef) {
         return client.get()
-                .uri(uriBuilder -> uriBuilder.path(String.format("%s/%s/%s", index, type, id)).build())
+                .uri(uriBuilder -> uriBuilder.path("%s/%s/%s".formatted(index, type, id)).build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(responseTypeRef);
@@ -76,7 +76,7 @@ public class DefaultEsClient<T extends EsDoc> implements EsClient<T> {
     @Override
     public Mono<EsRespCount> getTotalDocumentCount(String index, String type) {
         return client.get()
-                .uri(uriBuilder -> uriBuilder.path(String.format("%s/%s/_count", index, type)).build())
+                .uri(uriBuilder -> uriBuilder.path("%s/%s/_count".formatted(index, type)).build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<EsRespCount>() {

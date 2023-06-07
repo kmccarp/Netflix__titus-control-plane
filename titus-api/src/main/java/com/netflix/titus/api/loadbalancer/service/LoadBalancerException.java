@@ -18,8 +18,6 @@ package com.netflix.titus.api.loadbalancer.service;
 
 import org.slf4j.event.Level;
 
-import static java.lang.String.format;
-
 public class LoadBalancerException extends RuntimeException {
 
     public enum ErrorCode {
@@ -40,9 +38,9 @@ public class LoadBalancerException extends RuntimeException {
     public static LoadBalancerException jobMaxLoadBalancers(String jobId, int maxLoadBalancers, int curLoadBalancers) {
         return new Builder(
                 ErrorCode.JobMaxLoadBalancers,
-                format(
-                        "Job %s already has %d load balancers and maximum is %s",
-                        jobId, curLoadBalancers, maxLoadBalancers))
+                        
+                                "Job %s already has %d load balancers and maximum is %s".formatted(
+                                        jobId, curLoadBalancers, maxLoadBalancers))
                 .build();
     }
 

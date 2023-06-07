@@ -117,8 +117,10 @@ public class ServiceJobExt implements JobDescriptor.JobDescriptorExt {
 
     @Override
     public String toString() {
-        return "ServiceJobExt{" +
-                "capacity=" + capacity +
+        return """
+                ServiceJobExt{\
+                capacity=\
+                """ + capacity +
                 ", enabled=" + enabled +
                 ", retryPolicy=" + retryPolicy +
                 ", serviceJobProcesses=" + serviceJobProcesses +

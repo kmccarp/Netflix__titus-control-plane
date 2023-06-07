@@ -17,7 +17,6 @@
 package com.netflix.titus.runtime.clustermembership.endpoint.rest;
 
 import java.io.OutputStream;
-import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,6 +55,6 @@ public class SpringLeaderServerInterceptor extends HandlerInterceptorAdapter {
     }
 
     public static SpringLeaderServerInterceptor clusterMembershipAllowed(LeaderActivationStatus leaderActivationStatus) {
-        return new SpringLeaderServerInterceptor(leaderActivationStatus, Collections.singletonList("/api/v3/clustermembership"));
+        return new SpringLeaderServerInterceptor(leaderActivationStatus, List.of("/api/v3/clustermembership"));
     }
 }

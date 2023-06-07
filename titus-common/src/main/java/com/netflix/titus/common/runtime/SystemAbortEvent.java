@@ -88,8 +88,10 @@ public class SystemAbortEvent {
 
     @Override
     public String toString() {
-        return "SystemAbortEvent{" +
-                "failureId='" + failureId + '\'' +
+        return """
+                SystemAbortEvent{\
+                failureId='\
+                """ + failureId + '\'' +
                 ", failureType=" + failureType +
                 ", reason='" + reason + '\'' +
                 ", timestamp=" + timestamp +

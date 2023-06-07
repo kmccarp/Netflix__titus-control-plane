@@ -75,8 +75,10 @@ public class ContainerHealthStatus {
 
     @Override
     public String toString() {
-        return "ContainerHealthStatus{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                ContainerHealthStatus{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", state=" + state +
                 ", reason='" + reason + '\'' +
                 ", timestamp=" + timestamp +

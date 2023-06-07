@@ -18,7 +18,6 @@ package com.netflix.titus.cli;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.netflix.titus.api.model.callmetadata.CallMetadata;
@@ -82,8 +81,7 @@ public class CommandContext {
     public synchronized ManagedChannel createChannel() {
         ManagedChannelBuilder channelBuilder = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext();
-        if (channelBuilder instanceof NettyChannelBuilder) {
-            NettyChannelBuilder nettyChannelBuilder = (NettyChannelBuilder) channelBuilder;
+        if (channelBuilder instanceof NettyChannelBuilder nettyChannelBuilder) {
             nettyChannelBuilder.maxInboundMetadataSize(128 * 1024);
         }
         ManagedChannel channel = channelBuilder.build();
@@ -94,7 +92,7 @@ public class CommandContext {
 
     public CallMetadata getCallMetadata(String reason) {
         return CallMetadata.newBuilder()
-                .withCallers(Collections.singletonList(Caller.newBuilder().withId("cli").build()))
+                .withCallers(List.of(Caller.newBuilder().withId("cli").build()))
                 .withCallReason(reason)
                 .build();
     }

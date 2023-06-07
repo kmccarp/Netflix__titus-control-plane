@@ -68,8 +68,10 @@ public abstract class PodEvent {
 
     @Override
     public String toString() {
-        return "PodEvent{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                PodEvent{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", sequenceNumber=" + sequenceNumber +
                 ", pod=" + F8KubeObjectFormatter.formatPodEssentials(pod) +
                 '}';

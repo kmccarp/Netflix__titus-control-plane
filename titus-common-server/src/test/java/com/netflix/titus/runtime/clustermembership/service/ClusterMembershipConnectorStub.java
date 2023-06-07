@@ -17,6 +17,7 @@
 package com.netflix.titus.runtime.clustermembership.service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -127,7 +128,7 @@ class ClusterMembershipConnectorStub implements ClusterMembershipConnector {
     public Flux<ClusterMembershipEvent> membershipChangeEvents() {
         return eventProcessor.asFlux().transformDeferred(ReactorExt.head(() -> {
             ClusterMembershipSnapshotEvent snapshot = ClusterMembershipEvent.snapshotEvent(Collections.emptyList(), localLeadershipRevision, Optional.empty());
-            return Collections.singletonList(snapshot);
+            return List.of(snapshot);
         }));
     }
 

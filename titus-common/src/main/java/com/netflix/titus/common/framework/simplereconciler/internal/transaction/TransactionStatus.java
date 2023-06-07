@@ -104,20 +104,26 @@ public class TransactionStatus<DATA> {
         switch (state) {
             case ResultReady:
             case Completed:
-                return "TransactionStatus{" +
-                        "state=" + state +
+                return """
+                        TransactionStatus{\
+                        state=\
+                        """ + state +
                         ", result=" + result +
                         '}';
             case Failed:
-                return "TransactionStatus{" +
-                        "state=" + state +
+                return """
+                        TransactionStatus{\
+                        state=\
+                        """ + state +
                         ", error=" + error +
                         '}';
             case Started:
             case Cancelled:
             default:
-                return "TransactionStatus{" +
-                        "state=" + state +
+                return """
+                        TransactionStatus{\
+                        state=\
+                        """ + state +
                         '}';
         }
     }

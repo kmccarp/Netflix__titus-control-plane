@@ -93,8 +93,7 @@ public class SpringSpectatorInterceptor extends HandlerInterceptorAdapter {
         if (authentication == null) {
             return "anonymous";
         }
-        if (authentication instanceof CallMetadataAuthentication) {
-            CallMetadataAuthentication cma = (CallMetadataAuthentication) authentication;
+        if (authentication instanceof CallMetadataAuthentication cma) {
             return cma.getCallMetadata().getCallers().get(0).getId();
         }
         return authentication.getName();

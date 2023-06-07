@@ -78,6 +78,6 @@ public class ValueRangeCounter {
             return level -> Long.toString(level);
         }
         int digitCount = (int) Math.floor(Math.log10(maxValue)) + 1;
-        return value -> String.format("%0" + digitCount + "d", value);
+        return value -> ("%0" + digitCount + "d").formatted(value);
     }
 }

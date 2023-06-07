@@ -86,8 +86,10 @@ public class Capacity {
 
     @Override
     public String toString() {
-        return "Capacity{" +
-                "min=" + min +
+        return """
+                Capacity{\
+                min=\
+                """ + min +
                 ", desired=" + desired +
                 ", max=" + max +
                 '}';

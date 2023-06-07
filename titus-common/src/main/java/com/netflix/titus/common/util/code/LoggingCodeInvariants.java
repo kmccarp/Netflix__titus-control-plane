@@ -77,7 +77,7 @@ public class LoggingCodeInvariants extends CodeInvariants {
 
         try {
             if (logger.isWarnEnabled()) {
-                logger.warn(String.format(message, args));
+                logger.warn(message.formatted(args));
             }
         } catch (Exception e) {
             String errorMessage = message + " (" + e.getMessage() + ')';
@@ -114,7 +114,7 @@ public class LoggingCodeInvariants extends CodeInvariants {
         }
 
         if (logger.isWarnEnabled()) {
-            logger.warn(String.format(message, args));
+            logger.warn(message.formatted(args));
         }
 
         return this;

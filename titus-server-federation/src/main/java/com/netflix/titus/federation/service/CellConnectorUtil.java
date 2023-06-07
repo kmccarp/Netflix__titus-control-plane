@@ -54,7 +54,7 @@ final class CellConnectorUtil {
             Function<ManagedChannel, STUB> stubFactory,
             BiConsumer<STUB, StreamObserver<RespT>> fnCall) {
         Optional<ManagedChannel> channel = connector.getChannelForCell(cell);
-        if (!channel.isPresent()) {
+        if (channel.isEmpty()) {
             return Observable.error(TitusServiceException.invalidArgument("Invalid Cell " + cell));
         }
         STUB targetClient = stubFactory.apply(channel.get());

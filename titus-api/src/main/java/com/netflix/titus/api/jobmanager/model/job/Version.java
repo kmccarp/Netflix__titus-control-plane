@@ -54,8 +54,10 @@ public class Version {
 
     @Override
     public String toString() {
-        return "Version{" +
-                "timestamp=" + timestamp +
+        return """
+                Version{\
+                timestamp=\
+                """ + timestamp +
                 '}';
     }
 

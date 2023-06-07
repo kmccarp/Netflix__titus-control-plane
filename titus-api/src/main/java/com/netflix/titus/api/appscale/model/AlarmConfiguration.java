@@ -110,8 +110,10 @@ public class AlarmConfiguration {
 
     @Override
     public String toString() {
-        return "AlarmConfiguration{" +
-                "name='" + name + '\'' +
+        return """
+                AlarmConfiguration{\
+                name='\
+                """ + name + '\'' +
                 ", region='" + region + '\'' +
                 ", actionsEnabled=" + actionsEnabled +
                 ", comparisonOperator=" + comparisonOperator +

@@ -294,7 +294,7 @@ public class CassandraJobStore implements JobStore {
                             }
                         }
 
-                        if (!fitBadDataInjection.isPresent()) {
+                        if (fitBadDataInjection.isEmpty()) {
                             return Either.ofValue(job);
                         }
 
@@ -463,7 +463,7 @@ public class CassandraJobStore implements JobStore {
                     try {
                         task = deserializeTask(effectiveValue);
 
-                        if (!fitBadDataInjection.isPresent()) {
+                        if (fitBadDataInjection.isEmpty()) {
                             tasks.add(Either.ofValue(task));
                         } else {
                             Task effectiveTask = fitBadDataInjection.get().afterImmediate(JobStoreFitAction.ErrorKind.CorruptedTaskRecords.name(), task);

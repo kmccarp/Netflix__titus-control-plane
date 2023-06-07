@@ -16,7 +16,6 @@
 
 package com.netflix.titus.gateway.service.v3.internal;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,10 +52,10 @@ class JobFeatureComplianceChecks {
     @VisibleForTesting
     static final String DISRUPTION_BUDGET_FEATURE = "disruptionBudget";
 
-    private static final Map<String, String> NO_ACCOUNT_ID_AND_SUBNETS_CONTAINER_ATTRIBUTES_CONTEXT = Collections.singletonMap("noContainerAccountIdAndSubnets", "Container accountId and/or subnet container attributes are empty/inconsistent");
-    private static final Map<String, String> NO_IAM_ROLE_CONTEXT = Collections.singletonMap("noIamRole", "IAM role not set");
-    private static final Map<String, String> NO_SECURITY_GROUPS_CONTEXT = Collections.singletonMap("noSecurityGroups", "Security groups not set");
-    private static final Map<String, String> ENTRY_POINT_WITH_SPACES_CONTEXT = Collections.singletonMap("entryPointBinaryWithSpaces", "Entry point contains spaces");
+    private static final Map<String, String> NO_ACCOUNT_ID_AND_SUBNETS_CONTAINER_ATTRIBUTES_CONTEXT = Map.of("noContainerAccountIdAndSubnets", "Container accountId and/or subnet container attributes are empty/inconsistent");
+    private static final Map<String, String> NO_IAM_ROLE_CONTEXT = Map.of("noIamRole", "IAM role not set");
+    private static final Map<String, String> NO_SECURITY_GROUPS_CONTEXT = Map.of("noSecurityGroups", "Security groups not set");
+    private static final Map<String, String> ENTRY_POINT_WITH_SPACES_CONTEXT = Map.of("entryPointBinaryWithSpaces", "Entry point contains spaces");
 
     private static final Predicate<String> CONTAINS_SPACES = Pattern.compile(".*\\s+.*").asPredicate();
 
@@ -191,8 +190,8 @@ class JobFeatureComplianceChecks {
             return Optional.of(NonComplianceList.of(
                     MIN_DISK_SIZE_STRICT_VALIDATION_FEATURE,
                     jobDescriptor,
-                    Collections.singletonMap("diskSizeLessThanMin", String.format("Minimum disk size is %sMB, but is set %sMB", minDiskSize, containerResources.getDiskMB())),
-                    String.format("Job descriptor must declare disk size that is no less than %sMB", minDiskSize)
+                    Map.of("diskSizeLessThanMin", "Minimum disk size is %sMB, but is set %sMB".formatted(minDiskSize, containerResources.getDiskMB())),
+                    "Job descriptor must declare disk size that is no less than %sMB".formatted(minDiskSize)
             ));
         };
     }
@@ -217,7 +216,7 @@ class JobFeatureComplianceChecks {
             return Optional.of(NonComplianceList.of(
                     DISRUPTION_BUDGET_FEATURE,
                     jobDescriptor,
-                    Collections.singletonMap("legacyMigration", legacyMigrationPolicyInfo),
+                    Map.of("legacyMigration", legacyMigrationPolicyInfo),
                     "Job descriptor without disruption budget"
             ));
         };
@@ -227,7 +226,7 @@ class JobFeatureComplianceChecks {
         try {
             return (migrationPolicy == null ? "none" : ObjectMappers.storeMapper().writeValueAsString(migrationPolicy));
         } catch (Exception e) {
-            return String.format("<%s>", e.getMessage());
+            return "<%s>".formatted(e.getMessage());
         }
     }
 }

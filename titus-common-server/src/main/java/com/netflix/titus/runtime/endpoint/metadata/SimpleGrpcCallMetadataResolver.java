@@ -16,7 +16,7 @@
 
 package com.netflix.titus.runtime.endpoint.metadata;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import javax.inject.Singleton;
 
@@ -59,8 +59,8 @@ public class SimpleGrpcCallMetadataResolver implements CallMetadataResolver {
         if (callerId == null) {
             callMetadataBuilder
                     .withCallerId(directCaller.getId())
-                    .withCallPath(Collections.singletonList(directCaller.getId()))
-                    .withCallers(Collections.singletonList(directCaller));
+                    .withCallPath(List.of(directCaller.getId()))
+                    .withCallers(List.of(directCaller));
         } else {
             Caller originalCaller = Caller.newBuilder()
                     .withId(callerId)

@@ -182,8 +182,10 @@ public class SystemLogEvent {
 
     @Override
     public String toString() {
-        return "SystemLogEvent{" +
-                "category=" + category +
+        return """
+                SystemLogEvent{\
+                category=\
+                """ + category +
                 ", priority=" + priority +
                 ", component='" + component + '\'' +
                 ", message='" + message + '\'' +

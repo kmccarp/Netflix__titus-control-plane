@@ -219,21 +219,21 @@ public class JobQueryCriteria<TASK_STATE, JOB_TYPE extends Enum<JOB_TYPE>> {
     public boolean isEmpty() {
         return jobIds.isEmpty()
                 && taskIds.isEmpty()
-                && !jobState.isPresent()
+                && jobState.isEmpty()
                 && taskStates.isEmpty()
-                && !owner.isPresent()
+                && owner.isEmpty()
                 && labels.isEmpty()
-                && !imageName.isPresent()
-                && !imageTag.isPresent()
-                && !appName.isPresent()
-                && !capacityGroup.isPresent()
-                && !jobType.isPresent()
-                && !jobGroupDetail.isPresent()
-                && !jobGroupStack.isPresent()
-                && !jobGroupSequence.isPresent()
+                && imageName.isEmpty()
+                && imageTag.isEmpty()
+                && appName.isEmpty()
+                && capacityGroup.isEmpty()
+                && jobType.isEmpty()
+                && jobGroupDetail.isEmpty()
+                && jobGroupStack.isEmpty()
+                && jobGroupSequence.isEmpty()
                 && !needsMigration
-                && !platformSidecar.isPresent()
-                && !platformSidecarChannel.isPresent()
+                && platformSidecar.isEmpty()
+                && platformSidecarChannel.isEmpty()
                 && limit < 1;
     }
 
@@ -277,8 +277,10 @@ public class JobQueryCriteria<TASK_STATE, JOB_TYPE extends Enum<JOB_TYPE>> {
 
     @Override
     public String toString() {
-        return "JobQueryCriteria{" +
-                "jobIds=" + jobIds +
+        return """
+                JobQueryCriteria{\
+                jobIds=\
+                """ + jobIds +
                 ", taskIds=" + taskIds +
                 ", includeArchived=" + includeArchived +
                 ", jobState=" + jobState +

@@ -71,7 +71,7 @@ public class BalancedBucketManager<T> {
      * @param item
      */
     public void addItem(int bucket, T item) {
-        addItems(bucket, Collections.singletonList(item));
+        addItems(bucket, List.of(item));
     }
 
     /**

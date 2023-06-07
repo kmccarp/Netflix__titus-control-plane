@@ -83,8 +83,10 @@ public class TimeWindow {
 
     @Override
     public String toString() {
-        return "TimeWindow{" +
-                "days=" + days +
+        return """
+                TimeWindow{\
+                days=\
+                """ + days +
                 ", hourlyTimeWindows=" + hourlyTimeWindows +
                 ", timeZone='" + timeZone + '\'' +
                 '}';

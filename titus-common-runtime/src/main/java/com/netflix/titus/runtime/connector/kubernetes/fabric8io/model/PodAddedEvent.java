@@ -25,8 +25,10 @@ public class PodAddedEvent extends PodEvent {
 
     @Override
     public String toString() {
-        return "PodAddedEvent{" +
-                "taskId=" + taskId +
+        return """
+                PodAddedEvent{\
+                taskId=\
+                """ + taskId +
                 ", sequenceNumber=" + sequenceNumber +
                 ", pod=" + F8KubeObjectFormatter.formatPodEssentials(pod) +
                 '}';

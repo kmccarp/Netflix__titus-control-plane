@@ -25,7 +25,6 @@ import java.util.function.Function;
 import com.netflix.titus.api.model.EfsMount;
 
 import static com.netflix.titus.common.util.CollectionsExt.first;
-import static java.lang.String.format;
 
 /**
  * {@link EfsMount} cleanup includes:
@@ -37,8 +36,8 @@ import static java.lang.String.format;
 public class EfsMountsSanitizer implements Function<Object, Optional<Object>> {
     @Override
     public Optional<Object> apply(Object oneEfsMountOrCollection) {
-        if (oneEfsMountOrCollection instanceof EfsMount) {
-            return applyEfsMount((EfsMount) oneEfsMountOrCollection);
+        if (oneEfsMountOrCollection instanceof EfsMount mount) {
+            return applyEfsMount(mount);
         }
         if (oneEfsMountOrCollection instanceof Collection) {
             Collection<EfsMount> collection = (Collection<EfsMount>) oneEfsMountOrCollection;
@@ -50,7 +49,7 @@ public class EfsMountsSanitizer implements Function<Object, Optional<Object>> {
             }
         }
         throw new IllegalArgumentException(
-                format("%s can be applied on %s or its collection", EfsMountsSanitizer.class, EfsMount.class)
+                "%s can be applied on %s or its collection".formatted(EfsMountsSanitizer.class, EfsMount.class)
         );
     }
 

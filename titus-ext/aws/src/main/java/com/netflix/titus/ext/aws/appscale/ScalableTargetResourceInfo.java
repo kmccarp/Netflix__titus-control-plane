@@ -98,8 +98,10 @@ public class ScalableTargetResourceInfo {
 
     @Override
     public String toString() {
-        return "ScalableTargetResourceInfo{" +
-                "actualCapacity=" + actualCapacity +
+        return """
+                ScalableTargetResourceInfo{\
+                actualCapacity=\
+                """ + actualCapacity +
                 ", desiredCapacity=" + desiredCapacity +
                 ", dimensionName='" + dimensionName + '\'' +
                 ", resourceName='" + resourceName + '\'' +

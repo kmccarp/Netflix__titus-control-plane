@@ -16,7 +16,7 @@
 
 package com.netflix.titus.common.model.sanitizer;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -28,8 +28,6 @@ import com.netflix.titus.common.model.sanitizer.internal.SpELMessageInterpolator
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.spel.support.ReflectiveMethodResolver;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-
-import static java.util.Collections.singletonMap;
 
 /**
  * Pre-configured JavaBean validators with Titus validation extensions, used by unit tests.
@@ -47,7 +45,7 @@ public final class TestValidator {
     public static Validator testValidator(VerifierMode verifierMode) {
         TestModel.setFit(true);
 
-        Map<String, Object> registeredObjects = singletonMap("env", System.getProperties());
+        Map<String, Object> registeredObjects = Map.of("env", System.getProperties());
 
         Supplier<EvaluationContext> spelContextFactory = () -> {
             StandardEvaluationContext context = new StandardEvaluationContext();
@@ -67,7 +65,7 @@ public final class TestValidator {
         Supplier<EvaluationContext> spelContextFactory = () -> {
             StandardEvaluationContext context = new StandardEvaluationContext();
             context.setBeanResolver((ctx, beanName) -> beanName.equals(alias) ? bean : null);
-            context.setMethodResolvers(Collections.singletonList(new ReflectiveMethodResolver()));
+            context.setMethodResolvers(List.of(new ReflectiveMethodResolver()));
             return context;
         };
 

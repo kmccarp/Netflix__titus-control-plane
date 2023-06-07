@@ -65,8 +65,10 @@ public class ExecutionId {
 
     @Override
     public String toString() {
-        return "Iteration{" +
-                "id=" + id +
+        return """
+                Iteration{\
+                id=\
+                """ + id +
                 ", attempt=" + attempt +
                 ", total=" + total +
                 '}';

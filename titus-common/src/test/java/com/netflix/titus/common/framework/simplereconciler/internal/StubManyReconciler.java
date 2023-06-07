@@ -17,7 +17,6 @@
 package com.netflix.titus.common.framework.simplereconciler.internal;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,9 +107,8 @@ class StubManyReconciler<DATA> implements ManyReconciler<DATA> {
     }
 
     private void emitEvent(SimpleReconcilerEvent.Kind kind, String id, DATA value) {
-        List<SimpleReconcilerEvent<DATA>> events = Collections.singletonList(
-                new SimpleReconcilerEvent<>(kind, id, value, transactionIds.getAndIncrement())
-        );
+        List<SimpleReconcilerEvent<DATA>> events = List.of(
+                new SimpleReconcilerEvent<>(kind, id, value, transactionIds.getAndIncrement()));
         eventsCollector.add(events);
         eventSink.emitNext(events, Sinks.EmitFailureHandler.FAIL_FAST);
     }

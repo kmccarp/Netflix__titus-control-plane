@@ -51,8 +51,10 @@ public class SystemDisruptionBudgetUpdateEvent extends EvictionEvent {
 
     @Override
     public String toString() {
-        return "SystemDisruptionBudgetUpdateEvent{" +
-                "systemDisruptionBudget=" + systemDisruptionBudget +
+        return """
+                SystemDisruptionBudgetUpdateEvent{\
+                systemDisruptionBudget=\
+                """ + systemDisruptionBudget +
                 "} " + super.toString();
     }
 }

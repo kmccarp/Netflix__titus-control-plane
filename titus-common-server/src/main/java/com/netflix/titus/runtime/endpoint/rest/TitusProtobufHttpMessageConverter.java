@@ -17,7 +17,6 @@
 package com.netflix.titus.runtime.endpoint.rest;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -58,7 +57,7 @@ public class TitusProtobufHttpMessageConverter implements HttpMessageConverter<M
 
     @Override
     public List<MediaType> getSupportedMediaTypes() {
-        return Collections.singletonList(MediaType.APPLICATION_JSON);
+        return List.of(MediaType.APPLICATION_JSON);
     }
 
     @Override

@@ -101,8 +101,10 @@ public class ResourceDimension {
 
     @Override
     public String toString() {
-        return "ResourceDimension{" +
-                "cpu=" + cpu +
+        return """
+                ResourceDimension{\
+                cpu=\
+                """ + cpu +
                 ", gpu=" + gpu +
                 ", memoryMB=" + memoryMB +
                 ", diskMB=" + diskMB +

@@ -15,7 +15,6 @@
  */
 package com.netflix.titus.federation.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,8 +46,8 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).build();
         ScalingPolicyResult policyTwoResult = ScalingPolicyResult.newBuilder().setId(policy2).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
-        CellWithPolicies cellTwoService = new CellWithPolicies(Collections.singletonList(policyTwoResult));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
+        CellWithPolicies cellTwoService = new CellWithPolicies(List.of(policyTwoResult));
 
         cellOne.getServiceRegistry().addService(cellOneService);
         cellTwo.getServiceRegistry().addService(cellTwoService);
@@ -66,7 +65,7 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyID policy1 = ScalingPolicyID.newBuilder().setId(POLICY_1).build();
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
         CellWithFailingAutoscalingService badCell = new CellWithFailingAutoscalingService();
 
         cellOne.getServiceRegistry().addService(cellOneService);
@@ -88,8 +87,8 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).setJobId(JOB_1).build();
         ScalingPolicyResult policyTwoResult = ScalingPolicyResult.newBuilder().setId(policy2).setJobId(JOB_2).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
-        CellWithPolicies cellTwoService = new CellWithPolicies(Collections.singletonList(policyTwoResult));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
+        CellWithPolicies cellTwoService = new CellWithPolicies(List.of(policyTwoResult));
 
         cellOne.getServiceRegistry().addService(cellOneService);
         cellTwo.getServiceRegistry().addService(cellTwoService);
@@ -122,11 +121,11 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).setJobId(JOB_1).build();
         ScalingPolicyResult policyTwoResult = ScalingPolicyResult.newBuilder().setId(policy2).setJobId(JOB_2).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
-        CellWithPolicies cellTwoService = new CellWithPolicies(Collections.singletonList(policyTwoResult));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
+        CellWithPolicies cellTwoService = new CellWithPolicies(List.of(policyTwoResult));
 
-        CellWithJobIds cellOneJobsService = new CellWithJobIds(Collections.singletonList(JOB_1));
-        CellWithJobIds cellTwoJobsService = new CellWithJobIds(Collections.singletonList(JOB_2));
+        CellWithJobIds cellOneJobsService = new CellWithJobIds(List.of(JOB_1));
+        CellWithJobIds cellTwoJobsService = new CellWithJobIds(List.of(JOB_2));
         cellOne.getServiceRegistry().addService(cellOneService);
         cellOne.getServiceRegistry().addService(cellOneJobsService);
         cellTwo.getServiceRegistry().addService(cellTwoService);
@@ -182,10 +181,10 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).setJobId(JOB_1).build();
         ScalingPolicyResult policyTwoResult = ScalingPolicyResult.newBuilder().setId(policy2).setJobId(JOB_2).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
-        CellWithPolicies cellTwoService = new CellWithPolicies(Collections.singletonList(policyTwoResult));
-        CellWithJobIds cellOneJobsService = new CellWithJobIds(Collections.singletonList(JOB_1));
-        CellWithJobIds cellTwoJobsService = new CellWithJobIds(Collections.singletonList(JOB_2));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
+        CellWithPolicies cellTwoService = new CellWithPolicies(List.of(policyTwoResult));
+        CellWithJobIds cellOneJobsService = new CellWithJobIds(List.of(JOB_1));
+        CellWithJobIds cellTwoJobsService = new CellWithJobIds(List.of(JOB_2));
 
         cellOne.getServiceRegistry().addService(cellOneService);
         cellTwo.getServiceRegistry().addService(cellOneJobsService);
@@ -235,8 +234,8 @@ public class AggregatingAutoScalingServiceTest extends AggregatingAutoScalingTes
         ScalingPolicyResult policyOneResult = ScalingPolicyResult.newBuilder().setId(policy1).build();
         ScalingPolicyResult policyTwoResult = ScalingPolicyResult.newBuilder().setId(policy2).build();
 
-        CellWithPolicies cellOneService = new CellWithPolicies(Collections.singletonList(policyOneResult));
-        CellWithPolicies cellTwoService = new CellWithPolicies(Collections.singletonList(policyTwoResult));
+        CellWithPolicies cellOneService = new CellWithPolicies(List.of(policyOneResult));
+        CellWithPolicies cellTwoService = new CellWithPolicies(List.of(policyTwoResult));
 
         cellOne.getServiceRegistry().addService(cellOneService);
         cellTwo.getServiceRegistry().addService(cellTwoService);

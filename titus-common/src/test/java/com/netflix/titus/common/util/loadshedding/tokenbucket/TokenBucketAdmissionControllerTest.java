@@ -18,6 +18,7 @@ package com.netflix.titus.common.util.loadshedding.tokenbucket;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import com.netflix.titus.common.runtime.TitusRuntime;
 import com.netflix.titus.common.runtime.TitusRuntimes;
@@ -38,7 +39,7 @@ public class TokenBucketAdmissionControllerTest {
     @Test
     public void testSharedBucket() {
         TokenBucketAdmissionController controller = new TokenBucketAdmissionController(
-                Collections.singletonList(SHARED_ANY_CONFIGURATION),
+                List.of(SHARED_ANY_CONFIGURATION),
                 AdmissionControllers.noBackoff(),
                 true,
                 titusRuntime
@@ -68,7 +69,7 @@ public class TokenBucketAdmissionControllerTest {
     @Test
     public void testNotSharedBucket() {
         TokenBucketAdmissionController controller = new TokenBucketAdmissionController(
-                Collections.singletonList(NOT_SHARED_CONFIGURATION),
+                List.of(NOT_SHARED_CONFIGURATION),
                 AdmissionControllers.noBackoff(),
                 true,
                 titusRuntime

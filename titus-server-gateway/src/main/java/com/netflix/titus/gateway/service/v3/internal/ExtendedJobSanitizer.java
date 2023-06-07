@@ -102,8 +102,8 @@ class ExtendedJobSanitizer implements EntitySanitizer {
     public <T> Optional<T> sanitize(T entity) {
         T sanitized = entitySanitizer.sanitize(entity).orElse(entity);
 
-        if (sanitized instanceof com.netflix.titus.api.jobmanager.model.job.JobDescriptor) {
-            sanitized = (T) sanitizeJobDescriptor((JobDescriptor) sanitized);
+        if (sanitized instanceof com.netflix.titus.api.jobmanager.model.job.JobDescriptor descriptor) {
+            sanitized = (T) sanitizeJobDescriptor(descriptor);
         }
 
         return entity == sanitized ? Optional.empty() : Optional.of(sanitized);

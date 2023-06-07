@@ -81,8 +81,10 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Schedule{" +
-                "id='" + id + '\'' +
+        return """
+                Schedule{\
+                id='\
+                """ + id + '\'' +
                 ", descriptor=" + descriptor +
                 ", currentAction=" + currentAction +
                 ", completedActions=" + completedActions +

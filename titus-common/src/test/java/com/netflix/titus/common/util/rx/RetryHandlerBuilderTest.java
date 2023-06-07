@@ -179,8 +179,8 @@ public class RetryHandlerBuilderTest {
                 pos.incrementAndGet();
                 Object item = items[i];
 
-                if (item instanceof Throwable) {
-                    sink.error((Throwable) item);
+                if (item instanceof Throwable throwable) {
+                    sink.error(throwable);
                     return;
                 }
                 sink.next((String) item);
@@ -197,8 +197,8 @@ public class RetryHandlerBuilderTest {
                 pos.incrementAndGet();
                 Object item = items[i];
 
-                if (item instanceof Throwable) {
-                    subscriber.onError((Throwable) item);
+                if (item instanceof Throwable throwable) {
+                    subscriber.onError(throwable);
                     return;
                 }
                 subscriber.onNext((String) item);

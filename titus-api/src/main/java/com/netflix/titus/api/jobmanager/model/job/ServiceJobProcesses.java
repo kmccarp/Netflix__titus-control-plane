@@ -61,8 +61,10 @@ public class ServiceJobProcesses {
 
     @Override
     public String toString() {
-        return "ServiceJobProcesses{" +
-                "disableIncreaseDesired=" + disableIncreaseDesired +
+        return """
+                ServiceJobProcesses{\
+                disableIncreaseDesired=\
+                """ + disableIncreaseDesired +
                 ", disableDecreaseDesired=" + disableDecreaseDesired +
                 '}';
     }

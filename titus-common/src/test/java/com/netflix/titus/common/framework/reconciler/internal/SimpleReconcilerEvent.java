@@ -64,8 +64,10 @@ public class SimpleReconcilerEvent {
 
     @Override
     public String toString() {
-        return "SimpleReconcilerEvent{" +
-                "timestamp=" + timestamp +
+        return """
+                SimpleReconcilerEvent{\
+                timestamp=\
+                """ + timestamp +
                 ", eventType=" + eventType +
                 ", message='" + message + '\'' +
                 error.map(e -> ", error=" + e.getMessage() + '\'').orElse("") +

@@ -16,7 +16,7 @@
 
 package com.netflix.titus.ext.zookeeper.supervisor;
 
-import java.util.Collections;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.PreDestroy;
@@ -145,7 +145,7 @@ public class ZookeeperLeaderElector implements LeaderElector {
                         .withCategory(SystemLogEvent.Category.Transient)
                         .withPriority(SystemLogEvent.Priority.Fatal)
                         .withMessage(errorMessage)
-                        .withContext(Collections.singletonMap("error", e.getMessage()))
+                        .withContext(Map.of("error", e.getMessage()))
                         .build()
                 );
 

@@ -17,7 +17,6 @@
 package com.netflix.titus.runtime.connector.jobmanager.snapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -148,7 +147,7 @@ public class JobSnapshotTest {
 
         Task movedTask = tasks1.get(0).toBuilder()
                 .withJobId(job2.getId())
-                .withTaskContext(Collections.singletonMap(TaskAttributes.TASK_ATTRIBUTES_MOVED_FROM_JOB, job1.getId()))
+                .withTaskContext(Map.of(TaskAttributes.TASK_ATTRIBUTES_MOVED_FROM_JOB, job1.getId()))
                 .build();
         JobSnapshot updated = initial.updateTask(movedTask, true).orElse(null);
         assertThat(updated).isNotNull();

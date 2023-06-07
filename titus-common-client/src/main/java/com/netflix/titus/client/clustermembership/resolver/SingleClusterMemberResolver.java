@@ -107,7 +107,7 @@ public class SingleClusterMemberResolver implements DirectClusterMemberResolver 
                 .flatMap(signal -> {
                     if (signal.getType() == SignalType.ON_COMPLETE) {
                         logger.info("[{}] Unexpected end of stream. Converting to error to force retry...", name);
-                        return Mono.error(new IllegalStateException(String.format("[%s] Unexpected end of stream", name)));
+                        return Mono.error(new IllegalStateException("[%s] Unexpected end of stream".formatted(name)));
                     }
                     if (signal.getType() == SignalType.ON_ERROR) {
                         Throwable error = signal.getThrowable();
@@ -158,7 +158,7 @@ public class SingleClusterMemberResolver implements DirectClusterMemberResolver 
 
     private Optional<String> checkSnapshot(ClusterMembershipEvent.Snapshot snapshot) {
         if (CollectionsExt.isNullOrEmpty(snapshot.getRevisionsList())) {
-            return Optional.of(String.format("[%s] Empty cluster membership list", name));
+            return Optional.of("[%s] Empty cluster membership list".formatted(name));
         }
 
         ClusterMember member = toCoreClusterMember(snapshot.getRevisionsList().get(0).getCurrent());
@@ -220,7 +220,7 @@ public class SingleClusterMemberResolver implements DirectClusterMemberResolver 
         }
         this.lastSnapshot = newSnapshot;
 
-        if (!connectedToMemberId.isPresent()) {
+        if (connectedToMemberId.isEmpty()) {
             newSnapshot.getMemberRevisions().values().stream()
                     .filter(m -> hasIpAddress(m.getCurrent(), address.getIpAddress()))
                     .findFirst()

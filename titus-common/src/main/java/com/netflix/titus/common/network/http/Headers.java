@@ -17,7 +17,6 @@
 package com.netflix.titus.common.network.http;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -55,7 +54,7 @@ public class Headers {
     }
 
     public void set(String name, String value) {
-        set(name, Collections.singletonList(value));
+        set(name, List.of(value));
     }
 
     public void set(String name, List values) {

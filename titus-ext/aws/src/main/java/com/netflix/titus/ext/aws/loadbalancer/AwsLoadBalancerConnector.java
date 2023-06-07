@@ -154,7 +154,7 @@ public class AwsLoadBalancerConnector implements LoadBalancerConnector {
                     if (targetGroup.getTargetType().equals(AWS_IP_TARGET_TYPE)) {
                         return Observable.empty();
                     }
-                    return Observable.error(CloudConnectorException.invalidArgument(String.format("Target group %s is NOT of required type %s", targetGroup.getTargetGroupArn(), AWS_IP_TARGET_TYPE)));
+                    return Observable.error(CloudConnectorException.invalidArgument("Target group %s is NOT of required type %s".formatted(targetGroup.getTargetGroupArn(), AWS_IP_TARGET_TYPE)));
                 })
                 .toCompletable();
     }

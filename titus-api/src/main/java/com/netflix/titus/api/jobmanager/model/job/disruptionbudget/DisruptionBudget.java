@@ -94,8 +94,10 @@ public class DisruptionBudget {
 
     @Override
     public String toString() {
-        return "DisruptionBudget{" +
-                "disruptionBudgetPolicy=" + disruptionBudgetPolicy +
+        return """
+                DisruptionBudget{\
+                disruptionBudgetPolicy=\
+                """ + disruptionBudgetPolicy +
                 ", disruptionBudgetRate=" + disruptionBudgetRate +
                 ", timeWindows=" + timeWindows +
                 ", containerHealthProviders=" + containerHealthProviders +

@@ -111,8 +111,8 @@ public class ReactorRetryHandlerBuilderTest {
                 pos.incrementAndGet();
                 Object item = items[i];
 
-                if (item instanceof Throwable) {
-                    emitter.error((Throwable) item);
+                if (item instanceof Throwable throwable) {
+                    emitter.error(throwable);
                     return;
                 }
                 emitter.next((String) item);

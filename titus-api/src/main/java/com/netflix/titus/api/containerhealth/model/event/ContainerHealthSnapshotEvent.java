@@ -52,8 +52,10 @@ public class ContainerHealthSnapshotEvent extends ContainerHealthEvent {
 
     @Override
     public String toString() {
-        return "ContainerHealthSnapshotEvent{" +
-                "snapshot=" + snapshot +
+        return """
+                ContainerHealthSnapshotEvent{\
+                snapshot=\
+                """ + snapshot +
                 '}';
     }
 }

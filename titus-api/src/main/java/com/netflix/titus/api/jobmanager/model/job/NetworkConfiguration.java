@@ -55,8 +55,10 @@ public class NetworkConfiguration {
 
     @Override
     public String toString() {
-        return "NetworkConfiguration{" +
-                "networkMode=" + networkMode +
+        return """
+                NetworkConfiguration{\
+                networkMode=\
+                """ + networkMode +
                 '}';
     }
 

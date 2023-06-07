@@ -18,7 +18,6 @@ package com.netflix.titus.common.model.sanitizer.internal;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public class DefaultEntitySanitizer implements EntitySanitizer {
             StandardEvaluationContext context = new StandardEvaluationContext();
             registeredFunctions.forEach(context::registerFunction);
             context.setBeanResolver((ctx, beanName) -> registeredBeans.get(beanName));
-            context.setMethodResolvers(Collections.singletonList(new ReflectiveMethodResolver()));
+            context.setMethodResolvers(List.of(new ReflectiveMethodResolver()));
             return context;
         };
 

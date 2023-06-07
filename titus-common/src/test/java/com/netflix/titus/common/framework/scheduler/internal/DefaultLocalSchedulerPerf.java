@@ -73,7 +73,7 @@ public class DefaultLocalSchedulerPerf {
     }
 
     private void printReport() {
-        System.out.println(String.format("active=%8s, finished=%8s, successes=%8s, expectedFailures=%8s, failureEvents=%8s, removedEvents=%8s, tooFastSchedules=%8s, delayedSchedules=%8s",
+        System.out.println("active=%8s, finished=%8s, successes=%8s, expectedFailures=%8s, failureEvents=%8s, removedEvents=%8s, tooFastSchedules=%8s, delayedSchedules=%8s".formatted(
                 activeReferences.size(), localScheduler.getArchivedSchedules().size(), successes.get(), expectedFailures.get(),
                 eventFailures.get(), removedEvents.get(), tooFastSchedules.get(), delayedSchedules.get()
         ));
@@ -165,8 +165,7 @@ public class DefaultLocalSchedulerPerf {
         localScheduler.events()
                 .filter(e -> e.getSchedule().getId().equals(reference.getSchedule().getId()))
                 .subscribe(event -> {
-                    if (event instanceof ScheduleUpdateEvent) {
-                        ScheduleUpdateEvent updateEvent = (ScheduleUpdateEvent) event;
+                    if (event instanceof ScheduleUpdateEvent updateEvent) {
                         ScheduledAction action = updateEvent.getSchedule().getCurrentAction();
                         if (action.getStatus().getState() == SchedulingStatus.SchedulingState.Failed) {
                             eventFailures.incrementAndGet();

@@ -63,8 +63,10 @@ public class RatePercentagePerIntervalDisruptionBudgetRate extends DisruptionBud
 
     @Override
     public String toString() {
-        return "RatePercentagePerIntervalDisruptionBudgetRate{" +
-                "intervalMs=" + intervalMs +
+        return """
+                RatePercentagePerIntervalDisruptionBudgetRate{\
+                intervalMs=\
+                """ + intervalMs +
                 ", percentageLimitPerInterval=" + percentageLimitPerInterval +
                 '}';
     }

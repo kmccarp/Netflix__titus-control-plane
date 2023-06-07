@@ -84,7 +84,7 @@ public class SpELClassValidatorTest {
 
     public Map<String, String> check(String name) {
         if (!name.startsWith("my")) {
-            return Collections.singletonMap("name", "Should start with prefix 'my'");
+            return Map.of("name", "Should start with prefix 'my'");
         }
         return Collections.emptyMap();
     }

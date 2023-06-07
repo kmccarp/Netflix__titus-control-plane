@@ -66,7 +66,7 @@ public class ExtendedJobSanitizerTest {
     private static final DisruptionBudget SAMPLE_DISRUPTION_BUDGET = DisruptionBudgetGenerator.budget(
             DisruptionBudgetGenerator.percentageOfHealthyPolicy(80),
             DisruptionBudgetGenerator.unlimitedRate(),
-            Collections.singletonList(DisruptionBudgetGenerator.officeHourTimeWindow())
+            List.of(DisruptionBudgetGenerator.officeHourTimeWindow())
     );
 
     private final TitusRuntime titusRuntime = TitusRuntimes.internal();
@@ -231,7 +231,7 @@ public class ExtendedJobSanitizerTest {
     public void testFlatStringEntryPoint() {
         JobDescriptor<?> jobDescriptor = newBatchJob()
                 .map(jd -> jd.but(d -> d.getContainer().toBuilder()
-                        .withEntryPoint(Collections.singletonList("/bin/sh -c \"sleep 10\""))
+                        .withEntryPoint(List.of("/bin/sh -c \"sleep 10\""))
                         .withCommand(null)))
                 .getValue();
 
@@ -262,7 +262,7 @@ public class ExtendedJobSanitizerTest {
 
         JobDescriptor<?> jobDescriptor = newBatchJob()
                 .map(jd -> jd.but(d -> d.getContainer().toBuilder()
-                        .withEntryPoint(Collections.singletonList("a binary with spaces"))
+                        .withEntryPoint(List.of("a binary with spaces"))
                         .withCommand(asList("some", "arguments"))))
                 .getValue();
 
@@ -369,7 +369,7 @@ public class ExtendedJobSanitizerTest {
 
     private JobDescriptor<BatchJobExt> newJobDescriptorWithEnvironment(String key, String value) {
         return newBatchJob()
-                .map(jd -> jd.but(d -> d.getContainer().but(c -> c.toBuilder().withEnv(Collections.singletonMap(key, value)).build())))
+                .map(jd -> jd.but(d -> d.getContainer().but(c -> c.toBuilder().withEnv(Map.of(key, value)).build())))
                 .getValue();
     }
 

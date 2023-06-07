@@ -94,8 +94,10 @@ public class SupplementaryServiceLocationConfiguration {
 
         @Override
         public String toString() {
-            return "ServiceAddress{" +
-                    "host='" + host + '\'' +
+            return """
+                    ServiceAddress{\
+                    host='\
+                    """ + host + '\'' +
                     ", grpcPort=" + grpcPort +
                     ", httpPort=" + httpPort +
                     '}';

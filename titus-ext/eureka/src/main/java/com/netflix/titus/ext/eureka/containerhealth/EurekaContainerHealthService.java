@@ -186,23 +186,21 @@ public class EurekaContainerHealthService implements ContainerHealthService {
     }
 
     private Flux<ContainerHealthEvent> handleJobManagerOrEurekaStatusUpdate(Object event, ConcurrentMap<String, ContainerHealthEvent> state) {
-        if (event instanceof JobManagerEvent) {
-            return handleJobManagerEvent((JobManagerEvent) event, state);
+        if (event instanceof JobManagerEvent managerEvent) {
+            return handleJobManagerEvent(managerEvent, state);
         }
-        if (event instanceof EurekaEvent) {
-            return handleEurekaEvent((EurekaEvent) event, state);
+        if (event instanceof EurekaEvent eurekaEvent) {
+            return handleEurekaEvent(eurekaEvent, state);
         }
         return Flux.empty();
     }
 
     private Flux<ContainerHealthEvent> handleJobManagerEvent(JobManagerEvent event, ConcurrentMap<String, ContainerHealthEvent> state) {
-        if (event instanceof JobUpdateEvent) {
-            JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) event;
+        if (event instanceof JobUpdateEvent jobUpdateEvent) {
             return jobUpdateEvent.getPrevious()
                     .map(previous -> handleJobEnabledStatusUpdate(jobUpdateEvent.getCurrent(), previous, state))
                     .orElse(Flux.empty());
-        } else if (event instanceof TaskUpdateEvent) {
-            TaskUpdateEvent taskEvent = (TaskUpdateEvent) event;
+        } else if (event instanceof TaskUpdateEvent taskEvent) {
             return handleTaskStateUpdate(taskEvent.getCurrentJob(), taskEvent.getCurrentTask(), state).map(Flux::just).orElse(Flux.empty());
         }
         return Flux.empty();

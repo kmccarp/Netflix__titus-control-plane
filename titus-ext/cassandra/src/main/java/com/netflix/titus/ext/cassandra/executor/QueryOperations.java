@@ -163,7 +163,7 @@ class QueryOperations {
                     List<Pair<Object, Object>> pageItems = new ArrayList<>(remaining);
                     for (Row row : rs) {
                         Object key = row.getObject(keyName);
-                        if (!type.isPresent()) {
+                        if (type.isEmpty()) {
                             String value = row.getString(valueName);
                             pageItems.add(Pair.of(key, value));
                         } else {

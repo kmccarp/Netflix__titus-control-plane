@@ -42,8 +42,10 @@ class UnschedulableJob {
 
     @Override
     public String toString() {
-        return "UnschedulableJob{" +
-                "jobId='" + jobId + '\'' +
+        return """
+                UnschedulableJob{\
+                jobId='\
+                """ + jobId + '\'' +
                 ", reason='" + reason + '\'' +
                 ", failures='" + failures + '\'' +
                 '}';

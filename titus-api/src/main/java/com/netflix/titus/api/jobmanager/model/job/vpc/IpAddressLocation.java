@@ -83,8 +83,10 @@ public class IpAddressLocation {
 
     @Override
     public String toString() {
-        return "IpAddressLocation{" +
-                "region='" + region + '\'' +
+        return """
+                IpAddressLocation{\
+                region='\
+                """ + region + '\'' +
                 ", availabilityZone='" + availabilityZone + '\'' +
                 ", subnetId='" + subnetId + '\'' +
                 '}';

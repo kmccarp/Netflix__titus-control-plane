@@ -68,8 +68,10 @@ public class ContainerHealthProvider {
 
     @Override
     public String toString() {
-        return "ContainerHealthProvider{" +
-                "name='" + name + '\'' +
+        return """
+                ContainerHealthProvider{\
+                name='\
+                """ + name + '\'' +
                 ", attributes=" + attributes +
                 '}';
     }

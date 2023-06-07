@@ -43,8 +43,10 @@ public class CreateKeyspaceCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "Creates keyspace if it does not already exist and all the tables" +
-                "under that keyspace";
+        return """
+                Creates keyspace if it does not already exist and all the tables\
+                under that keyspace\
+                """;
     }
 
     @Override

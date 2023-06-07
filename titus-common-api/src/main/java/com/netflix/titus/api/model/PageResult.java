@@ -57,8 +57,10 @@ public class PageResult<T> {
 
     @Override
     public String toString() {
-        return "PageResult{" +
-                "items=" + items +
+        return """
+                PageResult{\
+                items=\
+                """ + items +
                 ", pagination=" + pagination +
                 '}';
     }

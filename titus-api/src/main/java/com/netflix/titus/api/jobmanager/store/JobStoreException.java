@@ -20,8 +20,6 @@ import java.util.Set;
 
 import com.netflix.titus.common.model.sanitizer.ValidationError;
 
-import static java.lang.String.format;
-
 /**
  * A custom runtime exception that indicates an error in the job store.
  */
@@ -52,19 +50,19 @@ public class JobStoreException extends RuntimeException {
     }
 
     public static JobStoreException jobMustBeActive(String jobId) {
-        return new JobStoreException(format("Job with jobId: %s must be active", jobId), ErrorCode.JOB_MUST_BE_ACTIVE);
+        return new JobStoreException("Job with jobId: %s must be active".formatted(jobId), ErrorCode.JOB_MUST_BE_ACTIVE);
     }
 
     public static JobStoreException jobAlreadyExists(String jobId) {
-        return new JobStoreException(format("Job with jobId: %s already exists", jobId), ErrorCode.JOB_ALREADY_EXISTS);
+        return new JobStoreException("Job with jobId: %s already exists".formatted(jobId), ErrorCode.JOB_ALREADY_EXISTS);
     }
 
     public static JobStoreException jobDoesNotExist(String jobId) {
-        return new JobStoreException(format("Job with jobId: %s does not exist", jobId), ErrorCode.JOB_DOES_NOT_EXIST);
+        return new JobStoreException("Job with jobId: %s does not exist".formatted(jobId), ErrorCode.JOB_DOES_NOT_EXIST);
     }
 
     public static JobStoreException taskDoesNotExist(String taskId) {
-        return new JobStoreException(format("Task with taskId: %s does not exist", taskId), ErrorCode.TASK_DOES_NOT_EXIST);
+        return new JobStoreException("Task with taskId: %s does not exist".formatted(taskId), ErrorCode.TASK_DOES_NOT_EXIST);
     }
 
     public static JobStoreException cassandraDriverError(Throwable e) {
@@ -73,7 +71,7 @@ public class JobStoreException extends RuntimeException {
 
     public static <T> JobStoreException badData(T value, Set<ValidationError> violations) {
         return new JobStoreException(
-                String.format("Entity %s violates constraints: %s", value, violations),
+                "Entity %s violates constraints: %s".formatted(value, violations),
                 ErrorCode.BAD_DATA
         );
     }

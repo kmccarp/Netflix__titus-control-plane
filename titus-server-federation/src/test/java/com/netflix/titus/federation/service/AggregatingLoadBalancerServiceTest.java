@@ -47,7 +47,6 @@ import rx.Observable;
 import rx.observers.AssertableSubscriber;
 
 import static com.netflix.titus.testkit.junit.spring.SpringMockMvcUtil.JUNIT_REST_CALL_METADATA;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -93,8 +92,8 @@ public class AggregatingLoadBalancerServiceTest {
     public void getLoadBalancersForJob() {
         JobLoadBalancer jobLoadBalancer1 = new JobLoadBalancer(JOB_1, LB_1);
         JobLoadBalancer jobLoadBalancer2 = new JobLoadBalancer(JOB_2, LB_2);
-        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(singletonList(jobLoadBalancer1));
-        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(singletonList(jobLoadBalancer2));
+        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(List.of(jobLoadBalancer1));
+        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(List.of(jobLoadBalancer2));
         cellOne.getServiceRegistry().addService(cellWithLoadBalancersOne);
         cellTwo.getServiceRegistry().addService(cellWithLoadBalancersTwo);
 
@@ -112,11 +111,11 @@ public class AggregatingLoadBalancerServiceTest {
     public void addLoadBalancer() {
         JobLoadBalancer jobLoadBalancer1 = new JobLoadBalancer(JOB_1, LB_1);
         JobLoadBalancer jobLoadBalancer2 = new JobLoadBalancer(JOB_2, LB_2);
-        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(singletonList(jobLoadBalancer1));
-        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(new ArrayList<>(singletonList(jobLoadBalancer2)));
+        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(List.of(jobLoadBalancer1));
+        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(new ArrayList<>(List.of(jobLoadBalancer2)));
 
-        final CellWithJobIds cellWithJobIdsOne = new CellWithJobIds(singletonList(JOB_1));
-        final CellWithJobIds cellWithJobIdsTwo = new CellWithJobIds(singletonList(JOB_2));
+        final CellWithJobIds cellWithJobIdsOne = new CellWithJobIds(List.of(JOB_1));
+        final CellWithJobIds cellWithJobIdsTwo = new CellWithJobIds(List.of(JOB_2));
 
         cellOne.getServiceRegistry().addService(cellWithLoadBalancersOne);
         cellOne.getServiceRegistry().addService(cellWithJobIdsOne);
@@ -151,11 +150,11 @@ public class AggregatingLoadBalancerServiceTest {
         JobLoadBalancer jobLoadBalancer1 = new JobLoadBalancer(JOB_1, LB_1);
         JobLoadBalancer jobLoadBalancer2 = new JobLoadBalancer(JOB_2, LB_2);
         JobLoadBalancer jobLoadBalancer3 = new JobLoadBalancer(JOB_2, LB_3);
-        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(singletonList(jobLoadBalancer1));
+        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(List.of(jobLoadBalancer1));
         final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(new ArrayList<>(Arrays.asList(jobLoadBalancer2, jobLoadBalancer3)));
 
-        final CellWithJobIds cellWithJobIdsOne = new CellWithJobIds(singletonList(JOB_1));
-        final CellWithJobIds cellWithJobIdsTwo = new CellWithJobIds(singletonList(JOB_2));
+        final CellWithJobIds cellWithJobIdsOne = new CellWithJobIds(List.of(JOB_1));
+        final CellWithJobIds cellWithJobIdsTwo = new CellWithJobIds(List.of(JOB_2));
 
         cellOne.getServiceRegistry().addService(cellWithLoadBalancersOne);
         cellOne.getServiceRegistry().addService(cellWithJobIdsOne);
@@ -188,8 +187,8 @@ public class AggregatingLoadBalancerServiceTest {
     public void getAllLoadBalancersNoPagination() {
         JobLoadBalancer jobLoadBalancer1 = new JobLoadBalancer(JOB_1, LB_1);
         JobLoadBalancer jobLoadBalancer2 = new JobLoadBalancer(JOB_2, LB_2);
-        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(singletonList(jobLoadBalancer1));
-        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(singletonList(jobLoadBalancer2));
+        final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(List.of(jobLoadBalancer1));
+        final CellWithLoadBalancers cellWithLoadBalancersTwo = new CellWithLoadBalancers(List.of(jobLoadBalancer2));
         cellOne.getServiceRegistry().addService(cellWithLoadBalancersOne);
         cellTwo.getServiceRegistry().addService(cellWithLoadBalancersTwo);
 
@@ -208,11 +207,11 @@ public class AggregatingLoadBalancerServiceTest {
     @Test
     public void getAllLoadBalancersWithPagination() {
         final List<JobLoadBalancer> jobLoadBalancersOne = Observable.range(1, 5)
-                .map(i -> new JobLoadBalancer(JOB_1, String.format("LB_1_%d", i.intValue())))
+                .map(i -> new JobLoadBalancer(JOB_1, "LB_1_%d".formatted(i.intValue())))
                 .toList().toBlocking().first();
 
         final List<JobLoadBalancer> jobLoadBalancersTwo = Observable.range(1, 5)
-                .map(i -> new JobLoadBalancer(JOB_2, String.format("LB_2_%d", i.intValue())))
+                .map(i -> new JobLoadBalancer(JOB_2, "LB_2_%d".formatted(i.intValue())))
                 .toList().toBlocking().first();
 
         final CellWithLoadBalancers cellWithLoadBalancersOne = new CellWithLoadBalancers(jobLoadBalancersOne);

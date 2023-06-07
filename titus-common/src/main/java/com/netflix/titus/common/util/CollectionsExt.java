@@ -164,7 +164,7 @@ public final class CollectionsExt {
 
     public static <K, V> Map<K, V> copyAndAdd(Map<K, V> original, K key, V value) {
         if (original.isEmpty()) {
-            return Collections.singletonMap(key, value);
+            return Map.of(key, value);
         }
         Map<K, V> result = new HashMap<>(original);
         result.put(key, value);

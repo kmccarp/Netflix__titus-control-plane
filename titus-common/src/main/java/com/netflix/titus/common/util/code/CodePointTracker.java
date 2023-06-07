@@ -121,8 +121,10 @@ public abstract class CodePointTracker {
 
         @Override
         public String toString() {
-            return "CodePoint{" +
-                    "className='" + className + '\'' +
+            return """
+                    CodePoint{\
+                    className='\
+                    """ + className + '\'' +
                     ", methodName='" + methodName + '\'' +
                     ", lineNumber=" + lineNumber +
                     ", context='" + context + '\'' +

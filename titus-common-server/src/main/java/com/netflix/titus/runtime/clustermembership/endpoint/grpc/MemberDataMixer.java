@@ -51,11 +51,11 @@ class MemberDataMixer {
     }
 
     List<ClusterMembershipEvent> process(com.netflix.titus.api.clustermembership.model.event.ClusterMembershipEvent coreEvent) {
-        if (coreEvent instanceof ClusterMembershipChangeEvent) {
-            return processMembershipChangeEvent((ClusterMembershipChangeEvent) coreEvent);
+        if (coreEvent instanceof ClusterMembershipChangeEvent event) {
+            return processMembershipChangeEvent(event);
         }
-        if (coreEvent instanceof LeaderElectionChangeEvent) {
-            return processLeaderElectionChangeEvent((LeaderElectionChangeEvent) coreEvent);
+        if (coreEvent instanceof LeaderElectionChangeEvent event) {
+            return processLeaderElectionChangeEvent(event);
         }
         return Collections.emptyList();
     }
@@ -70,16 +70,15 @@ class MemberDataMixer {
                 leaderId = NO_LEADER_ID;
             }
 
-            return Collections.singletonList(ClusterMembershipEvent.newBuilder()
+            return List.of(ClusterMembershipEvent.newBuilder()
                     .setMemberRemoved(ClusterMembershipEvent.MemberRemoved.newBuilder()
                             .setRevision(toGrpcClusterMembershipRevision(revision, false))
                     )
-                    .build()
-            );
+                    .build());
         }
 
         memberRevisions.put(memberId, revision);
-        return Collections.singletonList(newMemberUpdatedEvent(revision, isLeader(revision)));
+        return List.of(newMemberUpdatedEvent(revision, isLeader(revision)));
     }
 
     private List<ClusterMembershipEvent> processLeaderElectionChangeEvent(LeaderElectionChangeEvent coreEvent) {
@@ -123,7 +122,7 @@ class MemberDataMixer {
                 return Collections.emptyList();
             }
             this.leaderId = NO_LEADER_ID;
-            return Collections.singletonList(newMemberUpdatedEvent(lostLeader, false));
+            return List.of(newMemberUpdatedEvent(lostLeader, false));
         }
 
         return Collections.emptyList();

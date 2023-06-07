@@ -42,11 +42,11 @@ public class CollectionValidator extends AbstractConstraintValidator<CollectionI
         if (value == null) {
             return true;
         }
-        if (value instanceof Collection) {
-            return isValid((Collection<?>) value, constraintViolationBuilderFunction);
+        if (value instanceof Collection collection) {
+            return isValid(collection, constraintViolationBuilderFunction);
         }
-        if (value instanceof Map) {
-            return isValid((Map<?, ?>) value, constraintViolationBuilderFunction);
+        if (value instanceof Map map) {
+            return isValid(map, constraintViolationBuilderFunction);
         }
         return false;
     }
@@ -79,7 +79,7 @@ public class CollectionValidator extends AbstractConstraintValidator<CollectionI
         }
 
         if (!constraintAnnotation.allowEmptyKeys()) {
-            if (value.keySet().stream().anyMatch(key -> key == null || (key instanceof String && ((String) key).isEmpty()))) {
+            if (value.keySet().stream().anyMatch(key -> key == null || (key instanceof String s && s.isEmpty()))) {
                 attachMessage(constraintViolationBuilderFunction, "empty key names not allowed");
                 return false;
             }

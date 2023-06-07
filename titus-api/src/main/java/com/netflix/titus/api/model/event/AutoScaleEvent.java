@@ -52,8 +52,10 @@ public abstract class AutoScaleEvent {
 
     @Override
     public String toString() {
-        return "AutoScaleEvent{" +
-                "instanceGroupId='" + instanceGroupId + '\'' +
+        return """
+                AutoScaleEvent{\
+                instanceGroupId='\
+                """ + instanceGroupId + '\'' +
                 '}';
     }
 }

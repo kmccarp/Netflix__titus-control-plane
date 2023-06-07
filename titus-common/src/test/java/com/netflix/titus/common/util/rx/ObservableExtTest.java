@@ -58,7 +58,7 @@ public class ObservableExtTest {
 
     @Test
     public void testFromWithDelaySingle() {
-        final List<Observable<Object>> chunks = Collections.singletonList(Observable.just(A));
+        final List<Observable<Object>> chunks = List.of(Observable.just(A));
         Observable<Object> observable = ObservableExt.fromWithDelay(chunks, DELAY_MS, TimeUnit.MILLISECONDS, testScheduler);
         observable = observable.defaultIfEmpty(B);
 

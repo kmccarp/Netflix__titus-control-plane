@@ -55,8 +55,10 @@ public class IamRole {
 
     @Override
     public String toString() {
-        return "IamRole{" +
-                "roleId='" + roleId + '\'' +
+        return """
+                IamRole{\
+                roleId='\
+                """ + roleId + '\'' +
                 ", roleName='" + roleName + '\'' +
                 ", resourceName='" + resourceName + '\'' +
                 ", assumePolicy='" + assumePolicy + '\'' +

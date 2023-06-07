@@ -115,8 +115,8 @@ class ReactorHeadTransformer<T> implements Function<Flux<T>, Publisher<T>> {
             if (next == END_OF_STREAM_MARKER) {
                 return false;
             }
-            if (next instanceof ErrorWrapper) {
-                emitter.error(((ErrorWrapper) next).cause);
+            if (next instanceof ErrorWrapper wrapper) {
+                emitter.error(wrapper.cause);
                 return false;
             }
             emitter.next((T) next);

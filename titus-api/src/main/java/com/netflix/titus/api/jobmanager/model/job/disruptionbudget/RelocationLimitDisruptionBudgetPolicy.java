@@ -55,8 +55,10 @@ public class RelocationLimitDisruptionBudgetPolicy extends DisruptionBudgetPolic
 
     @Override
     public String toString() {
-        return "RelocationLimitDisruptionBudgetPolicy{" +
-                "limit=" + limit +
+        return """
+                RelocationLimitDisruptionBudgetPolicy{\
+                limit=\
+                """ + limit +
                 '}';
     }
 

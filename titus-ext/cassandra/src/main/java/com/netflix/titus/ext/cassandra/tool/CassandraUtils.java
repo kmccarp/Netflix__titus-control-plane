@@ -98,7 +98,7 @@ public class CassandraUtils {
         String valueColumn = columnNames.getRight();
 
         PreparedStatement queryAllStatement = sourceSession.prepare(
-                String.format("SELECT * FROM %s WHERE token(%s) > :min AND token(%s) <= :max", table, primaryKey, primaryKey)
+                "SELECT * FROM %s WHERE token(%s) > :min AND token(%s) <= :max".formatted(table, primaryKey, primaryKey)
         );
         AsyncCassandraExecutor executor = new AsyncCassandraExecutor(sourceSession, PAGE_SIZE, SPLIT);
         return executor.rawRangeQuery2(primaryKey, valueColumn, queryAllStatement);
@@ -110,7 +110,7 @@ public class CassandraUtils {
         String valueColumn = columnNames.getRight();
 
         PreparedStatement insertStatement = targetSession.prepare(
-                String.format("INSERT INTO %s (%s, %s) VALUES (?, ?)", table, primaryKey, valueColumn)
+                "INSERT INTO %s (%s, %s) VALUES (?, ?)".formatted(table, primaryKey, valueColumn)
         );
 
         AsyncCassandraExecutor executor = new AsyncCassandraExecutor(targetSession, PAGE_SIZE, SPLIT);

@@ -96,8 +96,8 @@ public class GrpcEvictionReplicatorEventStream extends AbstractReplicatorEventSt
             Map<String, EvictionQuota> jobEvictionQuotas = new HashMap<>();
 
             for (EvictionEvent event : snapshotEvents) {
-                if (event instanceof EvictionQuotaEvent) {
-                    EvictionQuota quota = ((EvictionQuotaEvent) event).getQuota();
+                if (event instanceof EvictionQuotaEvent quotaEvent) {
+                    EvictionQuota quota = quotaEvent.getQuota();
                     switch (quota.getReference().getLevel()) {
                         case System:
                             systemEvictionQuota = quota;
@@ -142,8 +142,8 @@ public class GrpcEvictionReplicatorEventStream extends AbstractReplicatorEventSt
             EvictionDataSnapshot snapshot = lastSnapshotRef.get();
             Optional<EvictionDataSnapshot> newSnapshot = Optional.empty();
 
-            if (event instanceof EvictionQuotaEvent) {
-                newSnapshot = snapshot.updateEvictionQuota(((EvictionQuotaEvent) event).getQuota());
+            if (event instanceof EvictionQuotaEvent quotaEvent) {
+                newSnapshot = snapshot.updateEvictionQuota(quotaEvent.getQuota());
             } // Ignore all other events, as they are not relevant for snapshot
 
             if (newSnapshot.isPresent()) {

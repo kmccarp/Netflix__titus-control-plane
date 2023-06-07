@@ -302,7 +302,7 @@ public class MultiNodeClusterMemberResolver implements ClusterMemberResolver {
     }
 
     private String toResolvedMembersString() {
-        return String.format("[%s]",
+        return "[%s]".formatted(
                 memberResolversByIpAddress.values().stream()
                         .map(m -> m.getPrintableName() + '@' + m.getAddress().getIpAddress())
                         .collect(Collectors.joining(", "))

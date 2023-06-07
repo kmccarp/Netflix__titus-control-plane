@@ -18,7 +18,6 @@ package com.netflix.titus.common.util.guice.internal;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -95,11 +94,11 @@ public class ProxyMethodInterceptor implements MethodInterceptor {
 
     private InstanceWrapper buildProxy(Class<?> instanceType) {
         Optional<ProxyConfiguration> configurationOpt = findProxyConfiguration(instanceType);
-        if (!configurationOpt.isPresent()) {
+        if (configurationOpt.isEmpty()) {
             return new InstanceWrapper();
         }
         Optional<Class<?>> interfOpt = findInterface(instanceType);
-        if (!interfOpt.isPresent()) {
+        if (interfOpt.isEmpty()) {
             return new InstanceWrapper();
         }
         return new InstanceWrapper(configurationOpt.get(), interfOpt.get());
@@ -173,7 +172,7 @@ public class ProxyMethodInterceptor implements MethodInterceptor {
 
         InstanceWrapper() {
             this.interf = null;
-            this.chain = new DefaultProxyInvocationChain<>(Collections.singletonList(EXECUTING_HANDLER));
+            this.chain = new DefaultProxyInvocationChain<>(List.of(EXECUTING_HANDLER));
         }
 
         InstanceWrapper(ProxyConfiguration configuration, Class<?> interf) {

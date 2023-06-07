@@ -17,7 +17,6 @@
 package com.netflix.titus.common.framework.reconciler;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,7 +47,7 @@ public class ModelActionHolder {
     }
 
     public static List<ModelActionHolder> referenceList(ModelAction action) {
-        return Collections.singletonList(new ModelActionHolder(Model.Reference, action));
+        return List.of(new ModelActionHolder(Model.Reference, action));
     }
 
     public static ModelActionHolder running(ModelAction action) {
@@ -56,7 +55,7 @@ public class ModelActionHolder {
     }
 
     public static List<ModelActionHolder> runningList(ModelAction action) {
-        return Collections.singletonList(new ModelActionHolder(Model.Running, action));
+        return List.of(new ModelActionHolder(Model.Running, action));
     }
 
     public static ModelActionHolder store(ModelAction action) {
@@ -64,7 +63,7 @@ public class ModelActionHolder {
     }
 
     public static List<ModelActionHolder> storeList(ModelAction action) {
-        return Collections.singletonList(new ModelActionHolder(Model.Store, action));
+        return List.of(new ModelActionHolder(Model.Store, action));
     }
 
     public static List<ModelActionHolder> allModels(ModelAction action) {

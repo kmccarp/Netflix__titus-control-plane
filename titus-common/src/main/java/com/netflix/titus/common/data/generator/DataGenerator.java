@@ -91,7 +91,7 @@ public abstract class DataGenerator<A> {
     }
 
     public boolean isClosed() {
-        return !getOptionalValue().isPresent();
+        return getOptionalValue().isEmpty();
     }
 
     public A getValue() {

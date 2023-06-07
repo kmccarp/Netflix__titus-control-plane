@@ -135,8 +135,10 @@ public class ApplicationSLA {
 
     @Override
     public String toString() {
-        return "ApplicationSLA{" +
-                "appName='" + appName + '\'' +
+        return """
+                ApplicationSLA{\
+                appName='\
+                """ + appName + '\'' +
                 ", tier=" + tier +
                 ", resourceDimension=" + resourceDimension +
                 ", schedulerName='" + schedulerName + '\'' +

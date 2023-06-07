@@ -133,7 +133,7 @@ public class DefaultOneOffReconcilerTest {
     @Test(timeout = 30_000)
     public void testReconcilerAction() throws InterruptedException {
         AtomicInteger idx = new AtomicInteger();
-        newReconciler(current -> Collections.singletonList(Mono.just(v -> RECONCILED + idx.getAndIncrement())));
+        newReconciler(current -> List.of(Mono.just(v -> RECONCILED + idx.getAndIncrement())));
         String expected = RECONCILED + (idx.get() + 1);
         assertThat(changesSubscriber.takeUntil(expected::equals, TIMEOUT)).isNotNull();
     }
@@ -141,17 +141,16 @@ public class DefaultOneOffReconcilerTest {
     @Test(timeout = 30_000)
     public void testReconcilerActionMonoError() throws InterruptedException {
         AtomicBoolean failedRef = new AtomicBoolean();
-        newReconciler(current -> Collections.singletonList(failedRef.getAndSet(true)
+        newReconciler(current -> List.of(failedRef.getAndSet(true)
                 ? Mono.just(v -> RECONCILED) :
-                Mono.error(new RuntimeException("simulated error"))
-        ));
+                Mono.error(new RuntimeException("simulated error"))));
         assertThat(changesSubscriber.takeNext(TIMEOUT)).isEqualTo(RECONCILED);
     }
 
     @Test(timeout = 30_000)
     public void testReconcilerActionFunctionError() throws InterruptedException {
         AtomicBoolean failedRef = new AtomicBoolean();
-        newReconciler(current -> Collections.singletonList(Mono.just(v -> {
+        newReconciler(current -> List.of(Mono.just(v -> {
             if (failedRef.getAndSet(true)) {
                 return RECONCILED;
             }
@@ -190,7 +189,7 @@ public class DefaultOneOffReconcilerTest {
         Mono<Function<String, String>> action = Mono.<Function<String, String>>never()
                 .doOnSubscribe(s -> ready.countDown())
                 .doOnCancel(() -> cancelled.set(true));
-        newReconciler(current -> Collections.singletonList(action));
+        newReconciler(current -> List.of(action));
 
         ready.await();
 

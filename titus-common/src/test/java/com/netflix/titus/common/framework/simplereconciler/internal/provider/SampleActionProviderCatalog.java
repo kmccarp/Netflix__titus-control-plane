@@ -70,7 +70,7 @@ public class SampleActionProviderCatalog {
         @Override
         public List<Mono<Function<String, String>>> apply(String data) {
             if (emitEnabled) {
-                return Collections.singletonList(Mono.just(d -> d + suffixToAdd));
+                return List.of(Mono.just(d -> d + suffixToAdd));
             }
             return Collections.emptyList();
         }

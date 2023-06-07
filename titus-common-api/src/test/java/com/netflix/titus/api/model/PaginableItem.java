@@ -56,8 +56,10 @@ class PaginableItem {
 
     @Override
     public String toString() {
-        return "PaginableItem{" +
-                "id='" + id + '\'' +
+        return """
+                PaginableItem{\
+                id='\
+                """ + id + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

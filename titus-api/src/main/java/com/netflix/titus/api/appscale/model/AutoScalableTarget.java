@@ -74,8 +74,10 @@ public class AutoScalableTarget {
 
     @Override
     public String toString() {
-        return "AutoScalableTarget{" +
-                "resourceId='" + resourceId + '\'' +
+        return """
+                AutoScalableTarget{\
+                resourceId='\
+                """ + resourceId + '\'' +
                 ", minCapacity=" + minCapacity +
                 ", maxCapacity=" + maxCapacity +
                 '}';

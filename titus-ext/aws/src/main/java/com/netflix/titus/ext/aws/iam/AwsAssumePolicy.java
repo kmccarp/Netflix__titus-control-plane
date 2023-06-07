@@ -42,8 +42,10 @@ public class AwsAssumePolicy {
 
     @Override
     public String toString() {
-        return "AwsAssumePolicy{" +
-                "statements=" + statements +
+        return """
+                AwsAssumePolicy{\
+                statements=\
+                """ + statements +
                 '}';
     }
 }

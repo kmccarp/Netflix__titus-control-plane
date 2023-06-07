@@ -120,8 +120,8 @@ public class FixedIntervalTokenBucketSupplier implements Supplier<TokenBucket> {
         }
 
         private void shutdown() {
-            if (refillStrategy instanceof SpectatorRefillStrategyDecorator) {
-                ((SpectatorRefillStrategyDecorator) refillStrategy).shutdown();
+            if (refillStrategy instanceof SpectatorRefillStrategyDecorator decorator) {
+                decorator.shutdown();
             }
         }
 

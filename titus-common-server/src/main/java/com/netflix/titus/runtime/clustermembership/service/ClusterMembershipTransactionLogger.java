@@ -59,11 +59,11 @@ class ClusterMembershipTransactionLogger {
 
     @VisibleForTesting
     static String doFormat(ClusterMembershipEvent event) {
-        if (event instanceof ClusterMembershipChangeEvent) {
-            return doFormat((ClusterMembershipChangeEvent) event);
+        if (event instanceof ClusterMembershipChangeEvent changeEvent) {
+            return doFormat(changeEvent);
         }
-        if (event instanceof LeaderElectionChangeEvent) {
-            return doFormat((LeaderElectionChangeEvent) event);
+        if (event instanceof LeaderElectionChangeEvent changeEvent) {
+            return doFormat(changeEvent);
         }
         return null;
     }
@@ -105,16 +105,16 @@ class ClusterMembershipTransactionLogger {
                                    String memberRevision,
                                    String leadershipState,
                                    String leadershipRevision) {
-        return String.format(
-                "eventType=[%6s] memberId=%s active=%-5s registered=%-5s enabled=%-4s memberRevision=%-8s leadershipState=%-10s leadershipRevision=%s",
-                eventType,
-                memberId,
-                memberActive,
-                memberRegistered,
-                memberEnabled,
-                memberRevision,
-                leadershipState,
-                leadershipRevision
-        );
+        return 
+                "eventType=[%6s] memberId=%s active=%-5s registered=%-5s enabled=%-4s memberRevision=%-8s leadershipState=%-10s leadershipRevision=%s".formatted(
+                        eventType,
+                        memberId,
+                        memberActive,
+                        memberRegistered,
+                        memberEnabled,
+                        memberRevision,
+                        leadershipState,
+                        leadershipRevision
+                );
     }
 }

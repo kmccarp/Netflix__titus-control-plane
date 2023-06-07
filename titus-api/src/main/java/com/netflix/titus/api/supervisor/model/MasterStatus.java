@@ -63,8 +63,10 @@ public class MasterStatus {
 
     @Override
     public String toString() {
-        return "MasterStatus{" +
-                "state=" + state +
+        return """
+                MasterStatus{\
+                state=\
+                """ + state +
                 ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
                 '}';

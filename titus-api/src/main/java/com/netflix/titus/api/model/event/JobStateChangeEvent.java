@@ -60,8 +60,10 @@ public class JobStateChangeEvent<SOURCE> extends SchedulingEvent<SOURCE> {
 
     @Override
     public String toString() {
-        return "JobStateChangeEvent{" +
-                "jobId='" + getJobId() + '\'' +
+        return """
+                JobStateChangeEvent{\
+                jobId='\
+                """ + getJobId() + '\'' +
                 ", jobState=" + jobState +
                 ", timestamp=" + getTimestamp() +
                 ", sourceType=" + getSource().getClass() +

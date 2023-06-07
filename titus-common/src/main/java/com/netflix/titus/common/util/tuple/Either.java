@@ -69,11 +69,11 @@ public class Either<T, E> {
         if (error == null) {
             throw new IllegalStateException("neither value nor error set");
         }
-        if (error instanceof RuntimeException) {
-            throw (RuntimeException) error;
+        if (error instanceof RuntimeException exception) {
+            throw exception;
         }
-        if (error instanceof Throwable) {
-            throw new IllegalStateException("value not set", (Throwable) error);
+        if (error instanceof Throwable throwable) {
+            throw new IllegalStateException("value not set", throwable);
         }
         throw new IllegalStateException("value not set");
     }

@@ -95,7 +95,7 @@ public class JobS3LogLocationValidator implements AdmissionValidator<JobDescript
         // This condition should never happen, but we are adding this check here just in case.
         if (StringExt.isEmpty(iamRole)) {
             metrics.incrementValidationError(bucketName, REASON_ACCESS_DENIED);
-            return Mono.just(Collections.singleton(new ValidationError("iamRole", "IAM role not set")));
+            return Mono.just(Set.of(new ValidationError("iamRole", "IAM role not set")));
         }
         iamRole = iamRoleArnResolver.apply(iamRole);
 
@@ -122,7 +122,7 @@ public class JobS3LogLocationValidator implements AdmissionValidator<JobDescript
                     logger.debug("Stack trace", error);
                     metrics.incrementValidationError(bucketName, error.getClass().getSimpleName());
 
-                    return new IllegalArgumentException(String.format("S3 bucket validation error: bucket=%s, pathPrefix=%s, error=%s",
+                    return new IllegalArgumentException("S3 bucket validation error: bucket=%s, pathPrefix=%s, error=%s".formatted(
                             bucketName,
                             pathPrefix,
                             error.getMessage()
@@ -141,7 +141,7 @@ public class JobS3LogLocationValidator implements AdmissionValidator<JobDescript
         failures.forEach(failure -> {
             result.add(new ValidationError(
                     JobAttributes.JOB_CONTAINER_ATTRIBUTE_S3_BUCKET_NAME,
-                    String.format("Access denied: errorCode=%s, errorMessage=%s", failure.getErrorCode(), failure.getErrorMessage())
+                    "Access denied: errorCode=%s, errorMessage=%s".formatted(failure.getErrorCode(), failure.getErrorMessage())
             ));
         });
 

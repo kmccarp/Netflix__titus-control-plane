@@ -64,8 +64,10 @@ public class PodDeletedEvent extends PodEvent{
 
     @Override
     public String toString() {
-        return "PodDeletedEvent{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                PodDeletedEvent{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", sequenceNumber=" + sequenceNumber +
                 ", pod=" + F8KubeObjectFormatter.formatPodEssentials(pod) +
                 ", deletedFinalStateUnknown=" + deletedFinalStateUnknown +

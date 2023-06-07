@@ -107,8 +107,10 @@ public class AuditLogEvent {
 
     @Override
     public String toString() {
-        return "AuditLogEvent{" +
-                "type=" + type +
+        return """
+                AuditLogEvent{\
+                type=\
+                """ + type +
                 ", operand='" + operand + '\'' +
                 ", data='" + data + '\'' +
                 ", time=" + time +

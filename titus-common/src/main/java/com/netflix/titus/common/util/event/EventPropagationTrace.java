@@ -67,8 +67,10 @@ public class EventPropagationTrace {
 
     @Override
     public String toString() {
-        return "EventPropagationTrace{" +
-                "snapshot=" + snapshot +
+        return """
+                EventPropagationTrace{\
+                snapshot=\
+                """ + snapshot +
                 ", stages=" + stages +
                 ", totalDelayMs=" + totalDelayMs +
                 '}';

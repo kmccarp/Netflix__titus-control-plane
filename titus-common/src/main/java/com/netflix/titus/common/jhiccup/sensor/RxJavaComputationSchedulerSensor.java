@@ -39,7 +39,6 @@ import rx.Scheduler.Worker;
 import rx.schedulers.Schedulers;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
 
 /**
  * Monitor RxJava computation event loop liveness.
@@ -180,11 +179,11 @@ public class RxJavaComputationSchedulerSensor extends AbstractHiccupSensor {
         WorkerTaskScheduler(Thread workerThread, Worker worker) {
             this.worker = worker;
             this.workerThread = workerThread;
-            this.metrics = new HiccupSensorMetrics("titus.hiccup.computationScheduler", singletonMap("thread", workerThread.getName()), registry);
+            this.metrics = new HiccupSensorMetrics("titus.hiccup.computationScheduler", Map.of("thread", workerThread.getName()), registry);
             this.recorder = new SingleWriterRecorder(LOWEST_TRACKABLE_VALUE, HIGHEST_TRACKABLE_VALUE, NUMBER_OF_SIGNIFICANT_DIGITS);
 
             registry.gauge(
-                    registry.createId("titus.hiccup.computationScheduler.pendingTaskDuration", singletonMap("thread", workerThread.getName())),
+                    registry.createId("titus.hiccup.computationScheduler.pendingTaskDuration", Map.of("thread", workerThread.getName())),
                     0, v -> getPendingTaskRunningTime()
             );
 

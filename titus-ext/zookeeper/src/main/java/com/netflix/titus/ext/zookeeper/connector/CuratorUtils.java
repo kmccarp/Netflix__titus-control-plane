@@ -53,11 +53,11 @@ public class CuratorUtils {
                             if (event.getResultCode() == OK.intValue()) {
                                 emitter.onCompleted();
                             } else {
-                                emitter.onError(new IOException(String.format("Failed to store data in zookeeper node: path=%s, event=%s", path, event)));
+                                emitter.onError(new IOException("Failed to store data in zookeeper node: path=%s, event=%s".formatted(path, event)));
                             }
                         }).forPath(path, data);
             } catch (Exception e) {
-                emitter.onError(new IOException(String.format("Unexpected error when storing data in zookeeper node: path=%s, error=%s", path, e.getMessage()), e));
+                emitter.onError(new IOException("Unexpected error when storing data in zookeeper node: path=%s, error=%s".formatted(path, e.getMessage()), e));
             }
         });
     }

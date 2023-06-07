@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.spectator;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.netflix.spectator.api.DefaultRegistry;
@@ -64,7 +63,7 @@ public class MultiDimensionalGaugeTest {
 
     @Test
     public void testRevisionOrder() {
-        MultiDimensionalGauge mg = SpectatorExt.multiDimensionalGauge(rootId, Collections.singletonList("tagA"), registry);
+        MultiDimensionalGauge mg = SpectatorExt.multiDimensionalGauge(rootId, List.of("tagA"), registry);
 
         MultiDimensionalGauge.Setter setter1 = mg.beginUpdate()
                 .set(asList("tagA", "a1"), 1);
@@ -73,12 +72,12 @@ public class MultiDimensionalGaugeTest {
                 .commit();
         setter1.commit();
 
-        assertGauge(mg, Collections.singletonList("a1"), 2);
+        assertGauge(mg, List.of("a1"), 2);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testFailsOnBadTagName() {
-        SpectatorExt.multiDimensionalGauge(rootId, Collections.singletonList("tagA"), registry)
+        SpectatorExt.multiDimensionalGauge(rootId, List.of("tagA"), registry)
                 .beginUpdate()
                 .set(asList("tagB", "a1"), 1);
     }

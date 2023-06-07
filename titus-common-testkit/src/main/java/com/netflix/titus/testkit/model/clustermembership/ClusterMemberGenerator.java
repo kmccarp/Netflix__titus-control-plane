@@ -16,7 +16,8 @@
 
 package com.netflix.titus.testkit.model.clustermembership;
 
-import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import com.netflix.titus.api.clustermembership.model.ClusterMember;
 import com.netflix.titus.api.clustermembership.model.ClusterMemberAddress;
@@ -37,16 +38,15 @@ public final class ClusterMemberGenerator {
                 .withEnabled(true)
                 .withActive(true)
                 .withRegistered(true)
-                .withClusterMemberAddresses(Collections.singletonList(
+                .withClusterMemberAddresses(List.of(
                         ClusterMemberAddress.newBuilder()
                                 .withIpAddress(ipAddress)
                                 .withPortNumber(8081)
                                 .withProtocol("https")
                                 .withSecure(true)
                                 .withDescription("REST endpoint")
-                                .build()
-                ))
-                .withLabels(Collections.singletonMap("resourceVersion", "1"))
+                                .build()))
+                .withLabels(Map.of("resourceVersion", "1"))
                 .build();
     }
 

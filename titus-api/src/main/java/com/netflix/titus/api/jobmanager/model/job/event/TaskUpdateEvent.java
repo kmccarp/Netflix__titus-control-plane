@@ -77,8 +77,10 @@ public class TaskUpdateEvent extends JobManagerEvent<Task> {
 
     @Override
     public String toString() {
-        return "TaskUpdateEvent{" +
-                "currentJob=" + currentJob +
+        return """
+                TaskUpdateEvent{\
+                currentJob=\
+                """ + currentJob +
                 ", currentTask=" + getCurrent() +
                 ", previousTask=" + getPrevious() +
                 ", archived=" + isArchived() +

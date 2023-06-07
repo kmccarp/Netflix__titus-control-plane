@@ -179,8 +179,8 @@ public class GatewayJobServiceGateway extends JobServiceGatewayDelegate {
         }, tunablesConfiguration.getRequestTimeoutMs());
 
         return observable.onErrorResumeNext(e -> {
-            if (e instanceof StatusRuntimeException &&
-                    ((StatusRuntimeException) e).getStatus().getCode() == Status.Code.NOT_FOUND) {
+            if (e instanceof StatusRuntimeException exception &&
+                    exception.getStatus().getCode() == Status.Code.NOT_FOUND) {
                 return retrieveArchivedJob(jobId);
             } else {
                 return Observable.error(e);
@@ -241,8 +241,8 @@ public class GatewayJobServiceGateway extends JobServiceGatewayDelegate {
         observable = observable.map(taskDataInjector::injectIntoTask);
 
         observable = observable.onErrorResumeNext(e -> {
-            if (e instanceof StatusRuntimeException &&
-                    ((StatusRuntimeException) e).getStatus().getCode() == Status.Code.NOT_FOUND) {
+            if (e instanceof StatusRuntimeException exception &&
+                    exception.getStatus().getCode() == Status.Code.NOT_FOUND) {
                 return retrieveArchivedTask(taskId);
             } else {
                 return Observable.error(e);
@@ -353,8 +353,7 @@ public class GatewayJobServiceGateway extends JobServiceGatewayDelegate {
     private Observable<Job> retrieveArchivedJob(String jobId) {
         return store.retrieveArchivedJob(jobId)
                 .onErrorResumeNext(e -> {
-                    if (e instanceof JobStoreException) {
-                        JobStoreException storeException = (JobStoreException) e;
+                    if (e instanceof JobStoreException storeException) {
                         if (storeException.getErrorCode().equals(JobStoreException.ErrorCode.JOB_DOES_NOT_EXIST)) {
                             return Observable.error(TitusServiceException.jobNotFound(jobId));
                         }
@@ -397,8 +396,7 @@ public class GatewayJobServiceGateway extends JobServiceGatewayDelegate {
     private Observable<Task> retrieveArchivedTask(String taskId) {
         return store.retrieveArchivedTask(taskId)
                 .onErrorResumeNext(e -> {
-                    if (e instanceof JobStoreException) {
-                        JobStoreException storeException = (JobStoreException) e;
+                    if (e instanceof JobStoreException storeException) {
                         if (storeException.getErrorCode().equals(JobStoreException.ErrorCode.TASK_DOES_NOT_EXIST)) {
                             return Observable.error(TitusServiceException.taskNotFound(taskId));
                         }

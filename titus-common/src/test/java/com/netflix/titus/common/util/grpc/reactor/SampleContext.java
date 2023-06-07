@@ -49,8 +49,10 @@ public class SampleContext {
 
     @Override
     public String toString() {
-        return "SampleContext{" +
-                "value='" + value + '\'' +
+        return """
+                SampleContext{\
+                value='\
+                """ + value + '\'' +
                 '}';
     }
 }

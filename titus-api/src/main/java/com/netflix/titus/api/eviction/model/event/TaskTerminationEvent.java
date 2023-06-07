@@ -78,8 +78,10 @@ public class TaskTerminationEvent extends EvictionEvent {
 
     @Override
     public String toString() {
-        return "TaskTerminationEvent{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                TaskTerminationEvent{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", reason='" + reason + '\'' +
                 ", approved=" + approved +
                 ", error=" + error +

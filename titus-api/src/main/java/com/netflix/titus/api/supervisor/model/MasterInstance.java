@@ -103,8 +103,10 @@ public class MasterInstance {
 
     @Override
     public String toString() {
-        return "MasterInstance{" +
-                "instanceId='" + instanceId + '\'' +
+        return """
+                MasterInstance{\
+                instanceId='\
+                """ + instanceId + '\'' +
                 ", instanceGroupId='" + instanceGroupId + '\'' +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", status=" + status +

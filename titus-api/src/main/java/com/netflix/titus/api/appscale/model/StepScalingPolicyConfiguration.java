@@ -63,8 +63,10 @@ public class StepScalingPolicyConfiguration {
 
     @Override
     public String toString() {
-        return "StepScalingPolicyConfiguration{" +
-                "coolDownSec=" + coolDownSec +
+        return """
+                StepScalingPolicyConfiguration{\
+                coolDownSec=\
+                """ + coolDownSec +
                 ", metricAggregationType=" + metricAggregationType +
                 ", adjustmentType=" + adjustmentType +
                 ", minAdjustmentMagnitude=" + minAdjustmentMagnitude +

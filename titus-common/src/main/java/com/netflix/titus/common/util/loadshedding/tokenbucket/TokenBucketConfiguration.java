@@ -139,8 +139,10 @@ public class TokenBucketConfiguration {
 
     @Override
     public String toString() {
-        return "TokenBucketConfiguration{" +
-                "name='" + name + '\'' +
+        return """
+                TokenBucketConfiguration{\
+                name='\
+                """ + name + '\'' +
                 ", order=" + order +
                 ", sharedByCallers=" + sharedByCallers +
                 ", callerPatternString='" + callerPatternString + '\'' +

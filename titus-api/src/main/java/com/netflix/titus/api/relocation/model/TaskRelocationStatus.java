@@ -111,8 +111,10 @@ public class TaskRelocationStatus {
 
     @Override
     public String toString() {
-        return "TaskRelocationStatus{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                TaskRelocationStatus{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", state=" + state +
                 ", statusCode='" + statusCode + '\'' +
                 ", statusMessage='" + statusMessage + '\'' +

@@ -18,8 +18,6 @@ package com.netflix.titus.api.supervisor.service;
 
 import com.netflix.titus.api.supervisor.model.MasterInstance;
 
-import static java.lang.String.format;
-
 public class SupervisorServiceException extends RuntimeException {
 
     public enum ErrorCode {
@@ -43,10 +41,10 @@ public class SupervisorServiceException extends RuntimeException {
     }
 
     public static SupervisorServiceException masterInstanceNotFound(String instanceId) {
-        return new SupervisorServiceException(ErrorCode.MasterInstanceNotFound, format("TitusMaster instance with id %s does not exist", instanceId));
+        return new SupervisorServiceException(ErrorCode.MasterInstanceNotFound, "TitusMaster instance with id %s does not exist".formatted(instanceId));
     }
 
     public static SupervisorServiceException notLeader(MasterInstance currentMasterInstance) {
-        return new SupervisorServiceException(ErrorCode.NotLeader, String.format("TitusMaster instance %s is not a leader", currentMasterInstance.getInstanceId()));
+        return new SupervisorServiceException(ErrorCode.NotLeader, "TitusMaster instance %s is not a leader".formatted(currentMasterInstance.getInstanceId()));
     }
 }

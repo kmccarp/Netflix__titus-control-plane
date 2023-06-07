@@ -17,8 +17,8 @@
 package com.netflix.titus.common.util.collections.index;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -82,7 +82,7 @@ public class DefaultIndexTest {
         ));
 
         // Remove
-        index = index.remove(Collections.singleton("r1"));
+        index = index.remove(Set.of("r1"));
         assertThat(index.get()).hasSize(2);
         assertThat(index.get()).containsKeys("r2c1", "r2c2");
     }

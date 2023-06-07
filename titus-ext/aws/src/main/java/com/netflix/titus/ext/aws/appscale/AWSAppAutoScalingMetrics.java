@@ -121,8 +121,8 @@ public class AWSAppAutoScalingMetrics {
 
     private String getErrorCode(Exception exception) {
         String errCode = METRIC_ERR_CODE_UNKNOWN;
-        if (exception instanceof AmazonServiceException) {
-            errCode = ((AmazonServiceException)exception).getErrorCode();
+        if (exception instanceof AmazonServiceException serviceException) {
+            errCode = serviceException.getErrorCode();
         }
         return errCode;
     }

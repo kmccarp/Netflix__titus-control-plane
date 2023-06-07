@@ -43,7 +43,7 @@ public class LoadBalancerStoreException extends RuntimeException {
 
     public static <T> LoadBalancerStoreException badData(T value, Set<ValidationError> violations) {
         return new LoadBalancerStoreException(
-                String.format("Entity %s violates constraints: %s", value, violations),
+                "Entity %s violates constraints: %s".formatted(value, violations),
                 ErrorCode.BAD_DATA);
     }
 }

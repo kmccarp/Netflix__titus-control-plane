@@ -119,8 +119,10 @@ public class EventEmitterTransformerTest {
 
         @Override
         public String toString() {
-            return "StringEvent{" +
-                    "value='" + value + '\'' +
+            return """
+                    StringEvent{\
+                    value='\
+                    """ + value + '\'' +
                     ", added=" + added +
                     '}';
         }

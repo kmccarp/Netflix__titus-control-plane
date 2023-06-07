@@ -27,8 +27,8 @@ public final class ErrorReports {
 
     public static void handleReplyError(String message, Throwable e) {
         logger.error(message + ": " + e.getMessage());
-        if (e instanceof StatusRuntimeException) {
-            GrpcClientErrorUtils.printDetails((StatusRuntimeException) e);
+        if (e instanceof StatusRuntimeException exception) {
+            GrpcClientErrorUtils.printDetails(exception);
         }
         logger.info("stack trace", e);
     }

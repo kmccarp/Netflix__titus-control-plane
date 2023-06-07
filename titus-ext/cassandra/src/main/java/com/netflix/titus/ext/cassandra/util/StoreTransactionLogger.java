@@ -157,15 +157,15 @@ public class StoreTransactionLogger {
                             String crudAction,
                             ConsistencyLevel consistencyLevel,
                             String summary) {
-        return String.format(
-                "key=%s, table=%-15s method=%-20s crudAction=%-8s consistencyLevel=%-5s summary=%s",
-                key,
-                table,
-                method,
-                crudAction,
-                consistencyLevel,
-                summary
-        );
+        return 
+                "key=%s, table=%-15s method=%-20s crudAction=%-8s consistencyLevel=%-5s summary=%s".formatted(
+                        key,
+                        table,
+                        method,
+                        crudAction,
+                        consistencyLevel,
+                        summary
+                );
     }
 
     public static Builder newBuilder() {

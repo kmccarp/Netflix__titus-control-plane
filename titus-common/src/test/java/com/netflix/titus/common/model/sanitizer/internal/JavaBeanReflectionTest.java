@@ -17,7 +17,7 @@
 package com.netflix.titus.common.model.sanitizer.internal;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,7 +56,7 @@ public class JavaBeanReflectionTest {
                 new Child("child1", 1, 2),
                 new NullableChild("child2")
         );
-        Root updatedRoot = (Root) jbr.create(root, Collections.singletonMap(getField(Root.class, "name"), "Root"));
+        Root updatedRoot = (Root) jbr.create(root, Map.of(getField(Root.class, "name"), "Root"));
 
         assertThat(updatedRoot.getName()).isEqualTo("Root");
     }

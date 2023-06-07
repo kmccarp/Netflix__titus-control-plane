@@ -30,8 +30,6 @@ import com.netflix.titus.api.jobmanager.model.job.ext.ServiceJobExt;
 import com.netflix.titus.api.model.ResourceDimension;
 import com.netflix.titus.api.model.Tier;
 
-import static java.lang.String.format;
-
 public class JobManagerException extends RuntimeException {
 
     public enum ErrorCode {
@@ -111,7 +109,7 @@ public class JobManagerException extends RuntimeException {
     }
 
     public static boolean hasErrorCode(Throwable error, ErrorCode errorCode) {
-        return (error instanceof JobManagerException) && ((JobManagerException) error).getErrorCode() == errorCode;
+        return (error instanceof JobManagerException jme) && jme.getErrorCode() == errorCode;
     }
 
     public static JobManagerException jobCreateLimited(String violation) {
@@ -123,79 +121,79 @@ public class JobManagerException extends RuntimeException {
     }
 
     public static JobManagerException jobNotFound(String jobId) {
-        return new JobManagerException(ErrorCode.JobNotFound, format("Job with id %s does not exist", jobId));
+        return new JobManagerException(ErrorCode.JobNotFound, "Job with id %s does not exist".formatted(jobId));
     }
 
     public static JobManagerException v3JobNotFound(String jobId) {
-        return new JobManagerException(ErrorCode.JobNotFound, format("Job with id %s does not exist, or is running on the V2 engine", jobId));
+        return new JobManagerException(ErrorCode.JobNotFound, "Job with id %s does not exist, or is running on the V2 engine".formatted(jobId));
     }
 
     public static JobManagerException unexpectedJobState(Job job, JobState expectedState) {
         return new JobManagerException(
                 ErrorCode.UnexpectedJobState,
-                format("Job %s is not in the expected state %s (expected) != %s (actual)", job.getId(), expectedState, job.getStatus().getState())
+                "Job %s is not in the expected state %s (expected) != %s (actual)".formatted(job.getId(), expectedState, job.getStatus().getState())
         );
     }
 
     public static JobManagerException taskNotFound(String taskId) {
-        return new JobManagerException(ErrorCode.TaskNotFound, format("Task with id %s does not exist", taskId));
+        return new JobManagerException(ErrorCode.TaskNotFound, "Task with id %s does not exist".formatted(taskId));
     }
 
     public static JobManagerException notServiceJobDescriptor(JobDescriptor<?> jobDescriptor) {
-        return new JobManagerException(ErrorCode.NotServiceJobDescriptor, format("Operation restricted to service job descriptors, but got: %s", jobDescriptor));
+        return new JobManagerException(ErrorCode.NotServiceJobDescriptor, "Operation restricted to service job descriptors, but got: %s".formatted(jobDescriptor));
     }
 
     public static JobManagerException notServiceJob(String jobId) {
-        return new JobManagerException(ErrorCode.NotServiceJob, format("Operation restricted to service jobs, and %s is not a service job", jobId));
+        return new JobManagerException(ErrorCode.NotServiceJob, "Operation restricted to service jobs, and %s is not a service job".formatted(jobId));
     }
 
     public static JobManagerException notBatchJobDescriptor(JobDescriptor<?> jobDescriptor) {
-        return new JobManagerException(ErrorCode.NotBatchJobDescriptor, format("Operation restricted to batch job descriptors, but got: %s", jobDescriptor));
+        return new JobManagerException(ErrorCode.NotBatchJobDescriptor, "Operation restricted to batch job descriptors, but got: %s".formatted(jobDescriptor));
     }
 
     public static JobManagerException notBatchJob(String jobId) {
-        return new JobManagerException(ErrorCode.NotBatchJob, format("Operation restricted to batch jobs, and %s is not a batch job", jobId));
+        return new JobManagerException(ErrorCode.NotBatchJob, "Operation restricted to batch jobs, and %s is not a batch job".formatted(jobId));
     }
 
     public static JobManagerException unexpectedTaskState(Task task, TaskState expectedState) {
         return new JobManagerException(
                 ErrorCode.UnexpectedTaskState,
-                format("Task %s is not in the expected state %s (expected) != %s (actual)", task.getId(), expectedState, task.getStatus().getState())
+                "Task %s is not in the expected state %s (expected) != %s (actual)".formatted(task.getId(), expectedState, task.getStatus().getState())
         );
     }
 
     public static Throwable jobTerminating(Job<?> job) {
         if (job.getStatus().getState() == JobState.Finished) {
-            return new JobManagerException(ErrorCode.JobTerminating, format("Job %s is terminated", job.getId()));
+            return new JobManagerException(ErrorCode.JobTerminating, "Job %s is terminated".formatted(job.getId()));
         }
-        return new JobManagerException(ErrorCode.JobTerminating, format("Job %s is in the termination process", job.getId()));
+        return new JobManagerException(ErrorCode.JobTerminating, "Job %s is in the termination process".formatted(job.getId()));
     }
 
     public static Throwable taskTerminating(Task task) {
         if (task.getStatus().getState() == TaskState.Finished) {
-            return new JobManagerException(ErrorCode.TaskTerminating, format("Task %s is terminated", task.getId()));
+            return new JobManagerException(ErrorCode.TaskTerminating, "Task %s is terminated".formatted(task.getId()));
         }
-        return new JobManagerException(ErrorCode.TaskTerminating, format("Task %s is in the termination process", task.getId()));
+        return new JobManagerException(ErrorCode.TaskTerminating, "Task %s is in the termination process".formatted(task.getId()));
     }
 
     public static JobManagerException invalidContainerResources(Tier tier, ResourceDimension requestedResources, List<ResourceDimension> tierResourceLimits) {
         return new JobManagerException(
                 ErrorCode.InvalidContainerResources,
-                format("Job too large to run in the %s tier: requested=%s, limits=%s", tier, requestedResources, tierResourceLimits)
+                "Job too large to run in the %s tier: requested=%s, limits=%s".formatted(tier, requestedResources, tierResourceLimits)
         );
     }
 
     public static JobManagerException invalidContainerResources(EbsVolume ebsVolume, String message) {
         return new JobManagerException(
                 ErrorCode.InvalidContainerResources,
-                format("Job has invalid EBS volume: volume id=%s, reason=%s", ebsVolume.getVolumeId(), message)
+                "Job has invalid EBS volume: volume id=%s, reason=%s".formatted(ebsVolume.getVolumeId(), message)
         );
     }
 
     public static JobManagerException invalidDesiredCapacity(String jobId, int targetDesired, ServiceJobProcesses serviceJobProcesses) {
         return new JobManagerException(
                 ErrorCode.InvalidDesiredCapacity,
-                format("Job %s can not be updated to desired capacity of %s, disableIncreaseDesired %s, disableDecreaseDesired %s",
+                "Job %s can not be updated to desired capacity of %s, disableIncreaseDesired %s, disableDecreaseDesired %s".formatted(
                         jobId, targetDesired, serviceJobProcesses.isDisableIncreaseDesired(), serviceJobProcesses.isDisableDecreaseDesired())
         );
     }
@@ -203,7 +201,7 @@ public class JobManagerException extends RuntimeException {
     public static JobManagerException invalidMaxCapacity(String jobId, int targetMax, int ipAllocations) {
         return new JobManagerException(
                 ErrorCode.InvalidMaxCapacity,
-                format("Job %s can not be updated to max capacity of %d due to only %d IP allocations",
+                "Job %s can not be updated to max capacity of %d due to only %d IP allocations".formatted(
                         jobId, targetMax, ipAllocations)
         );
     }
@@ -212,7 +210,7 @@ public class JobManagerException extends RuntimeException {
         Capacity capacity = job.getJobDescriptor().getExtensions().getCapacity();
         return new JobManagerException(
                 ErrorCode.BelowMinCapacity,
-                format("Cannot decrement job %s desired size by %s, as it violates the minimum job size constraint: min=%s, desired=%d, max=%d",
+                "Cannot decrement job %s desired size by %s, as it violates the minimum job size constraint: min=%s, desired=%d, max=%d".formatted(
                         job.getId(), decrement, capacity.getMin(), capacity.getDesired(), capacity.getMax()
                 )
         );
@@ -222,7 +220,7 @@ public class JobManagerException extends RuntimeException {
         Capacity capacity = job.getJobDescriptor().getExtensions().getCapacity();
         return new JobManagerException(
                 ErrorCode.AboveMaxCapacity,
-                format("Cannot increment job %s desired size by %s, as it violates the maximum job size constraint: min=%s, desired=%d, max=%d",
+                "Cannot increment job %s desired size by %s, as it violates the maximum job size constraint: min=%s, desired=%d, max=%d".formatted(
                         job.getId(), increment, capacity.getMin(), capacity.getDesired(), capacity.getMax()
                 )
         );
@@ -232,7 +230,7 @@ public class JobManagerException extends RuntimeException {
         Capacity capacity = job.getJobDescriptor().getExtensions().getCapacity();
         return new JobManagerException(
                 ErrorCode.TerminateAndShrinkNotAllowed,
-                format("Terminate and shrink would make desired job size go below the configured minimum, which is not allowed for this request: jobId=%s, taskId=%s, min=%s, desired=%d, max=%d",
+                "Terminate and shrink would make desired job size go below the configured minimum, which is not allowed for this request: jobId=%s, taskId=%s, min=%s, desired=%d, max=%d".formatted(
                         job.getId(), task.getId(), capacity.getMin(), capacity.getDesired(), capacity.getMax()
                 )
         );
@@ -241,28 +239,28 @@ public class JobManagerException extends RuntimeException {
     public static JobManagerException sameJobs(String jobId) {
         return new JobManagerException(
                 ErrorCode.SameJobIds,
-                format("Operation requires two different job, but the same job was provided as the source and target: %s", jobId)
+                "Operation requires two different job, but the same job was provided as the source and target: %s".formatted(jobId)
         );
     }
 
     public static JobManagerException taskJobMismatch(String jobId, String taskId) {
         return new JobManagerException(
                 ErrorCode.TaskJobMismatch,
-                format("Operation requires task id to belong to the source job id. Task with id %s does not belong to job with id %s", taskId, jobId)
+                "Operation requires task id to belong to the source job id. Task with id %s does not belong to job with id %s".formatted(taskId, jobId)
         );
     }
 
     public static JobManagerException notCompatible(Job<ServiceJobExt> jobFrom, Job<ServiceJobExt> jobTo, String details) {
         return new JobManagerException(
                 ErrorCode.JobsNotCompatible,
-                format("Operation requires jobs to be compatible: %s -> %s\n%s", jobFrom.getId(), jobTo.getId(), details)
+                "Operation requires jobs to be compatible: %s -> %s\n%s".formatted(jobFrom.getId(), jobTo.getId(), details)
         );
     }
 
     public static JobManagerException notEnabled(String taskAction) {
         return new JobManagerException(
                 ErrorCode.NotEnabled,
-                format("%s not enabled", taskAction)
+                "%s not enabled".formatted(taskAction)
         );
     }
 }

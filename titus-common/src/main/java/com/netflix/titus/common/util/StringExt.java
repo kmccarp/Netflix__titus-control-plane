@@ -592,11 +592,11 @@ public final class StringExt {
         } else if (getterName.startsWith("has")) {
             prefixLen = 3;
         } else {
-            return Either.ofError(new IllegalArgumentException(String.format("getter '%s' does not start with a valid prefix (get|is|has)", getterName)));
+            return Either.ofError(new IllegalArgumentException("getter '%s' does not start with a valid prefix (get|is|has)".formatted(getterName)));
         }
 
         if (getterName.length() == prefixLen) {
-            return Either.ofError(new IllegalArgumentException(String.format("getter '%s' has only prefix with empty base name", getterName)));
+            return Either.ofError(new IllegalArgumentException("getter '%s' has only prefix with empty base name".formatted(getterName)));
         }
 
         return Either.ofValue(Character.toLowerCase(getterName.charAt(prefixLen)) + getterName.substring(prefixLen + 1));

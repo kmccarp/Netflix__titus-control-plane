@@ -17,6 +17,7 @@
 package com.netflix.titus.runtime.connector.jobmanager.snapshot;
 
 import java.util.Collections;
+import java.util.Map;
 
 import com.netflix.titus.api.jobmanager.model.job.Job;
 import com.netflix.titus.api.jobmanager.model.job.JobFunctions;
@@ -135,8 +136,8 @@ public class CachedBatchJobWithOneTaskTest {
         Task task = CollectionsExt.first(jobAndTasks.getRight().values());
 
         PCollectionJobSnapshot snapshot = PCollectionJobSnapshot.newInstance("test",
-                Collections.singletonMap(job.getId(), job),
-                Collections.singletonMap(job.getId(), create ? Collections.singletonMap(task.getId(), task) : Collections.emptyMap()),
+                Map.of(job.getId(), job),
+                Map.of(job.getId(), create ? Map.of(task.getId(), task) : Collections.emptyMap()),
                 false,
                 false,
                 error -> {

@@ -66,7 +66,7 @@ public final class Evaluators {
     public static <T> void acceptIfTrue(T value, Consumer<Boolean> consumer) {
         if (value instanceof Boolean && value == Boolean.TRUE) {
             consumer.accept(true);
-        } else if (value instanceof String && Boolean.parseBoolean((String) value)) {
+        } else if (value instanceof String string && Boolean.parseBoolean(string)) {
             consumer.accept(true);
         }
     }
@@ -146,11 +146,11 @@ public final class Evaluators {
                     return last.getRight().getValue();
                 }
                 Throwable error = last.getRight().getError();
-                if (error instanceof RuntimeException) {
-                    throw (RuntimeException) error;
+                if (error instanceof RuntimeException exception) {
+                    throw exception;
                 }
-                if (error instanceof Error) {
-                    throw (Error) error;
+                if (error instanceof Error error1) {
+                    throw error1;
                 }
                 throw new IllegalStateException(error);
             }

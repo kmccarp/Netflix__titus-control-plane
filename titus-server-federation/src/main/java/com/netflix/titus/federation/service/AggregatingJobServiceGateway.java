@@ -138,7 +138,7 @@ public class AggregatingJobServiceGateway implements JobServiceGateway {
         logger.debug("Routing JobDescriptor {} to Cell {}", jobDescriptor, cell);
 
         Optional<JobManagementServiceStub> optionalClient = CellConnectorUtil.toStub(cell, cellConnector, JobManagementServiceGrpc::newStub);
-        if (!optionalClient.isPresent()) {
+        if (optionalClient.isEmpty()) {
             return Observable.error(TitusServiceException.cellNotFound(cell.getName()));
         }
         JobManagementServiceStub client = optionalClient.get();

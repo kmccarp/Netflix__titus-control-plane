@@ -63,8 +63,10 @@ public class TierReference extends Reference {
 
     @Override
     public String toString() {
-        return "TierReference{" +
-                "level=" + getLevel() +
+        return """
+                TierReference{\
+                level=\
+                """ + getLevel() +
                 ", tier=" + tier +
                 "} " + super.toString();
     }

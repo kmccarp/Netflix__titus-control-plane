@@ -43,7 +43,7 @@ public class NameClusterMemberVerifier implements ClusterMemberVerifier {
             return ClusterMemberVerifierResult.valid();
         }
         return ClusterMemberVerifierResult.invalid(
-                String.format("Invalid member stack: expected=%s, actual=%s", expectedStackName, stackName)
+                "Invalid member stack: expected=%s, actual=%s".formatted(expectedStackName, stackName)
         );
     }
 

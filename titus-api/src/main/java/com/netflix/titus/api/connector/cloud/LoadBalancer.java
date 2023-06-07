@@ -69,8 +69,10 @@ public class LoadBalancer {
 
     @Override
     public String toString() {
-        return "LoadBalancer{" +
-                "id='" + id + '\'' +
+        return """
+                LoadBalancer{\
+                id='\
+                """ + id + '\'' +
                 ", state=" + state +
                 ", registeredIps=" + registeredIps +
                 '}';

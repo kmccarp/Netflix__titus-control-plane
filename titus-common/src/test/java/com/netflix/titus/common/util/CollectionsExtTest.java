@@ -53,8 +53,8 @@ public class CollectionsExtTest {
     @Test
     public void testBinarySearchLeftMostCornerCases() {
         testBinarySearchLeftMost(Collections.emptyList(), 1);
-        testBinarySearchLeftMost(Collections.singletonList(1), -100);
-        testBinarySearchLeftMost(Collections.singletonList(1), 100);
+        testBinarySearchLeftMost(List.of(1), -100);
+        testBinarySearchLeftMost(List.of(1), 100);
     }
 
     @Test

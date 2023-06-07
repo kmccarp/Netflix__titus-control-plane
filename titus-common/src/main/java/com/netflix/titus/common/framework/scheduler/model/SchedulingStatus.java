@@ -89,8 +89,10 @@ public class SchedulingStatus {
 
     @Override
     public String toString() {
-        return "SchedulingStatus{" +
-                "state=" + state +
+        return """
+                SchedulingStatus{\
+                state=\
+                """ + state +
                 ", timestamp=" + timestamp +
                 ", expectedStartTime=" + expectedStartTime +
                 ", error=" + error +

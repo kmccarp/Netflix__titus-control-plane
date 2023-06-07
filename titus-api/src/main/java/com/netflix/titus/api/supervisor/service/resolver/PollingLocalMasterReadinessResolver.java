@@ -16,7 +16,7 @@
 
 package com.netflix.titus.api.supervisor.service.resolver;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.PreDestroy;
 
@@ -68,7 +68,7 @@ public class PollingLocalMasterReadinessResolver implements LocalMasterReadiness
     @Override
     public Flux<ReadinessStatus> observeLocalMasterReadinessUpdates() {
         return readinessUpdatesProcessor
-                .transformDeferred(ReactorExt.head(() -> Collections.singletonList(readinessStatusRef.get())))
+                .transformDeferred(ReactorExt.head(() -> List.of(readinessStatusRef.get())))
                 .transformDeferred(ReactorExt.badSubscriberHandler(logger));
     }
 

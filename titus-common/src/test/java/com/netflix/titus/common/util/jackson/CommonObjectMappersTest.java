@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.jackson;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -52,13 +51,13 @@ public class CommonObjectMappersTest {
 
     @Test
     public void testFieldsFilterWithFullInnerObjects() throws Exception {
-        OuterClass deserialized = filter(Collections.singletonList("objectValue"));
+        OuterClass deserialized = filter(List.of("objectValue"));
         assertThat(deserialized.objectValue).isEqualTo(NESTED_OBJECT.objectValue);
     }
 
     @Test
     public void testFieldsFilterWithInvalidFieldDefinition() throws Exception {
-        OuterClass deserialized = filter(Collections.singletonList("objectValue.intValue.fakeField"));
+        OuterClass deserialized = filter(List.of("objectValue.intValue.fakeField"));
         assertThat(deserialized.objectValue.intValue).isEqualTo(0);
     }
 

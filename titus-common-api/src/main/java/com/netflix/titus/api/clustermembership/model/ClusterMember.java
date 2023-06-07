@@ -95,8 +95,10 @@ public class ClusterMember {
 
     @Override
     public String toString() {
-        return "ClusterMember{" +
-                "memberId='" + memberId + '\'' +
+        return """
+                ClusterMember{\
+                memberId='\
+                """ + memberId + '\'' +
                 ", enabled=" + enabled +
                 ", registered=" + registered +
                 ", active=" + active +

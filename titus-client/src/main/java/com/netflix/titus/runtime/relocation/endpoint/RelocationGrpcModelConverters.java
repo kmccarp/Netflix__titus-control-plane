@@ -108,15 +108,13 @@ public class RelocationGrpcModelConverters {
             grpcEvent = RelocationEvent.newBuilder()
                     .setSnapshotEnd(RelocationEvent.SnapshotEnd.getDefaultInstance())
                     .build();
-        } else if (coreEvent instanceof TaskRelocationPlanUpdateEvent) {
-            TaskRelocationPlanUpdateEvent updateEvent = (TaskRelocationPlanUpdateEvent) coreEvent;
+        } else if (coreEvent instanceof TaskRelocationPlanUpdateEvent updateEvent) {
             grpcEvent = RelocationEvent.newBuilder()
                     .setTaskRelocationPlanUpdateEvent(RelocationEvent.TaskRelocationPlanUpdateEvent.newBuilder()
                             .setPlan(toGrpcTaskRelocationPlan(updateEvent.getPlan()))
                     )
                     .build();
-        } else if (coreEvent instanceof TaskRelocationPlanRemovedEvent) {
-            TaskRelocationPlanRemovedEvent removedEvent = (TaskRelocationPlanRemovedEvent) coreEvent;
+        } else if (coreEvent instanceof TaskRelocationPlanRemovedEvent removedEvent) {
             grpcEvent = RelocationEvent.newBuilder()
                     .setTaskRelocationPlanRemoveEvent(RelocationEvent.TaskRelocationPlanRemoveEvent.newBuilder()
                             .setTaskId(removedEvent.getTaskId())

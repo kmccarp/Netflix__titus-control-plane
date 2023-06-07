@@ -120,7 +120,7 @@ public class DefaultReconciliationFrameworkTest {
         when(bootstrapEngine.getReferenceView()).thenReturn(EntityHolder.newRoot("myRoot1", "myEntity1"));
 
         DefaultReconciliationFramework<SimpleReconcilerEvent> framework = new DefaultReconciliationFramework<>(
-                Collections.singletonList(bootstrapEngine),
+                List.of(bootstrapEngine),
                 engineFactory,
                 IDLE_TIMEOUT_MS,
                 ACTIVE_TIMEOUT_MS,

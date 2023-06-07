@@ -63,8 +63,10 @@ public class SaaSVolumeSource extends VolumeSource {
 
     @Override
     public String toString() {
-        return "SaaSVolumeSource{" +
-                "SaaSVolumeID='" + saaSVolumeID + '\'' +
+        return """
+                SaaSVolumeSource{\
+                SaaSVolumeID='\
+                """ + saaSVolumeID + '\'' +
                 '}';
     }
 

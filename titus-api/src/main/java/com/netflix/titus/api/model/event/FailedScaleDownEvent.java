@@ -75,8 +75,10 @@ public class FailedScaleDownEvent extends ScaleDownEvent {
 
     @Override
     public String toString() {
-        return "FailedScaleDownEvent{" +
-                "instanceGroupId='" + getInstanceGroupId() +
+        return """
+                FailedScaleDownEvent{\
+                instanceGroupId='\
+                """ + getInstanceGroupId() +
                 ", errorMessage=" + errorMessage +
                 ", terminatedInstanceIds=" + getTerminatedInstanceIds() +
                 ", failures=" + failures +

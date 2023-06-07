@@ -92,8 +92,10 @@ public class BatchJobExt implements JobDescriptor.JobDescriptorExt {
 
     @Override
     public String toString() {
-        return "BatchJobExt{" +
-                "size=" + size +
+        return """
+                BatchJobExt{\
+                size=\
+                """ + size +
                 ", runtimeLimitMs=" + runtimeLimitMs +
                 ", retryPolicy=" + retryPolicy +
                 ", retryOnRuntimeLimit=" + retryOnRuntimeLimit +

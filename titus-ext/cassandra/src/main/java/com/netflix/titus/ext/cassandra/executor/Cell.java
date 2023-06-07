@@ -43,8 +43,10 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "Cell{" +
-                "rowId='" + rowId + '\'' +
+        return """
+                Cell{\
+                rowId='\
+                """ + rowId + '\'' +
                 ", column='" + column + '\'' +
                 ", value=" + value +
                 '}';

@@ -146,26 +146,26 @@ public final class RetryHandlerBuilder {
                 .zipWith(Observable.range(0, retryCount + 1), RetryItem::new)
                 .flatMap(retryItem -> {
                     if (retryWhenCondition != null && !retryWhenCondition.get()) {
-                        String errorMessage = String.format(
-                                "Retry condition not met for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry condition not met for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Observable.error(new IOException(errorMessage, retryItem.cause));
                     }
 
                     if (retryOnThrowableCondition != null && !retryOnThrowableCondition.test(retryItem.cause)) {
-                        String errorMessage = String.format(
-                                "Retry condition for the last error not met for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry condition for the last error not met for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Observable.error(new IOException(errorMessage, retryItem.cause));
                     }
 
                     if (retryItem.retry == retryCount) {
-                        String errorMessage = String.format(
-                                "Retry limit reached for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry limit reached for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Observable.error(new IOException(errorMessage, retryItem.cause));
                     }
                     long expDelay = buildDelay(retryItem.retry);
@@ -189,26 +189,26 @@ public final class RetryHandlerBuilder {
                 .zipWith(Flux.range(0, retryCount + 1), RetryItem::new)
                 .flatMap(retryItem -> {
                     if (retryWhenCondition != null && !retryWhenCondition.get()) {
-                        String errorMessage = String.format(
-                                "Retry condition not met for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry condition not met for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Flux.error(new IOException(errorMessage, retryItem.cause));
                     }
 
                     if (retryOnThrowableCondition != null && !retryOnThrowableCondition.test(retryItem.cause)) {
-                        String errorMessage = String.format(
-                                "Retry condition for the last error not met for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry condition for the last error not met for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Flux.error(new IOException(errorMessage, retryItem.cause));
                     }
 
                     if (retryItem.retry == retryCount) {
-                        String errorMessage = String.format(
-                                "Retry limit reached for %s. Last error: %s. Returning an error to the caller",
-                                title, retryItem.cause.getMessage()
-                        );
+                        String errorMessage = 
+                                "Retry limit reached for %s. Last error: %s. Returning an error to the caller".formatted(
+                                        title, retryItem.cause.getMessage()
+                                );
                         return Flux.error(new IOException(errorMessage, retryItem.cause));
                     }
                     long expDelay = buildDelay(retryItem.retry);

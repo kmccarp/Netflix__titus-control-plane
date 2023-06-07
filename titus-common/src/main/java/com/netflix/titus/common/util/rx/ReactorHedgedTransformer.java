@@ -106,7 +106,7 @@ class ReactorHedgedTransformer<T> implements Function<Mono<T>, Mono<T>> {
                 .flatMap(results -> {
                     if (results.isEmpty()) {
                         IllegalStateException error = new IllegalStateException("No result or failure");
-                        reportErrors(Collections.singletonList(error));
+                        reportErrors(List.of(error));
                         return Mono.error(error);
                     }
 

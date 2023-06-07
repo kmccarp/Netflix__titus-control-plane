@@ -17,7 +17,6 @@
 package com.netflix.titus.federation.endpoint.rest;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.ws.rs.WebApplicationException;
@@ -137,7 +136,7 @@ public class FederationV2CapacityGroupResourceTest {
             @Override
             public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
                 if (request.getPath().equals(API_PATH + "?extended=false")) {
-                    return newMockGetResult(Collections.singletonList(capacityGroup));
+                    return newMockGetResult(List.of(capacityGroup));
                 }
                 if (request.getPath().equals(API_PATH + '/' + capacityGroup.getAppName() + "?extended=false")) {
                     return newMockGetResult(capacityGroup);

@@ -19,7 +19,6 @@ package com.netflix.titus.common.framework.simplereconciler.internal;
 import java.io.Closeable;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -312,7 +311,7 @@ public class DefaultManyReconciler<DATA> implements ManyReconciler<DATA> {
         // Data update
         executors.forEach((id, executor) -> {
             if (executor.processDataUpdates()) {
-                indexSetHolder.add(Collections.singletonList(executor.getCurrent()));
+                indexSetHolder.add(List.of(executor.getCurrent()));
             }
         });
 
@@ -327,7 +326,7 @@ public class DefaultManyReconciler<DATA> implements ManyReconciler<DATA> {
 
                     // Emit event first, and run action after, so subscription completes only after events were propagated.
                     data.ifPresent(t -> eventDistributor.addEvents(
-                            Collections.singletonList(new SimpleReconcilerEvent<>(
+                            List.of(new SimpleReconcilerEvent<>(
                                     SimpleReconcilerEvent.Kind.Updated,
                                     executor.getId(),
                                     t,
@@ -349,13 +348,12 @@ public class DefaultManyReconciler<DATA> implements ManyReconciler<DATA> {
                 Optional<Runnable> runnable = executor.tryToClose();
                 if (executor.getState() == ReconcilerState.Closed) {
                     it.remove();
-                    indexSetHolder.remove(Collections.singletonList(executor.getId()));
+                    indexSetHolder.remove(List.of(executor.getId()));
                     metrics.remove(executor.getId());
 
                     // This is the very last action, so we can take safely the next transaction id without progressing it.
-                    eventDistributor.addEvents(Collections.singletonList(
-                            new SimpleReconcilerEvent<>(SimpleReconcilerEvent.Kind.Removed, executor.getId(), executor.getCurrent(), executor.getNextTransactionId())
-                    ));
+                    eventDistributor.addEvents(List.of(
+                            new SimpleReconcilerEvent<>(SimpleReconcilerEvent.Kind.Removed, executor.getId(), executor.getCurrent(), executor.getNextTransactionId())));
 
                     runnable.ifPresent(Runnable::run);
                 }
@@ -366,12 +364,11 @@ public class DefaultManyReconciler<DATA> implements ManyReconciler<DATA> {
         for (AddHolder holder; (holder = addHolders.poll()) != null; ) {
             ReconcilerEngine<DATA> executor = holder.getExecutor();
             executors.put(holder.getId(), executor);
-            indexSetHolder.add(Collections.singletonList(executor.getCurrent()));
+            indexSetHolder.add(List.of(executor.getCurrent()));
 
             // We set transaction id "0" for the newly added executors.
-            eventDistributor.addEvents(Collections.singletonList(
-                    new SimpleReconcilerEvent<>(SimpleReconcilerEvent.Kind.Added, executor.getId(), executor.getCurrent(), 0)
-            ));
+            eventDistributor.addEvents(List.of(
+                    new SimpleReconcilerEvent<>(SimpleReconcilerEvent.Kind.Added, executor.getId(), executor.getCurrent(), 0)));
 
             holder.getSink().success();
             justChanged.add(holder.getId());

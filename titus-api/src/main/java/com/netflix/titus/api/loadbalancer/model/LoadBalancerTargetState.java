@@ -41,8 +41,10 @@ public class LoadBalancerTargetState {
 
     @Override
     public String toString() {
-        return "TargetState{" +
-                "loadBalancerTarget=" + loadBalancerTarget +
+        return """
+                TargetState{\
+                loadBalancerTarget=\
+                """ + loadBalancerTarget +
                 ", state=" + state +
                 '}';
     }

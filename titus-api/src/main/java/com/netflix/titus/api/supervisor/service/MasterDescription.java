@@ -90,7 +90,7 @@ public class MasterDescription {
             uri = uri.substring(1);
         }
 
-        return String.format("http://%s:%d/%s", getHostname(), getApiPort(), uri);
+        return "http://%s:%d/%s".formatted(getHostname(), getApiPort(), uri);
     }
 
     @Override

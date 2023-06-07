@@ -20,7 +20,7 @@ import com.netflix.titus.api.model.callmetadata.CallMetadata;
 import com.netflix.titus.api.model.callmetadata.Caller;
 import com.netflix.titus.api.model.callmetadata.CallerType;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import javax.inject.Singleton;
 
@@ -33,13 +33,12 @@ public class AnonymousCallMetadataResolver implements CallMetadataResolver {
 
     private static final CallMetadata ANONYMOUS = CallMetadata.newBuilder()
             .withCallerId(ANONYMOUS_ID)
-            .withCallPath(Collections.singletonList(ANONYMOUS_ID))
+            .withCallPath(List.of(ANONYMOUS_ID))
             .withCallReason("")
-            .withCallers(Collections.singletonList(Caller.newBuilder()
+            .withCallers(List.of(Caller.newBuilder()
                     .withId(ANONYMOUS_ID)
                     .withCallerType(CallerType.Unknown)
-                    .build()
-            ))
+                    .build()))
             .build();
 
     private static final Optional<CallMetadata> ANONYMOUS_OPTIONAL = Optional.of(ANONYMOUS);

@@ -111,8 +111,10 @@ public class EbsVolume {
 
     @Override
     public String toString() {
-        return "EbsVolume{" +
-                "volumeId='" + volumeId + '\'' +
+        return """
+                EbsVolume{\
+                volumeId='\
+                """ + volumeId + '\'' +
                 ", volumeAvailabilityZone='" + volumeAvailabilityZone + '\'' +
                 ", volumeCapacityGB=" + volumeCapacityGB +
                 ", mountPath='" + mountPath + '\'' +

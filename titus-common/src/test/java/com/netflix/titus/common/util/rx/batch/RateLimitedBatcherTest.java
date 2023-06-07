@@ -206,8 +206,8 @@ public class RateLimitedBatcherTest {
         subscriber.assertNoErrors()
                 .assertValueCount(2)
                 .assertValues(
-                        Batch.of("resource1", Collections.singletonList(first)),
-                        Batch.of("resource2", Collections.singletonList(second))
+                        Batch.of("resource1", List.of(first)),
+                        Batch.of("resource2", List.of(second))
                 )
                 .assertCompleted();
     }
@@ -278,7 +278,7 @@ public class RateLimitedBatcherTest {
         testScheduler.advanceTimeBy(2 * minimumTimeInQueueMs, TimeUnit.MILLISECONDS);
         subscriber.assertNoErrors()
                 .assertValueCount(1)
-                .assertValue(Batch.of(expected.getResourceId(), Collections.singletonList(expected)));
+                .assertValue(Batch.of(expected.getResourceId(), List.of(expected)));
     }
 
     @Test

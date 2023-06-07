@@ -17,7 +17,6 @@
 package com.netflix.titus.federation.service;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +81,7 @@ class StatusCategoryComparator implements Comparator<Status> {
             // then transient errors
             Arrays.asList(UNAVAILABLE, CANCELLED, DEADLINE_EXCEEDED, RESOURCE_EXHAUSTED, ABORTED),
             // NOT_FOUND for sure only if it came from everywhere
-            Collections.singletonList(NOT_FOUND)
+            List.of(NOT_FOUND)
     );
 
     /**

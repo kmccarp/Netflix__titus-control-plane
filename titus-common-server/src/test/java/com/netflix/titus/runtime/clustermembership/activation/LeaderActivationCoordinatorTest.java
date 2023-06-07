@@ -17,7 +17,7 @@
 package com.netflix.titus.runtime.clustermembership.activation;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -54,7 +54,7 @@ public class LeaderActivationCoordinatorTest {
     public void setUp() {
         this.coordinator = new LeaderActivationCoordinator(
                 configuration,
-                Collections.singletonList(testableService),
+                List.of(testableService),
                 errorCallback::set,
                 membershipServiceStub,
                 titusRuntime

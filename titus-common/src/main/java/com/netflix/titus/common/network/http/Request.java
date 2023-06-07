@@ -173,8 +173,10 @@ public final class Request {
 
     @Override
     public String toString() {
-        return "Request{" +
-                "url='" + url + '\'' +
+        return """
+                Request{\
+                url='\
+                """ + url + '\'' +
                 ", method='" + method + '\'' +
                 ", headers=" + headers +
                 ", body=" + body +

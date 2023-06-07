@@ -73,8 +73,10 @@ public class ServerPort {
 
     @Override
     public String toString() {
-        return "ServerPort{" +
-                "portNumber=" + portNumber +
+        return """
+                ServerPort{\
+                portNumber=\
+                """ + portNumber +
                 ", protocol='" + protocol + '\'' +
                 ", secure=" + secure +
                 ", description='" + description + '\'' +

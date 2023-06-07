@@ -67,8 +67,10 @@ public class Caller {
 
     @Override
     public String toString() {
-        return "Caller{" +
-                "id='" + id + '\'' +
+        return """
+                Caller{\
+                id='\
+                """ + id + '\'' +
                 ", callerType=" + callerType +
                 ", context=" + context +
                 '}';

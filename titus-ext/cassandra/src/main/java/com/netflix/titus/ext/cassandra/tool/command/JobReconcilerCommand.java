@@ -112,7 +112,7 @@ public class JobReconcilerCommand implements Command {
                 String jobId = (String) pair.getRight();
                 Integer previousBucketId = jobIdToBucketMap.get(jobId);
                 if (previousBucketId != null) {
-                    recordViolation("multipleJobIdToBucketMappings", String.format("Job %s is mapped to buckets %s and %s", jobId, previousBucketId, bucketId), 1);
+                    recordViolation("multipleJobIdToBucketMappings", "Job %s is mapped to buckets %s and %s".formatted(jobId, previousBucketId, bucketId), 1);
                 } else {
                     jobIdToBucketMap.put(jobId, bucketId);
                 }
@@ -132,7 +132,7 @@ public class JobReconcilerCommand implements Command {
                         try {
                             return (Job<?>) ObjectMappers.storeMapper().readValue(value, Job.class);
                         } catch (Exception e) {
-                            recordViolation("badJobRecord", String.format("Job %s cannot be mapped to Job object: %s", jobId, e.getMessage()), 1);
+                            recordViolation("badJobRecord", "Job %s cannot be mapped to Job object: %s".formatted(jobId, e.getMessage()), 1);
                             return null;
                         }
                     })
@@ -151,7 +151,7 @@ public class JobReconcilerCommand implements Command {
                 String taskId = (String) pair.getRight();
                 String previousJobId = taskIdToJobIdMapping.get(taskId);
                 if (previousJobId != null) {
-                    recordViolation("multipleTaskIdToJobIdMappings", String.format("Task %s is mapped to job %s and %s", taskId, previousJobId, jobId), 1);
+                    recordViolation("multipleTaskIdToJobIdMappings", "Task %s is mapped to job %s and %s".formatted(taskId, previousJobId, jobId), 1);
                 } else {
                     taskIdToJobIdMapping.put(taskId, jobId);
                 }
@@ -171,7 +171,7 @@ public class JobReconcilerCommand implements Command {
                         try {
                             return ObjectMappers.storeMapper().readValue(value, Task.class);
                         } catch (Exception e) {
-                            recordViolation("badTaskRecord", String.format("Task %s cannot be mapped to Task object: %s", taskId, e.getMessage()), 1);
+                            recordViolation("badTaskRecord", "Task %s cannot be mapped to Task object: %s".formatted(taskId, e.getMessage()), 1);
                             return null;
                         }
                     })
@@ -184,12 +184,12 @@ public class JobReconcilerCommand implements Command {
 
             Set<String> unusedJobIds = CollectionsExt.copyAndRemove(jobIds, jobRecordIds);
             if (!unusedJobIds.isEmpty()) {
-                recordViolation("unusedJobIds", String.format("Found jobIds not associated with any job record: %s", unusedJobIds), unusedJobIds.size());
+                recordViolation("unusedJobIds", "Found jobIds not associated with any job record: %s".formatted(unusedJobIds), unusedJobIds.size());
             }
 
             Set<String> jobsWithNoBucketMapping = CollectionsExt.copyAndRemove(jobRecordIds, jobIds);
             if (!jobsWithNoBucketMapping.isEmpty()) {
-                recordViolation("jobsWithNoBucketMapping", String.format("Found job records not associated with any jobId bucket: %s", jobsWithNoBucketMapping), jobsWithNoBucketMapping.size());
+                recordViolation("jobsWithNoBucketMapping", "Found job records not associated with any jobId bucket: %s".formatted(jobsWithNoBucketMapping), jobsWithNoBucketMapping.size());
             }
         }
 
@@ -198,12 +198,12 @@ public class JobReconcilerCommand implements Command {
 
             Set<String> unusedTaskIds = CollectionsExt.copyAndRemove(taskIdToJobIdMap.keySet(), taskRecordIds);
             if (!unusedTaskIds.isEmpty()) {
-                recordViolation("unusedTaskIds", String.format("Found taskIds not associated with any task record: %s", unusedTaskIds), unusedTaskIds.size());
+                recordViolation("unusedTaskIds", "Found taskIds not associated with any task record: %s".formatted(unusedTaskIds), unusedTaskIds.size());
             }
 
             Set<String> tasksWithNoJobIdMapping = CollectionsExt.copyAndRemove(taskRecordIds, taskIdToJobIdMap.keySet());
             if (!tasksWithNoJobIdMapping.isEmpty()) {
-                recordViolation("tasksWithNoJobIdMapping", String.format("Found task records not associated with any jobId: %s", tasksWithNoJobIdMapping), tasksWithNoJobIdMapping.size());
+                recordViolation("tasksWithNoJobIdMapping", "Found task records not associated with any jobId: %s".formatted(tasksWithNoJobIdMapping), tasksWithNoJobIdMapping.size());
             }
         }
 
@@ -219,7 +219,7 @@ public class JobReconcilerCommand implements Command {
                         .collect(Collectors.toSet());
                 recordViolation(
                         "tasksNotAssociatedWithLoadableJob",
-                        String.format("Found task records not associated with any loadable job: invalidJobIds=%s, taskIds=%s", unknownJobs, badTaskIds),
+                        "Found task records not associated with any loadable job: invalidJobIds=%s, taskIds=%s".formatted(unknownJobs, badTaskIds),
                         badTaskIds.size()
                 );
             }

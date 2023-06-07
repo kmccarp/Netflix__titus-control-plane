@@ -112,8 +112,10 @@ public class Job<E extends JobDescriptor.JobDescriptorExt> {
 
     @Override
     public String toString() {
-        return "Job{" +
-                "id='" + id + '\'' +
+        return """
+                Job{\
+                id='\
+                """ + id + '\'' +
                 ", jobDescriptor=" + jobDescriptor +
                 ", status=" + status +
                 ", statusHistory=" + statusHistory +
@@ -178,7 +180,7 @@ public class Job<E extends JobDescriptor.JobDescriptorExt> {
                 return withStatusHistory(Collections.emptyList());
             }
             if (statusHistory.length == 1) {
-                return withStatusHistory(Collections.singletonList(statusHistory[0]));
+                return withStatusHistory(List.of(statusHistory[0]));
             }
             return withStatusHistory(asList(statusHistory));
         }

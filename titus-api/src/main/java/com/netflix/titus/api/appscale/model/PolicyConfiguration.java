@@ -54,8 +54,10 @@ public class PolicyConfiguration {
 
     @Override
     public String toString() {
-        return "PolicyConfiguration{" +
-                "name='" + name + '\'' +
+        return """
+                PolicyConfiguration{\
+                name='\
+                """ + name + '\'' +
                 ", policyType=" + policyType +
                 ", stepScalingPolicyConfiguration=" + stepScalingPolicyConfiguration +
                 ", alarmConfiguration=" + alarmConfiguration +

@@ -80,8 +80,10 @@ public class BatchJobTask extends Task {
 
     @Override
     public String toString() {
-        return "BatchJobTask{" +
-                "id='" + getId() + '\'' +
+        return """
+                BatchJobTask{\
+                id='\
+                """ + getId() + '\'' +
                 ", index=" + index +
                 ", jobId='" + getJobId() + '\'' +
                 ", status=" + getStatus() +

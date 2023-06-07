@@ -171,8 +171,10 @@ public class ContainerResources {
 
     @Override
     public String toString() {
-        return "ContainerResources{" +
-                "cpu=" + cpu +
+        return """
+                ContainerResources{\
+                cpu=\
+                """ + cpu +
                 ", gpu=" + gpu +
                 ", memoryMB=" + memoryMB +
                 ", diskMB=" + diskMB +

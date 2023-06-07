@@ -106,8 +106,10 @@ public class SignedIpAddressAllocation {
 
     @Override
     public String toString() {
-        return "SignedIpAddressAllocation{" +
-                "ipAddressAllocation=" + ipAddressAllocation +
+        return """
+                SignedIpAddressAllocation{\
+                ipAddressAllocation=\
+                """ + ipAddressAllocation +
                 ", authoritativePublicKey=" + Arrays.toString(authoritativePublicKey) +
                 ", hostPublicKey=" + Arrays.toString(hostPublicKey) +
                 ", hostPublicKeySignature=" + Arrays.toString(hostPublicKeySignature) +

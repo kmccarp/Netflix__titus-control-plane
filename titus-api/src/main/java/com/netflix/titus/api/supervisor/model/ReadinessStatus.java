@@ -68,8 +68,10 @@ public class ReadinessStatus {
 
     @Override
     public String toString() {
-        return "ReadinessStatus{" +
-                "state=" + state +
+        return """
+                ReadinessStatus{\
+                state=\
+                """ + state +
                 ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
                 '}';

@@ -17,7 +17,6 @@
 package com.netflix.titus.common.util.event;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ public class EventPropagationUtilTest {
 
     @Test
     public void testTitusPropagationTrackingInClient() {
-        Map<String, String> attributes = Collections.singletonMap("keyA", "valueA");
+        Map<String, String> attributes = Map.of("keyA", "valueA");
         // TJC -> Gateway
         Map<String, String> stage1 = EventPropagationUtil.copyAndAddNextStage("s1", attributes, 100, 150);
         assertThat(stage1).containsEntry(EventPropagationUtil.EVENT_ATTRIBUTE_PROPAGATION_STAGES, "s1(50ms):before=100,after=150");
@@ -56,9 +55,7 @@ public class EventPropagationUtilTest {
 
     @Test
     public void testTitusPropagationTrackingInFederation() {
-        Map<String, String> attributes = Collections.singletonMap(
-                EventPropagationUtil.EVENT_ATTRIBUTE_PROPAGATION_STAGES, "before=100,after=150;before=300,after=400;before=1000,after=1000"
-        );
+        Map<String, String> attributes = Map.of(EventPropagationUtil.EVENT_ATTRIBUTE_PROPAGATION_STAGES, "before=100,after=150;before=300,after=400;before=1000,after=1000");
 
         // Federation trace does not include federation -> client latency, but includes federation internal processing
         EventPropagationTrace federationTrace = EventPropagationUtil.parseTrace(attributes, false, 10, FEDERATION_LABELS).orElse(null);
@@ -69,7 +66,7 @@ public class EventPropagationUtilTest {
 
     @Test
     public void testTitusPropagationTrackingTooLong () {
-        Map<String, String> attributes = Collections.singletonMap("keyA", "valueA");
+        Map<String, String> attributes = Map.of("keyA", "valueA");
         int ts = 0;
         for (int i = 0; i < 100; i++) {
             ts = ts + 100;

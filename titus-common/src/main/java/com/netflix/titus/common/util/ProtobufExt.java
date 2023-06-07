@@ -57,17 +57,15 @@ public final class ProtobufExt {
                 if (nested != null) {
                     Object value = builder.getField(field);
                     if (value != null) {
-                        if (value instanceof Message) {
-                            Message messageValue = (Message) value;
+                        if (value instanceof Message messageValue) {
                             if (!messageValue.getAllFields().isEmpty()) {
                                 builder.setField(field, copy(messageValue, nested));
                             }
-                        } else if (value instanceof Collection) {
-                            Collection<?> collection = (Collection<?>) value;
+                        } else if (value instanceof Collection collection) {
                             if (!collection.isEmpty()) {
                                 Object first = CollectionsExt.first(collection);
-                                if (first instanceof MapEntry) {
-                                    if (((MapEntry) first).getKey() instanceof String) {
+                                if (first instanceof MapEntry entry) {
+                                    if (entry.getKey() instanceof String) {
                                         List<?> filteredMap = collection.stream().filter(item -> {
                                             MapEntry<String, Object> entry = (MapEntry<String, Object>) item;
                                             return nested.contains(entry.getKey());

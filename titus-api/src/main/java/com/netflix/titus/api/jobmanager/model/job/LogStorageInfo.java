@@ -110,8 +110,10 @@ public interface LogStorageInfo<TASK> {
 
         @Override
         public String toString() {
-            return "S3LogLocation{" +
-                    "accountName='" + accountName + '\'' +
+            return """
+                    S3LogLocation{\
+                    accountName='\
+                    """ + accountName + '\'' +
                     ", accountId='" + accountId + '\'' +
                     ", region='" + region + '\'' +
                     ", bucket='" + bucket + '\'' +

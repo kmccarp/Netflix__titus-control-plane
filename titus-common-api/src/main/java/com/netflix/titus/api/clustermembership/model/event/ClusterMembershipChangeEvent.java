@@ -65,8 +65,10 @@ public class ClusterMembershipChangeEvent extends ClusterMembershipEvent {
 
     @Override
     public String toString() {
-        return "ClusterMembershipChangeEvent{" +
-                "changeType=" + changeType +
+        return """
+                ClusterMembershipChangeEvent{\
+                changeType=\
+                """ + changeType +
                 ", revision=" + revision +
                 '}';
     }

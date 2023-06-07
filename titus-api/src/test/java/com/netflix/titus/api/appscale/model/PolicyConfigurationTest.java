@@ -8,83 +8,87 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class PolicyConfigurationTest {
     @Test
     public void deserializePolicyConfiguration() {
-        String policyConfigStrNoMetricDimensions = "{\n" +
-                "  \"name\": null,\n" +
-                "  \"policyType\": \"StepScaling\",\n" +
-                "  \"stepScalingPolicyConfiguration\": {\n" +
-                "    \"metricAggregationType\": \"Maximum\",\n" +
-                "    \"adjustmentType\": \"ChangeInCapacity\",\n" +
-                "    \"minAdjustmentMagnitude\": null,\n" +
-                "    \"steps\": [\n" +
-                "      {\n" +
-                "        \"scalingAdjustment\": 1,\n" +
-                "        \"metricIntervalLowerBound\": 0.0,\n" +
-                "        \"metricIntervalUpperBound\": null\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"coolDownSec\": 60\n" +
-                "  },\n" +
-                "  \"alarmConfiguration\": {\n" +
-                "    \"name\": null,\n" +
-                "    \"region\": null,\n" +
-                "    \"actionsEnabled\": true,\n" +
-                "    \"comparisonOperator\": \"GreaterThanThreshold\",\n" +
-                "    \"evaluationPeriods\": 1,\n" +
-                "    \"threshold\": 2.0,\n" +
-                "    \"metricNamespace\": \"titus/integrationTest\",\n" +
-                "    \"metricName\": \"RequestCount\",\n" +
-                "    \"statistic\": \"Sum\",\n" +
-                "    \"periodSec\": 60\n" +
-                "  },\n" +
-                "  \"targetTrackingPolicy\": null\n" +
-                "}";
+        String policyConfigStrNoMetricDimensions = """
+                {
+                  "name": null,
+                  "policyType": "StepScaling",
+                  "stepScalingPolicyConfiguration": {
+                    "metricAggregationType": "Maximum",
+                    "adjustmentType": "ChangeInCapacity",
+                    "minAdjustmentMagnitude": null,
+                    "steps": [
+                      {
+                        "scalingAdjustment": 1,
+                        "metricIntervalLowerBound": 0.0,
+                        "metricIntervalUpperBound": null
+                      }
+                    ],
+                    "coolDownSec": 60
+                  },
+                  "alarmConfiguration": {
+                    "name": null,
+                    "region": null,
+                    "actionsEnabled": true,
+                    "comparisonOperator": "GreaterThanThreshold",
+                    "evaluationPeriods": 1,
+                    "threshold": 2.0,
+                    "metricNamespace": "titus/integrationTest",
+                    "metricName": "RequestCount",
+                    "statistic": "Sum",
+                    "periodSec": 60
+                  },
+                  "targetTrackingPolicy": null
+                }\
+                """;
 
         PolicyConfiguration policyConfigNoMetricDimension = ObjectMappers.readValue(ObjectMappers.appScalePolicyMapper(),
                 policyConfigStrNoMetricDimensions, PolicyConfiguration.class);
         assertThat(policyConfigNoMetricDimension).isNotNull();
         assertThat(policyConfigNoMetricDimension.getAlarmConfiguration().getDimensions()).isNull();
 
-        String policyConfigStrWithMetricDimensions = "{\n" +
-                "  \"name\": null,\n" +
-                "  \"policyType\": \"StepScaling\",\n" +
-                "  \"stepScalingPolicyConfiguration\": {\n" +
-                "    \"metricAggregationType\": \"Maximum\",\n" +
-                "    \"adjustmentType\": \"ChangeInCapacity\",\n" +
-                "    \"minAdjustmentMagnitude\": null,\n" +
-                "    \"steps\": [\n" +
-                "      {\n" +
-                "        \"scalingAdjustment\": 1,\n" +
-                "        \"metricIntervalLowerBound\": 0.0,\n" +
-                "        \"metricIntervalUpperBound\": null\n" +
-                "      }\n" +
-                "    ],\n" +
-                "    \"coolDownSec\": 60\n" +
-                "  },\n" +
-                "  \"alarmConfiguration\": {\n" +
-                "    \"name\": null,\n" +
-                "    \"region\": null,\n" +
-                "    \"actionsEnabled\": true,\n" +
-                "    \"comparisonOperator\": \"GreaterThanThreshold\",\n" +
-                "    \"evaluationPeriods\": 1,\n" +
-                "    \"threshold\": 2.0,\n" +
-                "    \"metricNamespace\": \"titus/integrationTest\",\n" +
-                "    \"metricName\": \"RequestCount\",\n" +
-                "    \"statistic\": \"Sum\",\n" +
-                "    \"periodSec\": 60,\n" +
-                "    \"unknownField\": 100,\n" +
-                "    \"dimensions\": [\n" +
-                "      {\n" +
-                "        \"Name\": \"foo\",\n" +
-                "        \"Value\": \"bar\"\n" +
-                "      },\n" +
-                "      {\n" +
-                "        \"Name\": \"tier\",\n" +
-                "        \"Value\": \"1\"\n" +
-                "      }\n" +
-                "    ]\n" +
-                "  },\n" +
-                "  \"targetTrackingPolicy\": null\n" +
-                "}";
+        String policyConfigStrWithMetricDimensions = """
+                {
+                  "name": null,
+                  "policyType": "StepScaling",
+                  "stepScalingPolicyConfiguration": {
+                    "metricAggregationType": "Maximum",
+                    "adjustmentType": "ChangeInCapacity",
+                    "minAdjustmentMagnitude": null,
+                    "steps": [
+                      {
+                        "scalingAdjustment": 1,
+                        "metricIntervalLowerBound": 0.0,
+                        "metricIntervalUpperBound": null
+                      }
+                    ],
+                    "coolDownSec": 60
+                  },
+                  "alarmConfiguration": {
+                    "name": null,
+                    "region": null,
+                    "actionsEnabled": true,
+                    "comparisonOperator": "GreaterThanThreshold",
+                    "evaluationPeriods": 1,
+                    "threshold": 2.0,
+                    "metricNamespace": "titus/integrationTest",
+                    "metricName": "RequestCount",
+                    "statistic": "Sum",
+                    "periodSec": 60,
+                    "unknownField": 100,
+                    "dimensions": [
+                      {
+                        "Name": "foo",
+                        "Value": "bar"
+                      },
+                      {
+                        "Name": "tier",
+                        "Value": "1"
+                      }
+                    ]
+                  },
+                  "targetTrackingPolicy": null
+                }\
+                """;
 
         PolicyConfiguration policyConfigWithMetricDimensions = ObjectMappers.readValue(ObjectMappers.appScalePolicyMapper(),
                 policyConfigStrWithMetricDimensions, PolicyConfiguration.class);

@@ -109,11 +109,11 @@ public class JooqTaskRelocationResultStore implements TaskRelocationResultStore 
         return Mono.defer(() -> {
             TaskRelocationStatus status = statusesByTaskId.getIfPresent(taskId);
             if (status != null) {
-                return Mono.just(Collections.singletonList(status));
+                return Mono.just(List.of(status));
             }
 
             CompletionStage<Void> asyncAction = JooqUtils.executeAsync(() -> {
-                loadToCache(Collections.singleton(taskId), dslContext.configuration());
+                loadToCache(Set.of(taskId), dslContext.configuration());
                 return null;
             }, dslContext);
 
@@ -121,7 +121,7 @@ public class JooqTaskRelocationResultStore implements TaskRelocationResultStore 
             asyncAction.handle((result, error) -> {
                 if (error == null) {
                     TaskRelocationStatus loadedStatus = statusesByTaskId.getIfPresent(taskId);
-                    callerProcessor.onNext(loadedStatus == null ? Collections.emptyList() : Collections.singletonList(loadedStatus));
+                    callerProcessor.onNext(loadedStatus == null ? Collections.emptyList() : List.of(loadedStatus));
                 } else {
                     callerProcessor.onError(error);
                 }

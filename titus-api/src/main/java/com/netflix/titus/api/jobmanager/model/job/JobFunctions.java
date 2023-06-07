@@ -470,11 +470,10 @@ public final class JobFunctions {
         if (retryPolicy instanceof ImmediateRetryPolicy) {
             return Retryers.immediate();
         }
-        if (retryPolicy instanceof DelayedRetryPolicy) {
-            return Retryers.interval(((DelayedRetryPolicy) retryPolicy).getDelayMs(), TimeUnit.MILLISECONDS);
+        if (retryPolicy instanceof DelayedRetryPolicy policy) {
+            return Retryers.interval(policy.getDelayMs(), TimeUnit.MILLISECONDS);
         }
-        if (retryPolicy instanceof ExponentialBackoffRetryPolicy) {
-            ExponentialBackoffRetryPolicy exponential = (ExponentialBackoffRetryPolicy) retryPolicy;
+        if (retryPolicy instanceof ExponentialBackoffRetryPolicy exponential) {
             return Retryers.exponentialBackoff(exponential.getInitialDelayMs(), exponential.getMaxDelayMs(), TimeUnit.MILLISECONDS);
         }
         throw new IllegalArgumentException("Unknown RetryPolicy type " + retryPolicy.getClass());
@@ -487,7 +486,7 @@ public final class JobFunctions {
 
     public static RetryPolicy getRetryPolicy(Job<?> job) {
         JobDescriptorExt ext = job.getJobDescriptor().getExtensions();
-        return ext instanceof BatchJobExt ? ((BatchJobExt) ext).getRetryPolicy() : ((ServiceJobExt) ext).getRetryPolicy();
+        return ext instanceof BatchJobExt bje ? bje.getRetryPolicy() : ((ServiceJobExt) ext).getRetryPolicy();
     }
 
     public static <E extends JobDescriptorExt> JobDescriptor<E> changeRetryPolicy(JobDescriptor<E> input, RetryPolicy retryPolicy) {

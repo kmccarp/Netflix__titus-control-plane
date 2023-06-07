@@ -64,8 +64,10 @@ public class PodUpdatedEvent extends PodEvent {
 
     @Override
     public String toString() {
-        return "PodUpdatedEvent{" +
-                "taskId='" + taskId + '\'' +
+        return """
+                PodUpdatedEvent{\
+                taskId='\
+                """ + taskId + '\'' +
                 ", sequenceNumber=" + sequenceNumber +
                 ", pod=" + F8KubeObjectFormatter.formatPodEssentials(pod) +
                 ", oldPod=" + F8KubeObjectFormatter.formatPodEssentials(oldPod) +

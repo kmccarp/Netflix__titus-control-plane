@@ -51,8 +51,10 @@ public class EvictionQuotaEvent extends EvictionEvent {
 
     @Override
     public String toString() {
-        return "EvictionQuotaEvent{" +
-                "quota=" + quota +
+        return """
+                EvictionQuotaEvent{\
+                quota=\
+                """ + quota +
                 "} " + super.toString();
     }
 }

@@ -16,7 +16,6 @@
 
 package com.netflix.titus.common.util.spectator;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -41,7 +40,7 @@ class SubscriptionMetrics<T> implements Observable.Transformer<T, T> {
     private final AtomicLong lastEmitTimestamp;
 
     SubscriptionMetrics(String root, Class<?> aClass, Registry registry) {
-        this(root, Collections.singletonList(new BasicTag("class", aClass.getSimpleName())), registry);
+        this(root, List.of(new BasicTag("class", aClass.getSimpleName())), registry);
     }
 
     SubscriptionMetrics(String root, List<Tag> commonTags, Registry registry) {

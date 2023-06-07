@@ -183,8 +183,8 @@ public class DefaultReconciliationFramework<EVENT> implements ReconciliationFram
 
     private void stopEngines() {
         engines.forEach(e -> {
-            if (e instanceof DefaultReconciliationEngine) {
-                ((DefaultReconciliationEngine) e).shutdown();
+            if (e instanceof DefaultReconciliationEngine engine) {
+                engine.shutdown();
             }
         });
         engines.clear();
@@ -404,8 +404,8 @@ public class DefaultReconciliationFramework<EVENT> implements ReconciliationFram
     private void shutdownEnginesToRemove(List<Pair<InternalReconciliationEngine<EVENT>, Subscriber<Void>>> toRemove) {
         toRemove.forEach(pair -> {
             InternalReconciliationEngine e = pair.getLeft();
-            if (e instanceof DefaultReconciliationEngine) {
-                ((DefaultReconciliationEngine) e).shutdown();
+            if (e instanceof DefaultReconciliationEngine engine) {
+                engine.shutdown();
             }
             engines.remove(e);
             eventDistributor.removeReconciliationEngine(e);

@@ -146,8 +146,10 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
+        return """
+                Task{\
+                id='\
+                """ + id + '\'' +
                 ", jobId='" + jobId + '\'' +
                 ", status=" + status +
                 ", statusHistory=" + statusHistory +
@@ -205,7 +207,7 @@ public abstract class Task {
                 return withStatusHistory(Collections.emptyList());
             }
             if (statusHistory.length == 1) {
-                return withStatusHistory(Collections.singletonList(statusHistory[0]));
+                return withStatusHistory(List.of(statusHistory[0]));
             }
             return withStatusHistory(asList(statusHistory));
         }
@@ -245,14 +247,14 @@ public abstract class Task {
                 return withTwoLevelResources(Collections.emptyList());
             }
             if (twoLevelResources.length == 1) {
-                return withTwoLevelResources(Collections.singletonList(twoLevelResources[0]));
+                return withTwoLevelResources(List.of(twoLevelResources[0]));
             }
             return withTwoLevelResources(asList(twoLevelResources));
         }
 
         public B addToTaskContext(String key, String value) {
             if (taskContext == null) {
-                return withTaskContext(Collections.singletonMap(key, value));
+                return withTaskContext(Map.of(key, value));
             }
 
             return withTaskContext(CollectionsExt.copyAndAdd(taskContext, key, value));

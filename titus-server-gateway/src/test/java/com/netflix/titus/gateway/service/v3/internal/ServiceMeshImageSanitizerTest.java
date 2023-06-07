@@ -50,7 +50,7 @@ public class ServiceMeshImageSanitizerTest {
     private final RegistryClient registryClient = mock(RegistryClient.class);
     private ServiceMeshImageSanitizer sanitizer;
 
-    private static final String imageNameDigest = String.format("%s@%s", repo, digest);
+    private static final String imageNameDigest = "%s@%s".formatted(repo, digest);
     private static final Map<String, String> digestAttrs = CollectionsExt.asMap(
             JobAttributes.JOB_CONTAINER_ATTRIBUTE_SERVICEMESH_ENABLED, "true",
             JobAttributes.JOB_CONTAINER_ATTRIBUTE_SERVICEMESH_CONTAINER, imageNameDigest);
@@ -63,7 +63,7 @@ public class ServiceMeshImageSanitizerTest {
                     .build()))
             .getValue();
 
-    private static final String imageNameTag = String.format("%s:%s", repo, tag);
+    private static final String imageNameTag = "%s:%s".formatted(repo, tag);
     private static final Map<String, String> tagAttrs = CollectionsExt.asMap(
             JobAttributes.JOB_CONTAINER_ATTRIBUTE_SERVICEMESH_ENABLED, "true",
             JobAttributes.JOB_CONTAINER_ATTRIBUTE_SERVICEMESH_CONTAINER, imageNameTag);

@@ -17,7 +17,7 @@
 package com.netflix.titus.common.framework.scheduler.internal;
 
 import java.time.Duration;
-import java.util.Collections;
+import java.util.List;
 
 import com.netflix.titus.common.framework.scheduler.model.Schedule;
 import com.netflix.titus.common.framework.scheduler.model.ScheduleDescriptor;
@@ -96,7 +96,7 @@ public class LocalSchedulerTransactionLoggerTest {
                         .withIteration(ExecutionId.initial())
                         .build()
                 )
-                .withCompletedActions(Collections.singletonList(firstCompleted.getCurrentAction()))
+                .withCompletedActions(List.of(firstCompleted.getCurrentAction()))
                 .build();
         verify(LocalSchedulerTransactionLogger.doFormat(new ScheduleUpdateEvent(nextAction)));
     }
@@ -119,7 +119,7 @@ public class LocalSchedulerTransactionLoggerTest {
         return schedule.toBuilder()
                 .withCurrentAction(schedule.getCurrentAction().toBuilder()
                         .withStatus(newStatus)
-                        .withStatusHistory(Collections.singletonList(schedule.getCurrentAction().getStatus()))
+                        .withStatusHistory(List.of(schedule.getCurrentAction().getStatus()))
                         .build()
                 )
                 .build();

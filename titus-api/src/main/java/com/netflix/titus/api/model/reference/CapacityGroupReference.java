@@ -63,8 +63,10 @@ public class CapacityGroupReference extends Reference {
 
     @Override
     public String toString() {
-        return "CapacityGroupReference{" +
-                "level=" + getLevel() +
+        return """
+                CapacityGroupReference{\
+                level=\
+                """ + getLevel() +
                 ", name='" + name + '\'' +
                 "} " + super.toString();
     }

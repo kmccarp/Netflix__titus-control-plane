@@ -75,8 +75,10 @@ public class AutoScalingPolicy {
 
     @Override
     public String toString() {
-        return "AutoScalingPolicy{" +
-                "refId='" + refId + '\'' +
+        return """
+                AutoScalingPolicy{\
+                refId='\
+                """ + refId + '\'' +
                 ", policyConfiguration=" + policyConfiguration +
                 ", policyId='" + policyId + '\'' +
                 ", alarmId='" + alarmId + '\'' +

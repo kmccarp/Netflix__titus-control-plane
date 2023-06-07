@@ -18,7 +18,6 @@ package com.netflix.titus.client.clustermembership.grpc;
 
 import java.net.InetSocketAddress;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -131,7 +130,7 @@ class GrpcClusterMembershipLeaderNameResolver extends NameResolver {
                 }
 
                 EquivalentAddressGroup server = new EquivalentAddressGroup(new InetSocketAddress(address.getIpAddress(), address.getPortNumber()));
-                List<EquivalentAddressGroup> servers = Collections.singletonList(server);
+                List<EquivalentAddressGroup> servers = List.of(server);
                 listener.onAddresses(servers, Attributes.EMPTY);
             } else {
                 if (lastLeader != null) {

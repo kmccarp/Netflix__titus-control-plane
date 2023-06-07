@@ -115,8 +115,10 @@ public class EfsMount {
 
     @Override
     public String toString() {
-        return "EfsMount{" +
-                "efsId='" + efsId + '\'' +
+        return """
+                EfsMount{\
+                efsId='\
+                """ + efsId + '\'' +
                 ", mountPoint='" + mountPoint + '\'' +
                 ", mountPerm=" + mountPerm +
                 ", efsRelativeMountPoint='" + efsRelativeMountPoint + '\'' +

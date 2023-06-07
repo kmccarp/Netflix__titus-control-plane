@@ -117,8 +117,8 @@ public class FitErrorAction extends AbstractFitAction {
     private boolean doFail(String injectionPoint) {
         if (shouldFailFunction.get()) {
             Throwable exception = newException(injectionPoint);
-            if (exception instanceof RuntimeException) {
-                throw (RuntimeException) exception;
+            if (exception instanceof RuntimeException runtimeException) {
+                throw runtimeException;
             }
             throw new RuntimeException("Wrapper", exception);
         }

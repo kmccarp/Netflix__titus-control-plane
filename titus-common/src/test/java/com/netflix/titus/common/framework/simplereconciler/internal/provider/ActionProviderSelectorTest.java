@@ -18,8 +18,8 @@ package com.netflix.titus.common.framework.simplereconciler.internal.provider;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import com.netflix.titus.common.framework.simplereconciler.ReconcilerActionProvider;
 import com.netflix.titus.common.runtime.TitusRuntime;
@@ -46,7 +46,7 @@ public class ActionProviderSelectorTest {
     @Test
     public void testSingleProvider() {
         ActionProviderSelector<String> selector = new ActionProviderSelector<>("test",
-                Collections.singletonList(newExternalProvider("a")), titusRuntime);
+                List.of(newExternalProvider("a")), titusRuntime);
         Iterator<ReconcilerActionProvider<String>> it = selector.next(testClock.wallTime());
         expectExternal(it, "a");
         assertThat(it.hasNext()).isFalse();

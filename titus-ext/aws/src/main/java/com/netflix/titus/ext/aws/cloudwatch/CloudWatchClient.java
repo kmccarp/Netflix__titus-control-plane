@@ -106,7 +106,7 @@ public class CloudWatchClient implements CloudAlarmClient {
         putMetricAlarmRequest.setThreshold(alarmConfiguration.getThreshold());
         putMetricAlarmRequest.setMetricName(alarmConfiguration.getMetricName());
 
-        return wrapWithExponentialRetry(String.format("createOrUpdateAlarm in policy %s for job %s", policyRefId, jobId),
+        return wrapWithExponentialRetry("createOrUpdateAlarm in policy %s for job %s".formatted(policyRefId, jobId),
                 Observable.create(emitter ->
                         awsCloudWatch.putMetricAlarmAsync(putMetricAlarmRequest, new AsyncHandler<PutMetricAlarmRequest, PutMetricAlarmResult>() {
                             @Override
@@ -133,7 +133,7 @@ public class CloudWatchClient implements CloudAlarmClient {
         deleteAlarmsRequest.setAlarmNames(Arrays.asList(buildCloudWatchName(policyRefId, jobId)));
 
 
-        return wrapWithExponentialRetry(String.format("deleteAlarm in policy %s for job %s", policyRefId, jobId),
+        return wrapWithExponentialRetry("deleteAlarm in policy %s for job %s".formatted(policyRefId, jobId),
                 Observable.create(emitter ->
                         awsCloudWatch.deleteAlarmsAsync(deleteAlarmsRequest, new AsyncHandler<DeleteAlarmsRequest, DeleteAlarmsResult>() {
                             @Override
@@ -157,7 +157,7 @@ public class CloudWatchClient implements CloudAlarmClient {
     }
 
     private String buildCloudWatchName(String policyRefId, String jobId) {
-        return String.format("%s/%s", jobId, policyRefId);
+        return "%s/%s".formatted(jobId, policyRefId);
     }
 
     @VisibleForTesting

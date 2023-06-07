@@ -37,8 +37,8 @@ public class KubeUtils {
     public static int getHttpStatusCode(Throwable error) {
         Throwable cause = error;
         do {
-            if (cause instanceof KubernetesClientException) {
-                return ((KubernetesClientException) cause).getCode();
+            if (cause instanceof KubernetesClientException exception) {
+                return exception.getCode();
             }
             cause = cause.getCause();
         } while (cause != null);
@@ -50,10 +50,9 @@ public class KubeUtils {
     }
 
     public static ClusterMembershipConnectorException toConnectorException(Throwable error) {
-        if (error instanceof KubernetesClientException) {
-            KubernetesClientException fabric8IOException = (KubernetesClientException) error;
+        if (error instanceof KubernetesClientException fabric8IOException) {
             return ClusterMembershipConnectorException.clientError(
-                    String.format("%s: httpStatus=%s", fabric8IOException.getMessage(), fabric8IOException.getCode()),
+                    "%s: httpStatus=%s".formatted(fabric8IOException.getMessage(), fabric8IOException.getCode()),
                     error
             );
         }

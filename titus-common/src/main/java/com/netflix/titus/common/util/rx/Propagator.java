@@ -53,7 +53,7 @@ class Propagator<T> {
     private Observable<T> newOutput(int index) {
         return Observable.create(emitter -> {
             if (emittersByOutputIdx.putIfAbsent(index, emitter) != null) {
-                emitter.onError(new IllegalStateException(String.format("Propagator output %s already subscribed to", index)));
+                emitter.onError(new IllegalStateException("Propagator output %s already subscribed to".formatted(index)));
                 return;
             }
 

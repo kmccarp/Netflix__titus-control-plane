@@ -29,7 +29,6 @@ import org.junit.Test;
 import static com.netflix.titus.common.util.StringExt.parseEnumListIgnoreCase;
 import static com.netflix.titus.common.util.StringExt.parseKeyValueList;
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
@@ -50,7 +49,7 @@ public class StringExtTest {
         assertThat(parseEnumListIgnoreCase("  ", EnumValue.class)).isEmpty();
         assertThat(parseEnumListIgnoreCase("a , B", EnumValue.class)).contains(EnumValue.A, EnumValue.B);
 
-        Map<String, List<EnumValue>> grouping = singletonMap("ab", asList(EnumValue.C, EnumValue.D));
+        Map<String, List<EnumValue>> grouping = Map.of("ab", asList(EnumValue.C, EnumValue.D));
         assertThat(parseEnumListIgnoreCase("a , B, AB", EnumValue.class, grouping::get)).contains(EnumValue.A, EnumValue.B);
 
         try {

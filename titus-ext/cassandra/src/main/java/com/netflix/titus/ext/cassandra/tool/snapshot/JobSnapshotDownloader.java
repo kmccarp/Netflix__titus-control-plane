@@ -88,7 +88,7 @@ public class JobSnapshotDownloader {
                 .toList()
                 .toBlocking().first();
 
-        System.out.println(String.format("Writing %s rows from table %s to file: %s...", allItems.size(), table, output));
+        System.out.println("Writing %s rows from table %s to file: %s...".formatted(allItems.size(), table, output));
         try {
             MAPPER.writeValue(output, allItems);
         } catch (IOException e) {
@@ -129,7 +129,7 @@ public class JobSnapshotDownloader {
                 .toList()
                 .toBlocking().first();
 
-        System.out.println(String.format("Writing %s rows from table %s to file: %s...", allItems.size(), table, output));
+        System.out.println("Writing %s rows from table %s to file: %s...".formatted(allItems.size(), table, output));
 
         try {
             MAPPER.writeValue(output, mapper.apply(allItems));

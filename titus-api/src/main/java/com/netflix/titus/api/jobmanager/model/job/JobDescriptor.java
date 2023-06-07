@@ -262,8 +262,10 @@ public class JobDescriptor<E extends JobDescriptor.JobDescriptorExt> {
 
     @Override
     public String toString() {
-        return "JobDescriptor{" +
-                "owner=" + owner +
+        return """
+                JobDescriptor{\
+                owner=\
+                """ + owner +
                 ", applicationName='" + applicationName + '\'' +
                 ", capacityGroup='" + capacityGroup + '\'' +
                 ", jobGroupInfo=" + jobGroupInfo +
@@ -295,44 +297,44 @@ public class JobDescriptor<E extends JobDescriptor.JobDescriptorExt> {
         if (result instanceof JobDescriptor.Builder) {
             return ((JobDescriptor.Builder<E>) result).build();
         }
-        if (result instanceof NetworkConfiguration) {
-            return toBuilder().withNetworkConfiguration((NetworkConfiguration) result).build();
+        if (result instanceof NetworkConfiguration configuration) {
+            return toBuilder().withNetworkConfiguration(configuration).build();
         }
-        if (result instanceof NetworkConfiguration.Builder) {
-            return toBuilder().withNetworkConfiguration(((NetworkConfiguration.Builder) result).build()).build();
+        if (result instanceof NetworkConfiguration.Builder builder) {
+            return toBuilder().withNetworkConfiguration(builder.build()).build();
         }
-        if (result instanceof Owner) {
-            return toBuilder().withOwner((Owner) result).build();
+        if (result instanceof Owner owner1) {
+            return toBuilder().withOwner(owner1).build();
         }
-        if (result instanceof Owner.Builder) {
-            return toBuilder().withOwner(((Owner.Builder) result).build()).build();
+        if (result instanceof Owner.Builder builder) {
+            return toBuilder().withOwner(builder.build()).build();
         }
-        if (result instanceof JobGroupInfo) {
-            return toBuilder().withJobGroupInfo((JobGroupInfo) result).build();
+        if (result instanceof JobGroupInfo info) {
+            return toBuilder().withJobGroupInfo(info).build();
         }
-        if (result instanceof JobGroupInfo.Builder) {
-            return toBuilder().withJobGroupInfo(((JobGroupInfo.Builder) result).build()).build();
+        if (result instanceof JobGroupInfo.Builder builder) {
+            return toBuilder().withJobGroupInfo(builder.build()).build();
         }
-        if (result instanceof Container) {
-            return toBuilder().withContainer((Container) result).build();
+        if (result instanceof Container container1) {
+            return toBuilder().withContainer(container1).build();
         }
-        if (result instanceof Container.Builder) {
-            return toBuilder().withContainer(((Container.Builder) result).build()).build();
+        if (result instanceof Container.Builder builder) {
+            return toBuilder().withContainer(builder.build()).build();
         }
-        if (result instanceof DisruptionBudget) {
-            return toBuilder().withDisruptionBudget((DisruptionBudget) result).build();
+        if (result instanceof DisruptionBudget budget) {
+            return toBuilder().withDisruptionBudget(budget).build();
         }
-        if (result instanceof DisruptionBudget.Builder) {
-            return toBuilder().withDisruptionBudget(((DisruptionBudget.Builder) result).build()).build();
+        if (result instanceof DisruptionBudget.Builder builder) {
+            return toBuilder().withDisruptionBudget(builder.build()).build();
         }
         if (result instanceof JobDescriptorExt) {
             return toBuilder().withExtensions((E) result).build();
         }
-        if (result instanceof BatchJobExt.Builder) {
-            return toBuilder().withExtensions((E) ((BatchJobExt.Builder) result).build()).build();
+        if (result instanceof BatchJobExt.Builder builder) {
+            return toBuilder().withExtensions((E) builder.build()).build();
         }
-        if (result instanceof ServiceJobExt.Builder) {
-            return toBuilder().withExtensions((E) ((ServiceJobExt.Builder) result).build()).build();
+        if (result instanceof ServiceJobExt.Builder builder) {
+            return toBuilder().withExtensions((E) builder.build()).build();
         }
         if (result instanceof Map) {
             return toBuilder().withAttributes((Map<String, String>) result).build();

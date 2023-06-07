@@ -32,11 +32,11 @@ public class KubeApiException extends RuntimeException {
 
     public KubeApiException(String message, Throwable cause) {
         super(message, cause);
-        this.errorCode = cause instanceof ApiException ? toErrorCode((ApiException) cause) : ErrorCode.INTERNAL;
+        this.errorCode = cause instanceof ApiException ae ? toErrorCode(ae) : ErrorCode.INTERNAL;
     }
 
     public KubeApiException(ApiException cause) {
-        this(String.format("%s: httpStatus=%s, body=%s", cause.getMessage(), cause.getCode(), cause.getResponseBody()), cause);
+        this("%s: httpStatus=%s, body=%s".formatted(cause.getMessage(), cause.getCode(), cause.getResponseBody()), cause);
     }
 
     public ErrorCode getErrorCode() {

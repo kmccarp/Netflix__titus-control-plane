@@ -56,8 +56,10 @@ public class TaskReference extends Reference {
 
     @Override
     public String toString() {
-        return "TaskReference{" +
-                "name='" + name + '\'' +
+        return """
+                TaskReference{\
+                name='\
+                """ + name + '\'' +
                 '}';
     }
 }

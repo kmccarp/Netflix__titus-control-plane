@@ -107,10 +107,10 @@ public class GrpcRelocationReplicatorEventStream extends AbstractReplicatorEvent
         }
 
         private void applyToBuilder(TaskRelocationSnapshot.Builder builder, TaskRelocationEvent event) {
-            if (event instanceof TaskRelocationPlanUpdateEvent) {
-                builder.addPlan(((TaskRelocationPlanUpdateEvent) event).getPlan());
-            } else if (event instanceof TaskRelocationPlanRemovedEvent) {
-                builder.removePlan(((TaskRelocationPlanRemovedEvent) event).getTaskId());
+            if (event instanceof TaskRelocationPlanUpdateEvent updateEvent) {
+                builder.addPlan(updateEvent.getPlan());
+            } else if (event instanceof TaskRelocationPlanRemovedEvent removedEvent) {
+                builder.removePlan(removedEvent.getTaskId());
             }
         }
     }

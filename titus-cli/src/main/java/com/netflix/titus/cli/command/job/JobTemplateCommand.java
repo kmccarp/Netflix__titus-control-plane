@@ -18,7 +18,6 @@ package com.netflix.titus.cli.command.job;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Collections;
 import java.util.Map;
 
 import com.google.protobuf.util.JsonFormat;
@@ -167,7 +166,7 @@ public class JobTemplateCommand implements CliCommand {
                 .setSecurityProfile(createSecurityProfile())
                 .setSoftConstraints(createSoftConstraints())
                 .setHardConstraints(createHardConstraints())
-                .putAllEnv(Collections.singletonMap("MY_ENV", "myEnv"));
+                .putAllEnv(Map.of("MY_ENV", "myEnv"));
     }
 
     private com.netflix.titus.grpc.protogen.ContainerResources createResources() {

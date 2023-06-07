@@ -17,7 +17,6 @@
 package com.netflix.titus.common.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -62,7 +61,7 @@ public abstract class NumberSequence {
         for (String part : parts) {
             Matcher matcher = PART_RE.matcher(part);
             if (!matcher.matches()) {
-                return Either.ofError(String.format("Syntax error in sequence fragment '%s'", part));
+                return Either.ofError("Syntax error in sequence fragment '%s'".formatted(part));
             }
             if (matcher.group(2) == null) {
                 subsequences.add(new ValuesSequence(Integer.parseInt(part)));
@@ -72,7 +71,7 @@ public abstract class NumberSequence {
                 long from = Long.parseLong(matcher.group(1));
                 long to = Long.parseLong(matcher.group(3));
                 if (from >= to) {
-                    return Either.ofError(String.format("Invalid range: %s (from) >= %s (to)", from, to));
+                    return Either.ofError("Invalid range: %s (from) >= %s (to)".formatted(from, to));
                 }
                 subsequences.add(new RangeSequence(from, to, 1));
             }
@@ -128,7 +127,7 @@ public abstract class NumberSequence {
         private final List<Long> numbers;
 
         private ValuesSequence(long number) {
-            this.numbers = Collections.singletonList(number);
+            this.numbers = List.of(number);
         }
 
         @Override
@@ -228,8 +227,10 @@ public abstract class NumberSequence {
 
         @Override
         public String toString() {
-            return "RangeSequence{" +
-                    "from=" + from +
+            return """
+                    RangeSequence{\
+                    from=\
+                    """ + from +
                     ", to=" + to +
                     ", step=" + step +
                     "}";

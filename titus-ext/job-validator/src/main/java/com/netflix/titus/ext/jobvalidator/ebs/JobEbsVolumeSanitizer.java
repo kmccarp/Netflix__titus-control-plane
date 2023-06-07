@@ -105,7 +105,7 @@ public class JobEbsVolumeSanitizer implements AdmissionSanitizer<JobDescriptor> 
                     logger.debug("Stack trace", error);
                     metrics.incrementValidationError(ebsVolume.getVolumeId(), error.getClass().getSimpleName());
 
-                    return new IllegalArgumentException(String.format("EBS volume validation error: bucket=%s, error=%s",
+                    return new IllegalArgumentException("EBS volume validation error: bucket=%s, error=%s".formatted(
                             ebsVolume.getVolumeId(),
                             error.getMessage()
                     ), error);

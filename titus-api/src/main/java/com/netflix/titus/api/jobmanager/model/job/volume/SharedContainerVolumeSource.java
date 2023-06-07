@@ -48,8 +48,10 @@ public class SharedContainerVolumeSource extends VolumeSource {
 
     @Override
     public String toString() {
-        return "VolumeSource{" +
-                "sourceContainer='" + sourceContainer + '\'' +
+        return """
+                VolumeSource{\
+                sourceContainer='\
+                """ + sourceContainer + '\'' +
                 ", sourcePath='" + sourcePath + '\'' +
                 '}';
     }

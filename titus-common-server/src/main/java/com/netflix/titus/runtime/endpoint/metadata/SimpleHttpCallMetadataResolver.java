@@ -17,8 +17,8 @@
 package com.netflix.titus.runtime.endpoint.metadata;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -75,8 +75,8 @@ public class SimpleHttpCallMetadataResolver implements CallMetadataResolver {
         if (originalCallerId == null) {
             callMetadataBuilder
                     .withCallerId(directCaller.getId())
-                    .withCallPath(Collections.singletonList(directCaller.getId()))
-                    .withCallers(Collections.singletonList(directCaller));
+                    .withCallPath(List.of(directCaller.getId()))
+                    .withCallers(List.of(directCaller));
         } else {
             CallerType originalCallerType = CallerType.parseCallerType(originalCallerId, httpServletRequest.getHeader(CallMetadataHeaders.CALLER_TYPE_HEADER));
             Caller originalCaller = Caller.newBuilder()

@@ -74,8 +74,10 @@ public class HourlyTimeWindow {
 
     @Override
     public String toString() {
-        return "HourlyTimeWindow{" +
-                "startHour=" + startHour +
+        return """
+                HourlyTimeWindow{\
+                startHour=\
+                """ + startHour +
                 ", endHour=" + endHour +
                 '}';
     }

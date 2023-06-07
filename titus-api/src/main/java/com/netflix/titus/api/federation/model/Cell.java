@@ -55,8 +55,10 @@ public final class Cell implements Comparable<Cell> {
 
     @Override
     public String toString() {
-        return "Cell{" +
-                "name='" + name + '\'' +
+        return """
+                Cell{\
+                name='\
+                """ + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }

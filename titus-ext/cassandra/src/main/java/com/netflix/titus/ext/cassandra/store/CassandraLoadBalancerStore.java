@@ -109,20 +109,20 @@ public class CassandraLoadBalancerStore implements LoadBalancerStore {
      */
     private final ConcurrentMap<String, SortedSet<JobLoadBalancer>> jobToAssociatedLoadBalancersMap;
 
-    private static final String GET_ALL_ASSOCIATIONS = String
-            .format("SELECT %s, %s, %s FROM %s;",
+    private static final String GET_ALL_ASSOCIATIONS = "SELECT %s, %s, %s FROM %s;"
+            .formatted(
                     COLUMN_JOB_ID,
                     COLUMN_LOAD_BALANCER,
                     COLUMN_STATE,
                     TABLE_LOAD_BALANCER_ASSOCIATIONS);
-    private static final String INSERT_ASSOCIATION = String
-            .format("INSERT INTO %s(%s, %s, %s) VALUES (?, ?, ?);",
+    private static final String INSERT_ASSOCIATION = "INSERT INTO %s(%s, %s, %s) VALUES (?, ?, ?);"
+            .formatted(
                     TABLE_LOAD_BALANCER_ASSOCIATIONS,
                     COLUMN_JOB_ID,
                     COLUMN_LOAD_BALANCER,
                     COLUMN_STATE);
-    private static final String DELETE_ASSOCIATION = String
-            .format("DELETE FROM %s WHERE %s = ? AND %s = ?",
+    private static final String DELETE_ASSOCIATION = "DELETE FROM %s WHERE %s = ? AND %s = ?"
+            .formatted(
                     TABLE_LOAD_BALANCER_ASSOCIATIONS,
                     COLUMN_JOB_ID,
                     COLUMN_LOAD_BALANCER);

@@ -56,8 +56,10 @@ public class JobReference extends Reference {
 
     @Override
     public String toString() {
-        return "JobReference{" +
-                "name='" + name + '\'' +
+        return """
+                JobReference{\
+                name='\
+                """ + name + '\'' +
                 '}';
     }
 }

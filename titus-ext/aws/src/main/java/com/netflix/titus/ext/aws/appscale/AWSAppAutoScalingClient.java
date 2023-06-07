@@ -16,7 +16,6 @@
 
 package com.netflix.titus.ext.aws.appscale;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -103,7 +102,7 @@ public class AWSAppAutoScalingClient implements AppAutoScalingClient {
         registerScalableTargetRequest.setScalableDimension(SCALABLE_DIMENSION);
         logger.info("RegisterScalableTargetRequest {}", registerScalableTargetRequest);
 
-        return RetryWrapper.wrapWithExponentialRetry(String.format("createScalableTarget for job %s", jobId),
+        return RetryWrapper.wrapWithExponentialRetry("createScalableTarget for job %s".formatted(jobId),
                 Observable.create(emitter -> awsAppAutoScalingClientAsync.registerScalableTargetAsync(registerScalableTargetRequest, new AsyncHandler<RegisterScalableTargetRequest, RegisterScalableTargetResult>() {
                     @Override
                     public void onError(Exception exception) {
@@ -127,13 +126,13 @@ public class AWSAppAutoScalingClient implements AppAutoScalingClient {
         DescribeScalableTargetsRequest describeScalableTargetsRequest = new DescribeScalableTargetsRequest();
         describeScalableTargetsRequest.setServiceNamespace(SERVICE_NAMESPACE);
         describeScalableTargetsRequest.setScalableDimension(SCALABLE_DIMENSION);
-        describeScalableTargetsRequest.setResourceIds(Collections.singletonList(
+        describeScalableTargetsRequest.setResourceIds(List.of(
                 AWSAppAutoScalingUtil.buildGatewayResourceId(jobId,
                         awsAppScalingConfig.getAWSGatewayEndpointPrefix(),
                         awsAppScalingConfig.getRegion(),
                         awsAppScalingConfig.getAWSGatewayEndpointTargetStage())));
 
-        return RetryWrapper.wrapWithExponentialRetry(String.format("getScalableTargetsForJob for job %s", jobId),
+        return RetryWrapper.wrapWithExponentialRetry("getScalableTargetsForJob for job %s".formatted(jobId),
                 Observable.create(emitter -> awsAppAutoScalingClientAsync.describeScalableTargetsAsync(describeScalableTargetsRequest,
                         new AsyncHandler<DescribeScalableTargetsRequest, DescribeScalableTargetsResult>() {
                             @Override
@@ -241,13 +240,13 @@ public class AWSAppAutoScalingClient implements AppAutoScalingClient {
 
             putScalingPolicyRequest.setTargetTrackingScalingPolicyConfiguration(targetTrackingConfigAws);
         } else {
-            return Observable.error(new UnsupportedOperationException(String.format(
-                    "Scaling policy type not supported: jobId=%s, policyRefId=%s, type=%s",
-                    jobId, policyRefId, policyConfiguration.getPolicyType().name()
-            )));
+            return Observable.error(new UnsupportedOperationException(
+                    "Scaling policy type not supported: jobId=%s, policyRefId=%s, type=%s".formatted(
+                            jobId, policyRefId, policyConfiguration.getPolicyType().name()
+                    )));
         }
 
-        return RetryWrapper.wrapWithExponentialRetry(String.format("createOrUpdateScalingPolicy %s for job %s", policyRefId, jobId),
+        return RetryWrapper.wrapWithExponentialRetry("createOrUpdateScalingPolicy %s for job %s".formatted(policyRefId, jobId),
                 Observable.create(emitter -> awsAppAutoScalingClientAsync.putScalingPolicyAsync(putScalingPolicyRequest, new AsyncHandler<PutScalingPolicyRequest, PutScalingPolicyResult>() {
                     @Override
                     public void onError(Exception exception) {
@@ -282,7 +281,7 @@ public class AWSAppAutoScalingClient implements AppAutoScalingClient {
         deRegisterRequest.setServiceNamespace(SERVICE_NAMESPACE);
         deRegisterRequest.setScalableDimension(SCALABLE_DIMENSION);
 
-        return RetryWrapper.wrapWithExponentialRetry(String.format("deleteScalableTarget for job %s", jobId),
+        return RetryWrapper.wrapWithExponentialRetry("deleteScalableTarget for job %s".formatted(jobId),
                 Observable.create(emitter -> awsAppAutoScalingClientAsync.deregisterScalableTargetAsync(deRegisterRequest, new AsyncHandler<DeregisterScalableTargetRequest, DeregisterScalableTargetResult>() {
                     @Override
                     public void onError(Exception exception) {
@@ -318,7 +317,7 @@ public class AWSAppAutoScalingClient implements AppAutoScalingClient {
         deleteScalingPolicyRequest.setScalableDimension(SCALABLE_DIMENSION);
         deleteScalingPolicyRequest.setPolicyName(buildScalingPolicyName(policyRefId, jobId));
 
-        return RetryWrapper.wrapWithExponentialRetry(String.format("deleteScalingPolicy %s for job %s", policyRefId, jobId),
+        return RetryWrapper.wrapWithExponentialRetry("deleteScalingPolicy %s for job %s".formatted(policyRefId, jobId),
                 Observable.create(emitter -> awsAppAutoScalingClientAsync.deleteScalingPolicyAsync(deleteScalingPolicyRequest, new AsyncHandler<DeleteScalingPolicyRequest, DeleteScalingPolicyResult>() {
                     @Override
                     public void onError(Exception exception) {

@@ -57,8 +57,10 @@ public class ScaleDownEvent extends AutoScaleEvent {
 
     @Override
     public String toString() {
-        return "ScaleDownEvent{" +
-                "instanceGroupId='" + getInstanceGroupId() +
+        return """
+                ScaleDownEvent{\
+                instanceGroupId='\
+                """ + getInstanceGroupId() +
                 "terminatedInstanceIds=" + terminatedInstanceIds +
                 "} " + super.toString();
     }

@@ -237,7 +237,7 @@ public class DefaultReconciliationEngine<EVENT> implements InternalReconciliatio
 
                 // Emit errors if the change point (EntityHolder for the action) not found
                 Optional<EntityHolder> changePointOpt = modelHolder.getReference().findById(actionHolder.getEntityHolderId());
-                if (!changePointOpt.isPresent()) {
+                if (changePointOpt.isEmpty()) {
                     referenceChangeActions.poll();
                     transactions.add(new FailedTransaction<>(this, actionHolder, new IllegalStateException("Entity holder not found: id=" + actionHolder.getEntityHolderId())));
                     continue;

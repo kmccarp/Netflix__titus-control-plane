@@ -56,8 +56,10 @@ public class FixedIntervalTokenBucketRefillPolicy extends TokenBucketRefillPolic
 
     @Override
     public String toString() {
-        return "FixedIntervalTokenBucketRefillPolicy{" +
-                "numberOfTokensPerInterval=" + numberOfTokensPerInterval +
+        return """
+                FixedIntervalTokenBucketRefillPolicy{\
+                numberOfTokensPerInterval=\
+                """ + numberOfTokensPerInterval +
                 ", intervalMs=" + intervalMs +
                 "}";
     }

@@ -61,13 +61,13 @@ class LocalSchedulerTransactionLogger {
 
     @VisibleForTesting
     static String doFormat(LocalSchedulerEvent event) {
-        if (event instanceof ScheduleAddedEvent) {
-            return logScheduleAddedEvent((ScheduleAddedEvent) event);
-        } else if (event instanceof ScheduleRemovedEvent) {
-            return logScheduleRemovedEvent((ScheduleRemovedEvent) event);
+        if (event instanceof ScheduleAddedEvent addedEvent) {
+            return logScheduleAddedEvent(addedEvent);
+        } else if (event instanceof ScheduleRemovedEvent removedEvent) {
+            return logScheduleRemovedEvent(removedEvent);
         }
-        if (event instanceof ScheduleUpdateEvent) {
-            return logScheduleUpdateEvent((ScheduleUpdateEvent) event);
+        if (event instanceof ScheduleUpdateEvent updateEvent) {
+            return logScheduleUpdateEvent(updateEvent);
         }
         return "Unknown event type: " + event.getClass();
     }
@@ -112,15 +112,15 @@ class LocalSchedulerTransactionLogger {
                                    String eventKind,
                                    String summary) {
         ScheduledAction action = schedule.getCurrentAction();
-        return String.format(
-                "name=%-20s eventKind=%-15s iteration=%-6s state=%-10s %-15s summary=%s",
-                schedule.getDescriptor().getName(),
-                eventKind,
-                action.getExecutionId().getId() + "." + action.getExecutionId().getAttempt(),
-                action.getStatus().getState(),
-                "elapsed=" + toElapsedMs(schedule) + "ms",
-                summary
-        );
+        return 
+                "name=%-20s eventKind=%-15s iteration=%-6s state=%-10s %-15s summary=%s".formatted(
+                        schedule.getDescriptor().getName(),
+                        eventKind,
+                        action.getExecutionId().getId() + "." + action.getExecutionId().getAttempt(),
+                        action.getStatus().getState(),
+                        "elapsed=" + toElapsedMs(schedule) + "ms",
+                        summary
+                );
     }
 
     private static long toElapsedMs(Schedule schedule) {

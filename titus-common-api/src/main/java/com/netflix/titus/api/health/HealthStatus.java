@@ -57,8 +57,10 @@ public class HealthStatus {
 
     @Override
     public String toString() {
-        return "HealthStatus{" +
-                "healthState=" + healthState +
+        return """
+                HealthStatus{\
+                healthState=\
+                """ + healthState +
                 ", details=" + details +
                 '}';
     }

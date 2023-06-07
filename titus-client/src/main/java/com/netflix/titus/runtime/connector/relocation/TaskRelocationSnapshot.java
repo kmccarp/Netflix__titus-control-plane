@@ -54,8 +54,10 @@ public class TaskRelocationSnapshot extends ReplicatedSnapshot {
 
     @Override
     public String toString() {
-        return "TaskRelocationSnapshot{" +
-                "plans=" + plans +
+        return """
+                TaskRelocationSnapshot{\
+                plans=\
+                """ + plans +
                 '}';
     }
 

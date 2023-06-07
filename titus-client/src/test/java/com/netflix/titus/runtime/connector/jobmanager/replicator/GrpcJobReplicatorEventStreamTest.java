@@ -190,12 +190,10 @@ public class GrpcJobReplicatorEventStreamTest {
 
         assertThat(events).hasSize(3);
         events.stream().map(ReplicatorEvent::getTrigger).forEach(jobManagerEvent -> {
-            if (jobManagerEvent instanceof JobUpdateEvent) {
-                JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) jobManagerEvent;
+            if (jobManagerEvent instanceof JobUpdateEvent jobUpdateEvent) {
                 String eventJobId = jobUpdateEvent.getCurrent().getId();
                 assertThat(eventJobId).isIn(sourceJobId, targetJobId);
-            } else if (jobManagerEvent instanceof TaskUpdateEvent) {
-                TaskUpdateEvent taskUpdateEvent = (TaskUpdateEvent) jobManagerEvent;
+            } else if (jobManagerEvent instanceof TaskUpdateEvent taskUpdateEvent) {
                 assertThat(taskUpdateEvent.isMovedFromAnotherJob()).isTrue();
                 assertThat(taskUpdateEvent.getCurrentJob().getId()).isEqualTo(targetJobId);
                 assertThat(taskUpdateEvent.getCurrent().getJobId()).isEqualTo(targetJobId);

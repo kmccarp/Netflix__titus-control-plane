@@ -114,8 +114,10 @@ public class ScheduleDescriptor {
 
     @Override
     public String toString() {
-        return "ScheduleDescriptor{" +
-                "name='" + name + '\'' +
+        return """
+                ScheduleDescriptor{\
+                name='\
+                """ + name + '\'' +
                 ", description='" + description + '\'' +
                 ", initialDelay=" + initialDelay +
                 ", interval=" + interval +

@@ -71,8 +71,10 @@ public class ReplicatorEvent<SNAPSHOT, TRIGGER> {
 
     @Override
     public String toString() {
-        return "ReplicatorEvent{" +
-                "snapshot=" + snapshot +
+        return """
+                ReplicatorEvent{\
+                snapshot=\
+                """ + snapshot +
                 ", trigger=" + trigger +
                 ", lastUpdateTime=" + lastUpdateTime +
                 ", lastCheckpointTimestamp=" + lastCheckpointTimestamp +

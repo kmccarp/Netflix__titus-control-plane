@@ -62,8 +62,10 @@ public class DelayedRetryPolicy extends RetryPolicy<DelayedRetryPolicy, DelayedR
 
     @Override
     public String toString() {
-        return "DelayedRetryPolicy{" +
-                "retries=" + getRetries() +
+        return """
+                DelayedRetryPolicy{\
+                retries=\
+                """ + getRetries() +
                 "delayMs=" + delayMs +
                 '}';
     }

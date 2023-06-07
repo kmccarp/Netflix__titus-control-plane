@@ -79,7 +79,7 @@ public class JobSnapshotLoader {
             }
         });
         long written = CassandraUtils.writeIntoTwoColumnTable(session, table, Observable.from(items));
-        System.out.println(String.format("Successfully writen %s entries into table %s", written, table));
+        System.out.println("Successfully writen %s entries into table %s".formatted(written, table));
     }
 
     /**
@@ -96,7 +96,7 @@ public class JobSnapshotLoader {
             });
         });
         long written = CassandraUtils.writeIntoTwoColumnTable(session, table, Observable.from(items));
-        System.out.println(String.format("Successfully writen %s entries into table %s", written, table));
+        System.out.println("Successfully writen %s entries into table %s".formatted(written, table));
     }
 
     /**
@@ -110,14 +110,14 @@ public class JobSnapshotLoader {
             values.forEach(value -> items.add(Pair.of(key, value.asText())));
         });
         long written = CassandraUtils.writeIntoTwoColumnTable(session, table, Observable.from(items));
-        System.out.println(String.format("Successfully writen %s entries into table %s", written, table));
+        System.out.println("Successfully writen %s entries into table %s".formatted(written, table));
     }
 
     private JsonNode readJsonTree(String table) {
         File input = new File(inputFolder, table + ".json");
         try {
             JsonNode jsonTree = MAPPER.readTree(input);
-            System.out.println(String.format("Loading %s rows into table %s to file: %s...", jsonTree.size(), table, input));
+            System.out.println("Loading %s rows into table %s to file: %s...".formatted(jsonTree.size(), table, input));
             return jsonTree;
         } catch (Exception e) {
             throw new IllegalStateException(e);

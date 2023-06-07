@@ -123,7 +123,7 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
                         augmentedStream = Flux.merge(
                                 connectableStream.take(1).timeout(Duration.ofMillis(configuration.getConnectionTimeoutMs())).ignoreElements()
                                         .onErrorMap(TimeoutException.class, error ->
-                                                new TimeoutException(String.format("No event received from stream in %sms", configuration.getConnectionTimeoutMs()))
+                                                new TimeoutException("No event received from stream in %sms".formatted(configuration.getConnectionTimeoutMs()))
                                         ),
                                 connectableStream
                         );
@@ -174,11 +174,11 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
 
         Optional<ReplicatorEvent<JobSnapshot, JobManagerEvent<?>>> onEvent(JobManagerEvent<?> event) {
             if (logger.isDebugEnabled()) {
-                if (event instanceof JobUpdateEvent) {
-                    Job job = ((JobUpdateEvent) event).getCurrent();
+                if (event instanceof JobUpdateEvent updateEvent) {
+                    Job job = updateEvent.getCurrent();
                     logger.debug("Received job update event: jobId={}, state={}, version={}", job.getId(), job.getStatus(), job.getVersion());
-                } else if (event instanceof TaskUpdateEvent) {
-                    Task task = ((TaskUpdateEvent) event).getCurrent();
+                } else if (event instanceof TaskUpdateEvent updateEvent) {
+                    Task task = updateEvent.getCurrent();
                     logger.debug("Received task update event: taskId={}, state={}, version={}", task.getId(), task.getStatus(), task.getVersion());
                 } else if (event.equals(JobManagerEvent.snapshotMarker())) {
                     logger.debug("Received snapshot marker");
@@ -209,8 +209,8 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
             Set<String> jobsToRemove = new HashSet<>();
 
             snapshotEvents.forEach(event -> {
-                if (event instanceof JobUpdateEvent) {
-                    Job<?> job = ((JobUpdateEvent) event).getCurrent();
+                if (event instanceof JobUpdateEvent updateEvent) {
+                    Job<?> job = updateEvent.getCurrent();
                     jobs.put(job.getId(), job);
                     if (job.getStatus().getState() == JobState.Finished) {
                         // If archive mode is disabled, we always remove finished jobs immediately.
@@ -228,8 +228,7 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
             Map<String, Task> tasks = new HashMap<>();
             Set<String> tasksToRemove = new HashSet<>();
             snapshotEvents.forEach(event -> {
-                if (event instanceof TaskUpdateEvent) {
-                    TaskUpdateEvent taskUpdateEvent = (TaskUpdateEvent) event;
+                if (event instanceof TaskUpdateEvent taskUpdateEvent) {
                     Task task = taskUpdateEvent.getCurrent();
                     Job<?> taskJob = jobs.get(task.getJobId());
 
@@ -269,8 +268,7 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
         private Optional<ReplicatorEvent<JobSnapshot, JobManagerEvent<?>>> processCacheUpdate(JobManagerEvent<?> event) {
             JobSnapshot lastSnapshot = lastJobSnapshotRef.get();
 
-            if (event instanceof JobKeepAliveEvent) {
-                JobKeepAliveEvent keepAliveEvent = (JobKeepAliveEvent) event;
+            if (event instanceof JobKeepAliveEvent keepAliveEvent) {
                 lastKeepAliveTimestamp.set(keepAliveEvent.getTimestamp());
                 return Optional.of(new ReplicatorEvent<>(lastSnapshot, event, titusRuntime.getClock().wallTime(), keepAliveEvent.getTimestamp()));
             }
@@ -278,8 +276,7 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
             Optional<JobSnapshot> newSnapshot;
             JobManagerEvent<?> coreEvent = null;
 
-            if (event instanceof JobUpdateEvent) {
-                JobUpdateEvent jobUpdateEvent = (JobUpdateEvent) event;
+            if (event instanceof JobUpdateEvent jobUpdateEvent) {
                 Job job = jobUpdateEvent.getCurrent();
 
                 logger.debug("Processing job snapshot update event: updatedJobId={}", job.getId());
@@ -290,8 +287,7 @@ public class GrpcJobReplicatorEventStream extends AbstractReplicatorEventStream<
                     newSnapshot = lastSnapshot.updateJob(job);
                 }
                 coreEvent = toJobCoreEvent(job);
-            } else if (event instanceof TaskUpdateEvent) {
-                TaskUpdateEvent taskUpdateEvent = (TaskUpdateEvent) event;
+            } else if (event instanceof TaskUpdateEvent taskUpdateEvent) {
                 Task task = taskUpdateEvent.getCurrentTask();
 
                 logger.debug("Processing job snapshot update event: updatedTaskId={}", task.getId());

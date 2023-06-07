@@ -40,14 +40,12 @@ public class JobUtil {
                 .iterator();
         while (it.hasNext()) {
             JobManagerEvent<?> event = it.next();
-            if (event instanceof JobUpdateEvent) {
-                JobUpdateEvent je = (JobUpdateEvent) event;
+            if (event instanceof JobUpdateEvent je) {
                 Job job = je.getCurrent();
                 if (job.getStatus().getState() == JobState.Accepted) {
                     activeJobs.put(job.getId(), job);
                 }
-            } else if (event instanceof TaskUpdateEvent) {
-                TaskUpdateEvent te = (TaskUpdateEvent) event;
+            } else if (event instanceof TaskUpdateEvent te) {
                 Task task = te.getCurrent();
                 if (activeJobs.containsKey(task.getJobId())) {
                     activeTasks.computeIfAbsent(task.getJobId(), j -> new HashMap<>()).put(task.getId(), task);

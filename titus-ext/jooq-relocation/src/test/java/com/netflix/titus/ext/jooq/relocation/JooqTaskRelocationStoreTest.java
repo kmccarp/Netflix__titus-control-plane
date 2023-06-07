@@ -16,11 +16,7 @@
 
 package com.netflix.titus.ext.jooq.relocation;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.netflix.titus.api.relocation.model.TaskRelocationPlan;
 import com.netflix.titus.common.runtime.TitusRuntime;
@@ -94,12 +90,12 @@ public class JooqTaskRelocationStoreTest {
 
         // Update
         TaskRelocationPlan updatedPlan = plan.toBuilder().withReasonMessage("Updated...").build();
-        Map<String, Optional<Throwable>> updatedPlanResult = store.createOrUpdateTaskRelocationPlans(Collections.singletonList(updatedPlan)).block();
+        Map<String, Optional<Throwable>> updatedPlanResult = store.createOrUpdateTaskRelocationPlans(List.of(updatedPlan)).block();
         assertThat(updatedPlanResult).hasSize(1);
         assertThat(store.getAllTaskRelocationPlans().block().get(plan.getTaskId())).isEqualTo(updatedPlan);
 
         // Delete
-        Map<String, Optional<Throwable>> deleteResult = store.removeTaskRelocationPlans(Collections.singleton(plan.getTaskId())).block();
+        Map<String, Optional<Throwable>> deleteResult = store.removeTaskRelocationPlans(Set.of(plan.getTaskId())).block();
         assertThat(deleteResult).hasSize(1);
 
         // Reboot

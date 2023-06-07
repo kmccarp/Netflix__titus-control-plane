@@ -16,8 +16,8 @@
 
 package com.netflix.titus.runtime.endpoint.metadata.spring;
 
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,7 +65,7 @@ public class SpringCallMetadataInterceptor extends HandlerInterceptorAdapter {
                 .withDebug(debug);
 
         if (originalCallerId == null) {
-            callMetadataBuilder.withCallers(Collections.singletonList(directCaller));
+            callMetadataBuilder.withCallers(List.of(directCaller));
         } else {
             CallerType originalCallerType = CallerType.parseCallerType(
                     originalCallerId,

@@ -92,8 +92,10 @@ public class VolumeMount {
 
     @Override
     public String toString() {
-        return "VolumeMount{" +
-                "volumeName='" + volumeName + '\'' +
+        return """
+                VolumeMount{\
+                volumeName='\
+                """ + volumeName + '\'' +
                 ", mountPath='" + mountPath + '\'' +
                 ", mountPropagation='" + mountPropagation + '\'' +
                 ", readOnly=" + readOnly +

@@ -92,8 +92,10 @@ public class SecurityProfile {
 
     @Override
     public String toString() {
-        return "SecurityProfile{" +
-                "securityGroups=" + securityGroups +
+        return """
+                SecurityProfile{\
+                securityGroups=\
+                """ + securityGroups +
                 ", iamRole='" + iamRole + '\'' +
                 ", attributes=" + attributes +
                 '}';

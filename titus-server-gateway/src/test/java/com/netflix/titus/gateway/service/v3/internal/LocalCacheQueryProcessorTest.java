@@ -19,6 +19,7 @@ package com.netflix.titus.gateway.service.v3.internal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -106,7 +107,7 @@ public class LocalCacheQueryProcessorTest {
     @Test
     public void testCanUseCacheByDirectRequest() {
         assertThat(processor.canUseCache(Collections.emptyMap(), "anything", CallMetadataConstants.UNDEFINED_CALL_METADATA)).isFalse();
-        assertThat(processor.canUseCache(Collections.singletonMap(PARAMETER_USE_CACHE, "true"), "anything", CallMetadataConstants.UNDEFINED_CALL_METADATA)).isTrue();
+        assertThat(processor.canUseCache(Map.of(PARAMETER_USE_CACHE, "true"), "anything", CallMetadataConstants.UNDEFINED_CALL_METADATA)).isTrue();
     }
 
     @Test
