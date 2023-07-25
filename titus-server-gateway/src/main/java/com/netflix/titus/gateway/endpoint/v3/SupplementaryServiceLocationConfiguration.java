@@ -79,8 +79,12 @@ public class SupplementaryServiceLocationConfiguration {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             ServiceAddress that = (ServiceAddress) o;
             return grpcPort == that.grpcPort &&
                     httpPort == that.httpPort &&

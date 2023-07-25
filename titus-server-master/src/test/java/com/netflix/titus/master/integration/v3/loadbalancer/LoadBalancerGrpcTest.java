@@ -172,19 +172,11 @@ public class LoadBalancerGrpcTest extends BaseIntegrationTest {
     }
 
 
-    private BiConsumer<AddLoadBalancerRequest, TestStreamObserver<Empty>> putLoadBalancerWithJobId = (request, addResponse) -> {
-        client.addLoadBalancer(request, addResponse);
-    };
+    private BiConsumer<AddLoadBalancerRequest, TestStreamObserver<Empty>> putLoadBalancerWithJobId = client::addLoadBalancer;
 
-    private BiConsumer<JobId, TestStreamObserver<GetJobLoadBalancersResult>> getJobLoadBalancers = (request, getResponse) -> {
-        client.getJobLoadBalancers(request, getResponse);
-    };
+    private BiConsumer<JobId, TestStreamObserver<GetJobLoadBalancersResult>> getJobLoadBalancers = client::getJobLoadBalancers;
 
-    private BiConsumer<GetAllLoadBalancersRequest, TestStreamObserver<GetAllLoadBalancersResult>> getAllLoadBalancers = (request, getResponse) -> {
-        client.getAllLoadBalancers(request, getResponse);
-    };
+    private BiConsumer<GetAllLoadBalancersRequest, TestStreamObserver<GetAllLoadBalancersResult>> getAllLoadBalancers = client::getAllLoadBalancers;
 
-    private BiConsumer<RemoveLoadBalancerRequest, TestStreamObserver<Empty>> removeLoadBalancers = (request, removeResponse) -> {
-        client.removeLoadBalancer(request, removeResponse);
-    };
+    private BiConsumer<RemoveLoadBalancerRequest, TestStreamObserver<Empty>> removeLoadBalancers = client::removeLoadBalancer;
 }

@@ -123,9 +123,7 @@ public class JobIpAllocationsTest extends BaseIntegrationTest {
         jobsScenarioBuilder.schedule(serviceJobExtJobDescriptor, jobScenarioBuilder ->
                 jobScenarioBuilder
                         .template(ScenarioTemplates.startTasksInNewJob())
-                        .expectSome(1, taskScenarioBuilder -> {
-                            return taskScenarioBuilder.getTask().getTaskContext().getOrDefault(TaskAttributes.TASK_ATTRIBUTES_IP_ALLOCATION_ID, "").equals(getIpAllocationIdFromJob(0, serviceJobExtJobDescriptor));
-                        })
+                        .expectSome(1, taskScenarioBuilder -> taskScenarioBuilder.getTask().getTaskContext().getOrDefault(TaskAttributes.TASK_ATTRIBUTES_IP_ALLOCATION_ID, "").equals(getIpAllocationIdFromJob(0, serviceJobExtJobDescriptor)))
                         .expectSome(1, taskScenarioBuilder -> taskScenarioBuilder.getTask().getTaskContext().getOrDefault(TaskAttributes.TASK_ATTRIBUTES_IP_ALLOCATION_ID, "").equals(getIpAllocationIdFromJob(1, serviceJobExtJobDescriptor)))
         );
     }

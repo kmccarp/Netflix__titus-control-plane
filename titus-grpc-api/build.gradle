@@ -31,7 +31,7 @@ if (project.hasProperty("idlLocal")) {
 idea {
     module {
         excludeDirs -= file(buildDir)
-        buildDir.listFiles({ d, f -> f != 'generated' } as FilenameFilter).each { excludeDirs += it }
+        buildDir.listFiles({ d, f -> !'generated'.equals(f) } as FilenameFilter).each { excludeDirs += it }
     }
 }
 

@@ -95,9 +95,9 @@ public final class PrimitiveValueGenerators {
     public static DataGenerator<String> semanticVersions(int depth) {
         List<DataGenerator<String>> numberGenerators = new ArrayList<>();
 
-        numberGenerators.add(range(1, 10).map(n -> Long.toString(n)));
+        numberGenerators.add(range(1, 10).map(java.lang.Long::toString));
 
-        DataGenerator<String> subVersionGenerator = range(0, 10).map(n -> Long.toString(n));
+        DataGenerator<String> subVersionGenerator = range(0, 10).map(java.lang.Long::toString);
         for (int i = 1; i < depth; i++) {
             numberGenerators.add(subVersionGenerator);
         }

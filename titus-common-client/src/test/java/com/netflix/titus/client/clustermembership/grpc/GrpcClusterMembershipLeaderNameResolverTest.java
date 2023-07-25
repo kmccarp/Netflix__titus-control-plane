@@ -89,7 +89,7 @@ public class GrpcClusterMembershipLeaderNameResolverTest {
                     sink.next(Either.ofError(error));
                 }
             });
-            sink.onCancel(() -> nameResolver.shutdown());
+            sink.onCancel(nameResolver::shutdown);
         }).subscribe(nameResolverSubscriber);
     }
 
@@ -123,7 +123,7 @@ public class GrpcClusterMembershipLeaderNameResolverTest {
 
     @Test
     public void testRetryWhenCompleted() throws InterruptedException {
-        testRetryOnTerminatedStream(() -> clusterEventProcessor.onComplete());
+        testRetryOnTerminatedStream(clusterEventProcessor::onComplete);
     }
 
     private void testRetryOnTerminatedStream(Runnable breakAction) throws InterruptedException {

@@ -179,13 +179,13 @@ class StubbedKubeExecutors implements KubeMembershipExecutor, KubeLeaderElection
     void breakMembershipEventSource() {
         membershipEventsProcessor.onError(new RuntimeException("Simulated membership watch error"));
         membershipEventsProcessor = DirectProcessor.create();
-        await().until(() -> membershipEventsProcessor.hasDownstreams());
+        await().until(membershipEventsProcessor::hasDownstreams);
     }
 
     void completeMembershipEventSource() {
         membershipEventsProcessor.onComplete();
         membershipEventsProcessor = DirectProcessor.create();
-        await().until(() -> membershipEventsProcessor.hasDownstreams());
+        await().until(membershipEventsProcessor::hasDownstreams);
     }
 
     void addOrUpdateSibling(ClusterMembershipRevision<ClusterMember> siblingRevision) {
@@ -237,12 +237,12 @@ class StubbedKubeExecutors implements KubeMembershipExecutor, KubeLeaderElection
     void breakLeadershipEventSource() {
         leadershipEventsProcessor.onError(new RuntimeException("Simulated leadership watch error"));
         leadershipEventsProcessor = DirectProcessor.create();
-        await().until(() -> leadershipEventsProcessor.hasDownstreams());
+        await().until(leadershipEventsProcessor::hasDownstreams);
     }
 
     void completeLeadershipEventSource() {
         leadershipEventsProcessor.onComplete();
         leadershipEventsProcessor = DirectProcessor.create();
-        await().until(() -> leadershipEventsProcessor.hasDownstreams());
+        await().until(leadershipEventsProcessor::hasDownstreams);
     }
 }

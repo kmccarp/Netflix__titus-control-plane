@@ -57,8 +57,8 @@ public class FederationV2CapacityGroupResourceTest {
     private static final Cell CELL_1 = new Cell("cell1", "hostname1:7001");
     private static final Cell CELL_2 = new Cell("cell2", "hostname1:7001");
 
-    private MockWebServer cell1Server = new MockWebServer();
-    private MockWebServer cell2Server = new MockWebServer();
+    private final MockWebServer cell1Server = new MockWebServer();
+    private final MockWebServer cell2Server = new MockWebServer();
 
 
     private final CellWebClientConnector webClientConnector = Mockito.mock(CellWebClientConnector.class);
@@ -85,8 +85,8 @@ public class FederationV2CapacityGroupResourceTest {
 
     @After
     public void tearDown() {
-        ExceptionExt.silent(() -> cell1Server.shutdown());
-        ExceptionExt.silent(() -> cell2Server.shutdown());
+        ExceptionExt.silent(cell1Server::shutdown);
+        ExceptionExt.silent(cell2Server::shutdown);
     }
 
     @Test

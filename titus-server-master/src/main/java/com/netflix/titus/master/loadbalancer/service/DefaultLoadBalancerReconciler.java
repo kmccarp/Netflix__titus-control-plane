@@ -399,7 +399,7 @@ public class DefaultLoadBalancerReconciler implements LoadBalancerReconciler {
         return Instant.ofEpochMilli(scheduler.now());
     }
 
-    private static class LoadBalancerWithKnownTargets {
+    private static final class LoadBalancerWithKnownTargets {
         private final LoadBalancer current;
         /**
          * Targets that have been previously registered by us.
@@ -412,7 +412,7 @@ public class DefaultLoadBalancerReconciler implements LoadBalancerReconciler {
         }
     }
 
-    private class ReconciliationUpdates {
+    private final class ReconciliationUpdates {
         private final String loadBalancerId;
         private final Set<LoadBalancerTarget> toRegister;
         private final Set<LoadBalancerTarget> toDeregister;

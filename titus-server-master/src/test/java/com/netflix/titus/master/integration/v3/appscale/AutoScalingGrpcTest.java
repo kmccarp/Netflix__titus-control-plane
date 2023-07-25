@@ -125,10 +125,7 @@ public class AutoScalingGrpcTest extends BaseIntegrationTest {
     }
 
     private static boolean isDeletingState(ScalingPolicyStatus status) {
-        if (status.getState() == Deleted || status.getState() == Deleting) {
-            return true;
-        }
-        return false;
+        return status.getState() == Deleted || status.getState() == Deleting;
     }
 
     /**

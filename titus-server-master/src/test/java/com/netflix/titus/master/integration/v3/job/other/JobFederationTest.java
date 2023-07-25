@@ -87,15 +87,12 @@ public class JobFederationTest extends BaseIntegrationTest {
         Map<String, Task> tasks = new ConcurrentHashMap<>();
         eventStreamObserver.toObservable().subscribe(
                 event -> {
-                    switch (event.getNotificationCase()) {
-                        case JOBUPDATE:
-                            Job job = event.getJobUpdate().getJob();
-                            jobs.put(job.getId(), job);
-                            break;
-                        case TASKUPDATE:
-                            Task task = event.getTaskUpdate().getTask();
-                            tasks.put(task.getJobId(), task);
-                            break;
+                    if (event.getNotificationCase() == JobChangeNotification.NotificationCase.JOBUPDATE) {
+                        Job job = event.getJobUpdate().getJob();
+                        jobs.put(job.getId(), job);
+                    } else if (event.getNotificationCase() == JobChangeNotification.NotificationCase.TASKUPDATE) {
+                        Task task = event.getTaskUpdate().getTask();
+                        tasks.put(task.getJobId(), task);
                     }
                 }
         );
