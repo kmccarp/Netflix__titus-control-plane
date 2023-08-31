@@ -309,7 +309,7 @@ class ObserveJobsSubscription {
                 ExceptionExt.silent(() -> grpcResponseObserver.onError(e));
                 return true;
             } else if (isEmpty) {
-                ExceptionExt.silent(() -> grpcResponseObserver.onCompleted());
+                ExceptionExt.silent(grpcResponseObserver::onCompleted);
                 return true;
             }
         }

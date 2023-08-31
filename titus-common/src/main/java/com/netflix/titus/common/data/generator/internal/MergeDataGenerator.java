@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import com.netflix.titus.common.data.generator.DataGenerator;
 
-public class MergeDataGenerator<A> extends DataGenerator<A> {
+public final class MergeDataGenerator<A> extends DataGenerator<A> {
 
     private final List<DataGenerator<A>> sources;
     private final Optional<A> currentValue;

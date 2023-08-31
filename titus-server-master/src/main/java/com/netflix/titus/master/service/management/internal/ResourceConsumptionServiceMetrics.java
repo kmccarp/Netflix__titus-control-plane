@@ -99,7 +99,7 @@ class ResourceConsumptionServiceMetrics {
                 );
 
         // Process capacity group level metrics
-        capacityGroupConsumption.forEach((groupConsumption) -> updateCapacityGroupLimit(tierName, (CompositeResourceConsumption) groupConsumption));
+        capacityGroupConsumption.forEach(groupConsumption -> updateCapacityGroupLimit(tierName, (CompositeResourceConsumption) groupConsumption));
         touchedGroups.addAll(capacityGroupNames);
 
     }
@@ -130,7 +130,7 @@ class ResourceConsumptionServiceMetrics {
 
     private enum ResourceType {Cpu, Memory, Disk, Network, Gpu, OpportunisticCpu}
 
-    private class ResourceMetrics {
+    private final class ResourceMetrics {
         private final Map<ResourceType, AtomicLong> usage;
 
         private ResourceMetrics(Id id) {
@@ -161,7 +161,7 @@ class ResourceConsumptionServiceMetrics {
         }
     }
 
-    private class ApplicationMetrics {
+    private final class ApplicationMetrics {
         private final String tierName;
         private final String capacityGroup;
         private final String appName;

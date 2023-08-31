@@ -134,7 +134,7 @@ public class KubePodUtil {
     /**
      * Returns a job descriptor with fields unnecessary for inclusion on the pod removed.
      */
-    public static com.netflix.titus.api.jobmanager.model.job.JobDescriptor<?> filterPodJobDescriptor(com.netflix.titus.api.jobmanager.model.job.JobDescriptor<?> jobDescriptor) {
+    public static JobDescriptor<?> filterPodJobDescriptor(JobDescriptor<?> jobDescriptor) {
         // Metatron auth context is not needed on the pod.
         return JobFunctions.deleteJobSecurityAttributes(jobDescriptor, Collections.singleton(JobAttributes.JOB_SECURITY_ATTRIBUTE_METATRON_AUTH_CONTEXT));
     }
@@ -277,7 +277,7 @@ public class KubePodUtil {
 
     public static List<String> getVolumeNames(List<V1Volume> volumes) {
         return volumes.stream()
-                .map(e -> e.getName())
+                .map(V1Volume::getName)
                 .collect(Collectors.toList());
     }
 

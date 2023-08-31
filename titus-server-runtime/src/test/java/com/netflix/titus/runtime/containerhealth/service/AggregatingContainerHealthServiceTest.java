@@ -165,7 +165,7 @@ public class AggregatingContainerHealthServiceTest {
         assertThat(badSubscriber.isDisposed()).isTrue();
     }
 
-    private class DownstreamHealthService implements ContainerHealthService {
+    private final class DownstreamHealthService implements ContainerHealthService {
 
         private final String name;
         private final Map<String, ContainerHealthStatus> healthStatuses = new HashMap<>();

@@ -39,7 +39,7 @@ public class AnnotationBasedSanitizer extends AbstractFieldSanitizer<Object> {
 
     private static final SanitizerInfo EMPTY_SANITIZER_INFO = new SanitizerInfo(false, null, null, -1, -1);
 
-    private final static ConcurrentMap<Field, SanitizerInfo> FIELD_SANITIZER_INFOS = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Field, SanitizerInfo> FIELD_SANITIZER_INFOS = new ConcurrentHashMap<>();
 
     private final ExpressionParser parser = new SpelExpressionParser();
     private final EvaluationContext spelContext;

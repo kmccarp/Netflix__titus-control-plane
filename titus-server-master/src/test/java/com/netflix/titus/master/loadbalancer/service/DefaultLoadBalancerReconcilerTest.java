@@ -86,7 +86,7 @@ public class DefaultLoadBalancerReconcilerTest {
         testScheduler = Schedulers.test();
         reconciliationCount = new AtomicLong(0);
         reconciler = new DefaultLoadBalancerReconciler(mockConfigWithDelay(delayMs), store, connector,
-                new LoadBalancerJobOperations(v3JobOperations), () -> reconciliationCount.incrementAndGet(),
+                new LoadBalancerJobOperations(v3JobOperations), reconciliationCount::incrementAndGet,
                 new NoopRegistry(), testScheduler);
         subscriber = reconciler.events().test();
     }

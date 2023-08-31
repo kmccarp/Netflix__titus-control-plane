@@ -98,6 +98,7 @@ import com.netflix.titus.common.util.StringExt;
 import com.netflix.titus.common.util.tuple.Either;
 import com.netflix.titus.grpc.protogen.AddressAllocation;
 import com.netflix.titus.grpc.protogen.AddressLocation;
+import com.netflix.titus.grpc.protogen.BasicImage;
 import com.netflix.titus.grpc.protogen.BatchJobSpec;
 import com.netflix.titus.grpc.protogen.Capacity;
 import com.netflix.titus.grpc.protogen.Constraints;
@@ -248,7 +249,7 @@ public final class GrpcJobManagementModelConverters {
                 .build();
     }
 
-    public static Image toCoreImage(com.netflix.titus.grpc.protogen.BasicImage grpcImage) {
+    public static Image toCoreImage(BasicImage grpcImage) {
         return JobModel.newImage()
                 .withName(grpcImage.getName())
                 .withTag(grpcImage.getTag())
@@ -436,17 +437,16 @@ public final class GrpcJobManagementModelConverters {
     }
 
     private static Volume toCoreVolume(com.netflix.titus.grpc.protogen.Volume grpcVolume) {
-        switch (grpcVolume.getVolumeSourceCase()) {
-            case SHAREDCONTAINERVOLUMESOURCE:
-                VolumeSource source = toCoreSharedVolumeSource(grpcVolume.getSharedContainerVolumeSource());
-                return Volume.newBuilder()
-                        .withName(grpcVolume.getName())
-                        .withVolumeSource(source).build();
-            case SAASVOLUMESOURCE:
-                VolumeSource saaSSource = toCoreSaaSVolumeSource(grpcVolume.getSaaSVolumeSource());
-                return Volume.newBuilder()
-                        .withName(grpcVolume.getName())
-                        .withVolumeSource(saaSSource).build();
+        if (grpcVolume.getVolumeSourceCase() == com.netflix.titus.grpc.protogen.Volume$VolumeSourceCase.SHAREDCONTAINERVOLUMESOURCE) {
+            VolumeSource source = toCoreSharedVolumeSource(grpcVolume.getSharedContainerVolumeSource());
+            return Volume.newBuilder()
+                    .withName(grpcVolume.getName())
+                    .withVolumeSource(source).build();
+        } else if (grpcVolume.getVolumeSourceCase() == com.netflix.titus.grpc.protogen.Volume$VolumeSourceCase.SAASVOLUMESOURCE) {
+            VolumeSource saaSSource = toCoreSaaSVolumeSource(grpcVolume.getSaaSVolumeSource());
+            return Volume.newBuilder()
+                    .withName(grpcVolume.getName())
+                    .withVolumeSource(saaSSource).build();
         }
         return null;
     }
@@ -488,7 +488,7 @@ public final class GrpcJobManagementModelConverters {
         }
     }
 
-    public static DisruptionBudget toCoreDisruptionBudget(com.netflix.titus.grpc.protogen.JobDisruptionBudget
+    public static DisruptionBudget toCoreDisruptionBudget(JobDisruptionBudget
                                                                   grpcDisruptionBudget) {
         if (JobDisruptionBudget.getDefaultInstance().equals(grpcDisruptionBudget)) {
             return DisruptionBudget.none();
@@ -644,7 +644,7 @@ public final class GrpcJobManagementModelConverters {
                 .build();
     }
 
-    public static com.netflix.titus.api.jobmanager.model.job.CapacityAttributes toCoreCapacityAttributes
+    public static CapacityAttributes toCoreCapacityAttributes
             (JobCapacityWithOptionalAttributes capacity) {
         CapacityAttributes.Builder builder = JobModel.newCapacityAttributes();
         Evaluators.acceptIfTrue(capacity.hasDesired(), valueAccepted -> builder.withDesired(capacity.getDesired().getValue()));
@@ -653,7 +653,7 @@ public final class GrpcJobManagementModelConverters {
         return builder.build();
     }
 
-    public static com.netflix.titus.api.jobmanager.model.job.CapacityAttributes toCoreCapacityAttributes(Capacity
+    public static CapacityAttributes toCoreCapacityAttributes(Capacity
                                                                                                                  capacity) {
         return JobModel.newCapacityAttributes()
                 .withDesired(capacity.getDesired())
@@ -816,8 +816,8 @@ public final class GrpcJobManagementModelConverters {
         return builder.build();
     }
 
-    private static com.netflix.titus.grpc.protogen.BasicImage toGrpcBasicImage(Image image) {
-        com.netflix.titus.grpc.protogen.BasicImage.Builder builder = com.netflix.titus.grpc.protogen.BasicImage.newBuilder();
+    private static BasicImage toGrpcBasicImage(Image image) {
+        BasicImage.Builder builder = BasicImage.newBuilder();
         builder.setName(image.getName());
         acceptNotNull(image.getTag(), builder::setTag);
         acceptNotNull(image.getDigest(), builder::setDigest);
@@ -986,7 +986,7 @@ public final class GrpcJobManagementModelConverters {
                 .build();
     }
 
-    public static com.netflix.titus.grpc.protogen.JobDisruptionBudget toGrpcDisruptionBudget(DisruptionBudget
+    public static JobDisruptionBudget toGrpcDisruptionBudget(DisruptionBudget
                                                                                                      coreDisruptionBudget) {
         JobDisruptionBudget.Builder builder = JobDisruptionBudget.newBuilder();
         DisruptionBudgetPolicy disruptionBudgetPolicy = coreDisruptionBudget.getDisruptionBudgetPolicy();
