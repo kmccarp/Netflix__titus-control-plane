@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import com.google.protobuf.Empty;
 import com.netflix.titus.api.loadbalancer.model.JobLoadBalancer;
+import com.netflix.titus.api.model.Pagination;
 import com.netflix.titus.api.model.PaginationUtil;
 import com.netflix.titus.common.util.tuple.Pair;
 import com.netflix.titus.grpc.protogen.AddLoadBalancerRequest;
@@ -56,7 +57,7 @@ class CellWithLoadBalancers extends LoadBalancerServiceGrpc.LoadBalancerServiceI
     @Override
     public void getAllLoadBalancers(GetAllLoadBalancersRequest request, StreamObserver<GetAllLoadBalancersResult> responseObserver) {
 
-        Pair<List<JobLoadBalancer>, com.netflix.titus.api.model.Pagination> page = PaginationUtil.takePageWithCursor(
+        Pair<List<JobLoadBalancer>, Pagination> page = PaginationUtil.takePageWithCursor(
                 toPage(request.getPage()),
                 jobLoadBalancerList,
                 LoadBalancerCursors.loadBalancerComparator(),
@@ -65,7 +66,7 @@ class CellWithLoadBalancers extends LoadBalancerServiceGrpc.LoadBalancerServiceI
         );
 
         final List<JobLoadBalancer> jobLoadBalancersList = page.getLeft();
-        final Set<String> jobIds = jobLoadBalancersList.stream().map(jobLoadBalancer -> jobLoadBalancer.getJobId()).collect(Collectors.toSet());
+        final Set<String> jobIds = jobLoadBalancersList.stream().map(JobLoadBalancer::getJobId).collect(Collectors.toSet());
 
         final GetAllLoadBalancersResult.Builder allResultsBuilder = GetAllLoadBalancersResult.newBuilder();
         final List<GetJobLoadBalancersResult> getJobLoadBalancersResults = jobIds.stream()

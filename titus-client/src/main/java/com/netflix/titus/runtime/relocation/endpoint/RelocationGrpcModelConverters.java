@@ -93,11 +93,10 @@ public class RelocationGrpcModelConverters {
     }
 
     public static com.netflix.titus.grpc.protogen.TaskRelocationStatus.TaskRelocationState toGrpcRelocationState(TaskRelocationState coreState) {
-        switch (coreState) {
-            case Success:
-                return com.netflix.titus.grpc.protogen.TaskRelocationStatus.TaskRelocationState.Success;
-            case Failure:
-                return com.netflix.titus.grpc.protogen.TaskRelocationStatus.TaskRelocationState.Failure;
+        if (coreState == com.netflix.titus.api.relocation.model.TaskRelocationStatus$TaskRelocationState.Success) {
+            return com.netflix.titus.grpc.protogen.TaskRelocationStatus.TaskRelocationState.Success;
+        } else if (coreState == com.netflix.titus.api.relocation.model.TaskRelocationStatus$TaskRelocationState.Failure) {
+            return com.netflix.titus.grpc.protogen.TaskRelocationStatus.TaskRelocationState.Failure;
         }
         throw new IllegalStateException("Unrecognized state: " + coreState);
     }

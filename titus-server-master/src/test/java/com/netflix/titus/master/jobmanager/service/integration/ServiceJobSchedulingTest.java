@@ -92,11 +92,11 @@ public class ServiceJobSchedulingTest {
         jobsScenarioBuilder.scheduleJob(twoTaskJob, jobScenario -> jobScenario
                 .expectJobEvent()
                 .advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.startTask(taskIdx, resubmit, TaskState.Started))
                 .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.triggerComputeProviderFinishedEvent(taskIdx, resubmit, 0))
                 .advance().advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .template(ScenarioTemplates.killJob())
                 .inActiveTasks((taskIdx, resubmit) -> js -> js
                         .template(ScenarioTemplates.reconcilerTaskKill(taskIdx, resubmit))
@@ -144,7 +144,7 @@ public class ServiceJobSchedulingTest {
         jobsScenarioBuilder.scheduleJob(twoTaskJob, jobScenario -> jobScenario
                 .expectJobEvent()
                 .advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .template(ScenarioTemplates.changeJobCapacity(newCapacity))
                 .advance()
                 .firstTaskMatch(task -> task.getStatus().getState() == TaskState.KillInitiated, matchingTask -> {
@@ -177,7 +177,7 @@ public class ServiceJobSchedulingTest {
                 .scheduleJob(twoTaskJob, jobScenario -> jobScenario
                         .expectJobEvent()
                         .advance()
-                        .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                        .inActiveTasks(ScenarioTemplates::acceptTask)
                         .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.startTask(taskIdx, resubmit, TaskState.Started))
                         .changeCapacity(newCapacity)
                         .allTasks(tasks -> tasks.forEach(jobScenario::killTaskAndShrinkNoWait))
@@ -226,7 +226,7 @@ public class ServiceJobSchedulingTest {
         jobsScenarioBuilder.scheduleJob(twoTaskJob, jobScenario -> jobScenario
                 .expectJobEvent()
                 .advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .killTaskAndShrink(0, 0)
                 .expectTaskStateChangeEvent(0, 0, TaskState.KillInitiated)
                 .expectTaskUpdatedInStore(0, 0, task -> assertThat(task.getStatus().getState()).isEqualTo(TaskState.KillInitiated))
@@ -280,7 +280,7 @@ public class ServiceJobSchedulingTest {
         jobsScenarioBuilder.scheduleJob(JobFunctions.changeServiceJobCapacity(oneTaskServiceJobDescriptor(), 100), jobScenario -> jobScenario
                 .expectJobEvent()
                 .advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.startTask(taskIdx, resubmit, TaskState.Started))
                 .advance()
                 .allTasks(tasks -> assertThat(tasks.size() > CONCURRENT_STORE_UPDATE_LIMIT).isTrue())
@@ -300,7 +300,7 @@ public class ServiceJobSchedulingTest {
         jobsScenarioBuilder.scheduleJob(JobFunctions.changeServiceJobCapacity(oneTaskServiceJobDescriptor(), 100), jobScenario -> jobScenario
                 .expectJobEvent()
                 .advance()
-                .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.acceptTask(taskIdx, resubmit))
+                .inActiveTasks(ScenarioTemplates::acceptTask)
                 .inActiveTasks((taskIdx, resubmit) -> ScenarioTemplates.startTask(taskIdx, resubmit, TaskState.Started))
                 .advance()
                 .allTasks(tasks -> assertThat(tasks.size() > CONCURRENT_STORE_UPDATE_LIMIT).isTrue())
