@@ -22,18 +22,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.google.protobuf.util.JsonFormat;
-import com.netflix.titus.grpc.protogen.BatchJobSpec;
-import com.netflix.titus.grpc.protogen.Capacity;
-import com.netflix.titus.grpc.protogen.Constraints;
-import com.netflix.titus.grpc.protogen.Container;
-import com.netflix.titus.grpc.protogen.Image;
-import com.netflix.titus.grpc.protogen.JobDescriptor;
-import com.netflix.titus.grpc.protogen.JobDescriptor.JobSpecCase;
-import com.netflix.titus.grpc.protogen.JobGroupInfo;
-import com.netflix.titus.grpc.protogen.Owner;
-import com.netflix.titus.grpc.protogen.RetryPolicy;
-import com.netflix.titus.grpc.protogen.SecurityProfile;
-import com.netflix.titus.grpc.protogen.ServiceJobSpec;
+import com.netflix.titus.grpc.protogen.*;
 import com.netflix.titus.cli.CliCommand;
 import com.netflix.titus.cli.CommandContext;
 import org.apache.commons.cli.CommandLine;
@@ -89,12 +78,10 @@ public class JobTemplateCommand implements CliCommand {
         File templateFile = new File(cli.getOptionValue('f'));
 
         JobDescriptor jobDescriptor;
-        switch (jobCase) {
-            case SERVICE:
-                jobDescriptor = createServiceJobDescriptor();
-                break;
-            default:
-                jobDescriptor = createBatchJobDescriptor();
+        if (jobCase == com.netflix.titus.grpc.protogen.JobDescriptor$JobSpecCase.SERVICE) {
+            jobDescriptor = createServiceJobDescriptor();
+        } else {
+            jobDescriptor = createBatchJobDescriptor();
         }
         String formatted = JsonFormat.printer().print(jobDescriptor);
 
@@ -170,8 +157,8 @@ public class JobTemplateCommand implements CliCommand {
                 .putAllEnv(Collections.singletonMap("MY_ENV", "myEnv"));
     }
 
-    private com.netflix.titus.grpc.protogen.ContainerResources createResources() {
-        return com.netflix.titus.grpc.protogen.ContainerResources.newBuilder()
+    private ContainerResources createResources() {
+        return ContainerResources.newBuilder()
                 .setCpu(1)
                 .setMemoryMB(4096)
                 .setDiskMB(16384)

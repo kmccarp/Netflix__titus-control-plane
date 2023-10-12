@@ -42,7 +42,7 @@ import static com.netflix.titus.master.loadbalancer.service.LoadBalancerTests.bu
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class DefaultLoadBalancerGrpcTest {
-    private static Logger logger = LoggerFactory.getLogger(DefaultLoadBalancerGrpcTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultLoadBalancerGrpcTest.class);
     private DefaultLoadBalancerServiceGrpc serviceGrpc;
 
     @Before
@@ -100,19 +100,11 @@ public class DefaultLoadBalancerGrpcTest {
                 .getJobLoadBalancersCount()).isEqualTo(0);
     }
 
-    private BiConsumer<AddLoadBalancerRequest, TestStreamObserver<Empty>> putLoadBalancerWithJobId = (request, addResponse) -> {
-        serviceGrpc.addLoadBalancer(request, addResponse);
-    };
+    private final BiConsumer<AddLoadBalancerRequest, TestStreamObserver<Empty>> putLoadBalancerWithJobId = serviceGrpc::addLoadBalancer;
 
-    private BiConsumer<JobId, TestStreamObserver<GetJobLoadBalancersResult>> getJobLoadBalancers = (request, getResponse) -> {
-        serviceGrpc.getJobLoadBalancers(request, getResponse);
-    };
+    private final BiConsumer<JobId, TestStreamObserver<GetJobLoadBalancersResult>> getJobLoadBalancers = serviceGrpc::getJobLoadBalancers;
 
-    private BiConsumer<GetAllLoadBalancersRequest, TestStreamObserver<GetAllLoadBalancersResult>> getAllLoadBalancers = (request, getResponse) -> {
-        serviceGrpc.getAllLoadBalancers(request, getResponse);
-    };
+    private final BiConsumer<GetAllLoadBalancersRequest, TestStreamObserver<GetAllLoadBalancersResult>> getAllLoadBalancers = serviceGrpc::getAllLoadBalancers;
 
-    private BiConsumer<RemoveLoadBalancerRequest, TestStreamObserver<Empty>> removeLoadBalancers = (request, removeResponse) -> {
-        serviceGrpc.removeLoadBalancer(request, removeResponse);
-    };
+    private final BiConsumer<RemoveLoadBalancerRequest, TestStreamObserver<Empty>> removeLoadBalancers = serviceGrpc::removeLoadBalancer;
 }

@@ -24,7 +24,7 @@ import reactor.netty.tcp.TcpClient;
 
 
 public class DefaultEsWebClientFactory implements EsWebClientFactory {
-    private EsClientConfiguration esClientConfiguration;
+    private final EsClientConfiguration esClientConfiguration;
 
     public DefaultEsWebClientFactory(EsClientConfiguration esClientConfiguration) {
         this.esClientConfiguration = esClientConfiguration;

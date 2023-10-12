@@ -59,13 +59,13 @@ import static org.junit.Assert.fail;
 @Category(IntegrationTest.class)
 public class JobSubmitAndControlNegativeTest extends BaseIntegrationTest {
 
-    private final JobDescriptor.Builder BATCH_JOB_DESCR_BUILDER = toGrpcJobDescriptor(batchJobDescriptors().getValue()).toBuilder();
+    private static final JobDescriptor.Builder BATCH_JOB_DESCR_BUILDER = toGrpcJobDescriptor(batchJobDescriptors().getValue()).toBuilder();
 
-    private final BatchJobSpec.Builder BATCH_JOB_SPEC_BUILDER = BATCH_JOB_DESCR_BUILDER.getBatch().toBuilder();
+    private static final BatchJobSpec.Builder BATCH_JOB_SPEC_BUILDER = BATCH_JOB_DESCR_BUILDER.getBatch().toBuilder();
 
-    private final JobDescriptor.Builder SERVICE_JOB_DESCR_BUILDER = toGrpcJobDescriptor(serviceJobDescriptors().getValue()).toBuilder();
+    private static final JobDescriptor.Builder SERVICE_JOB_DESCR_BUILDER = toGrpcJobDescriptor(serviceJobDescriptors().getValue()).toBuilder();
 
-    private final ServiceJobSpec.Builder SERVICE_JOB_SPEC_BUILDER = SERVICE_JOB_DESCR_BUILDER.getService().toBuilder();
+    private static final ServiceJobSpec.Builder SERVICE_JOB_SPEC_BUILDER = SERVICE_JOB_DESCR_BUILDER.getService().toBuilder();
 
     @ClassRule
     public static final TitusStackResource titusStackResource = new TitusStackResource(basicKubeCell(2));

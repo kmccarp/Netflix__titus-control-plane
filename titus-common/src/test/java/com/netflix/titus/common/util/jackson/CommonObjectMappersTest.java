@@ -29,7 +29,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommonObjectMappersTest {
-    private final OuterClass NESTED_OBJECT = new OuterClass(
+    private static final OuterClass NESTED_OBJECT = new OuterClass(
             "outerStringValue",
             123,
             new InnerClass("innerStringValue", 321),
@@ -69,7 +69,7 @@ public class CommonObjectMappersTest {
         return compactMapper().readValue(jsonValue, OuterClass.class);
     }
 
-    private static class OuterClass {
+    private static final class OuterClass {
         @JsonProperty
         private final String stringValue;
 
@@ -94,7 +94,7 @@ public class CommonObjectMappersTest {
         }
     }
 
-    private static class InnerClass {
+    private static final class InnerClass {
         @JsonProperty
         private final String stringValue;
 
