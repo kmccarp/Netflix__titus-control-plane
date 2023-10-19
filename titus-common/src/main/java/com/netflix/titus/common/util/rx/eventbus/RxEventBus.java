@@ -27,7 +27,7 @@ public interface RxEventBus {
 
     <E> void publish(E event);
 
-    <E> void publishAsync(E Event);
+    <E> void publishAsync(E event);
 
     <E> Observable<E> listen(String subscriberId, Class<E> eventType);
 }

@@ -37,12 +37,12 @@ public class ObservableExtTest {
 
     private final ExtTestSubscriber<Object> testSubscriber = new ExtTestSubscriber<>();
 
-    private final Object A = new Object(),
-            B = new Object(),
-            C = new Object(),
-            D = new Object(),
-            E = new Object(),
-            F = new Object();
+    private static final Object A = new Object();
+    private static final Object B = new Object();
+    private static final Object C = new Object();
+    private static final Object D = new Object();
+    private static final Object E = new Object();
+    private static final Object F = new Object();
 
     @Test
     public void testFromWithDelayEmpty() {
@@ -116,7 +116,9 @@ public class ObservableExtTest {
         assertThat(testSubscriber.takeNext()).isNull();
 
         for (int i = 0; i < NUM_CHUNKS_TO_TEST; ++i) {
-            if (i > 0) testScheduler.advanceTimeBy(DELAY_MS, TimeUnit.MILLISECONDS);
+            if (i > 0) {
+                testScheduler.advanceTimeBy(DELAY_MS, TimeUnit.MILLISECONDS);
+            }
             testScheduler.advanceTimeBy(1000, TimeUnit.MILLISECONDS);
             assertThat(testSubscriber.takeNext()).isEqualTo(i);
             assertThat(testSubscriber.takeNext()).isNull();

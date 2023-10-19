@@ -85,7 +85,7 @@ public class FixedIntervalTokenBucketSupplier implements Supplier<TokenBucket> {
         return this.activeConfiguration;
     }
 
-    private class ActiveConfiguration {
+    private final class ActiveConfiguration {
 
         private final TokenBucket tokenBucket;
         private final long capacity;
@@ -107,8 +107,7 @@ public class FixedIntervalTokenBucketSupplier implements Supplier<TokenBucket> {
                     titusRuntime.map(TitusRuntime::getClock).orElse(Clocks.system())
             );
 
-            this.refillStrategy = titusRuntime.map(runtime ->
-                            (RefillStrategy) new SpectatorRefillStrategyDecorator(name, baseRefillStrategy, runtime))
+            this.refillStrategy = titusRuntime.map(RefillStrategy.class::cast)
                     .orElse(baseRefillStrategy);
 
             this.tokenBucket = new DefaultTokenBucket(

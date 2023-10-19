@@ -246,25 +246,24 @@ public class KubeClusterState {
         String eventMemberId = event.getLeadershipRevision().getCurrent().getMemberId();
         boolean local = localMemberId.equals(eventMemberId);
 
-        switch (event.getChangeType()) {
-            case LeaderElected:
-                Builder electedBuilder = toBuilder()
-                        .withLocalLeader(local)
-                        .withCurrentLeader(event.getLeadershipRevision())
-                        .withEvent(event);
-                if (local) {
-                    electedBuilder.withLocalMemberLeadershipRevision(event.getLeadershipRevision());
-                }
-                return electedBuilder.build();
-            case LeaderLost:
-                Builder lostBuilder = toBuilder()
-                        .withLocalLeader(false)
-                        .withCurrentLeader(null)
-                        .withEvent(event);
-                if (local) {
-                    lostBuilder.withLocalMemberLeadershipRevision(event.getLeadershipRevision());
-                }
-                return lostBuilder.build();
+        if (event.getChangeType() == com.netflix.titus.api.clustermembership.model.event.LeaderElectionChangeEvent$ChangeType.LeaderElected) {
+            Builder electedBuilder = toBuilder()
+                    .withLocalLeader(local)
+                    .withCurrentLeader(event.getLeadershipRevision())
+                    .withEvent(event);
+            if (local) {
+                electedBuilder.withLocalMemberLeadershipRevision(event.getLeadershipRevision());
+            }
+            return electedBuilder.build();
+        } else if (event.getChangeType() == com.netflix.titus.api.clustermembership.model.event.LeaderElectionChangeEvent$ChangeType.LeaderLost) {
+            Builder lostBuilder = toBuilder()
+                    .withLocalLeader(false)
+                    .withCurrentLeader(null)
+                    .withEvent(event);
+            if (local) {
+                lostBuilder.withLocalMemberLeadershipRevision(event.getLeadershipRevision());
+            }
+            return lostBuilder.build();
         }
         return this;
     }
